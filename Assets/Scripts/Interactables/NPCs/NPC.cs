@@ -3,7 +3,7 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IInteractuable
 {
     [Header("Configuración del NPC")]
-    [SerializeField] private string nombreNPC = "Aldeano";
+    [SerializeField] private string nombreNPC = "Profe Manuel";
     [SerializeField] private string[] lineasDialogo;
     [SerializeField] private bool puedeInteractuar = true;
 

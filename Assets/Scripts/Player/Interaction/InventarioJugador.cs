@@ -20,7 +20,7 @@ public class InventarioJugador : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persiste entre escenas
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
@@ -30,7 +30,7 @@ public class InventarioJugador : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("<color=cyan>🎒 Sistema de inventario iniciado</color>");
+        Debug.Log("<color=cyan>Sistema de inventario iniciado</color>");
         MostrarInventario();
     }
 
@@ -42,7 +42,7 @@ public class InventarioJugador : MonoBehaviour
         // Verificar capacidad
         if (objetos.Count >= capacidadMaxima)
         {
-            Debug.Log("<color=red>❌ Inventario lleno. No puedes recoger más objetos.</color>");
+            Debug.Log("<color=red>Inventario lleno. No puedes recoger más objetos.</color>");
             return;
         }
 
@@ -103,12 +103,12 @@ public class InventarioJugador : MonoBehaviour
     public void MostrarInventario()
     {
         Debug.Log("<color=white>═══════════════════════════════</color>");
-        Debug.Log("<color=cyan>🎒 INVENTARIO DEL JUGADOR</color>");
+        Debug.Log("<color=cyan>INVENTARIO DEL JUGADOR</color>");
         Debug.Log($"<color=white>Espacio: {objetos.Count}/{capacidadMaxima}</color>");
 
         if (objetos.Count == 0)
         {
-            Debug.Log("<color=grey>📭 El inventario está vacío</color>");
+            Debug.Log("<color=grey>El inventario está vacío</color>");
         }
         else
         {
@@ -117,7 +117,7 @@ public class InventarioJugador : MonoBehaviour
                 // Buscar el nombre del objeto
                 Coleccionable obj = objetos.Find(o => o.GetID() == kvp.Key);
                 string nombre = obj != null ? obj.GetNombre() : kvp.Key;
-                Debug.Log($"<color=yellow>📦 {nombre} x{kvp.Value}</color>");
+                Debug.Log($"<color=yellow>{nombre} x{kvp.Value}</color>");
             }
         }
         Debug.Log("<color=white>═══════════════════════════════</color>");
@@ -128,6 +128,6 @@ public class InventarioJugador : MonoBehaviour
     {
         objetos.Clear();
         contadorObjetos.Clear();
-        Debug.Log("<color=red>🧹 Inventario vaciado</color>");
+        Debug.Log("<color=red> Inventario vaciado</color>");
     }
 }
