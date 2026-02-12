@@ -9,10 +9,7 @@ public class InputHandler : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 moveInput;
 
-    // Eventos para interacción
-    public System.Action OnInteract; // ← NUEVO
-
-    public Vector2 MoveInput => moveInput;
+    // ✅ Solo movimiento, la interacción va en InteractuarObjetosJugador
 
     private void Awake()
     {
@@ -23,19 +20,17 @@ public class InputHandler : MonoBehaviour
     {
         playerControls.Gameplay.Enable();
 
-        // Movimiento
+        // Solo movimiento
         playerControls.Gameplay.Move.performed += OnMovePerformed;
         playerControls.Gameplay.Move.canceled += OnMoveCanceled;
 
-        // Interacción - BOTÓN E o A en gamepad ← NUEVO
-        playerControls.Gameplay.Interact.performed += OnInteractPerformed;
+        // ❌ INTERACCIÓN ELIMINADA DE AQUÍ
     }
 
     private void OnDisable()
     {
         playerControls.Gameplay.Move.performed -= OnMovePerformed;
         playerControls.Gameplay.Move.canceled -= OnMoveCanceled;
-        playerControls.Gameplay.Interact.performed -= OnInteractPerformed;
 
         playerControls.Gameplay.Disable();
     }
@@ -61,9 +56,8 @@ public class InputHandler : MonoBehaviour
         playerMovement?.SetMoveDirection(Vector2.zero);
     }
 
-    // ← NUEVO: Disparar evento de interacción
-    private void OnInteractPerformed(InputAction.CallbackContext context)
+    public Vector2 GetMoveInput()
     {
-        OnInteract?.Invoke();
+        return moveInput;
     }
 }

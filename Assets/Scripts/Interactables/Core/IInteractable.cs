@@ -1,9 +1,10 @@
+using EclipseGames.Player.Interaction;
 using UnityEngine;
 
-public interface IInteractable
+public interface IInteractuable
 {
-    void Interact(PlayerInteraction player);
-    string GetInteractionPrompt();
-    bool CanInteract();
-    Transform GetTransform(); 
+    void Interactuar();  
+    string GetPrompt();
+    bool PuedeInteractuar();
+    Transform GetTransform();
 }

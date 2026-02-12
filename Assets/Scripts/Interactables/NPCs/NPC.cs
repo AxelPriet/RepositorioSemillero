@@ -1,41 +1,36 @@
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : MonoBehaviour, IInteractuable
 {
     [Header("Configuración del NPC")]
-    [SerializeField] private string npcName = "Aldeano";
-    [SerializeField] private string[] dialogueLines;
-    [SerializeField] private Sprite portraitSprite;
+    [SerializeField] private string nombreNPC = "Aldeano";
+    [SerializeField] private string[] lineasDialogo;
+    [SerializeField] private bool puedeInteractuar = true;
 
-    [Header("Estado")]
-    [SerializeField] private bool canInteract = true;
+    [Header("Feedback")]
+    [SerializeField] private Color colorGizmo = Color.yellow;
 
-    // Implementación de IInteractable
-    public void Interact(PlayerInteraction player)
+    // Implementación de IInteractuable
+    public void Interactuar()
     {
-        if (!canInteract) return;
+        if (!puedeInteractuar) return;
 
-        // Aquí llamarías a tu sistema de diálogo
-        Debug.Log($"Hablando con {npcName}");
+        Debug.Log($"<color=green>{nombreNPC}: ¡HOLA! Has interactuado conmigo</color>");
 
-        // Ejemplo simple:
-        foreach (string line in dialogueLines)
+        if (lineasDialogo.Length > 0)
         {
-            Debug.Log($"{npcName}: {line}");
+            Debug.Log($"<color=white>{nombreNPC}: {lineasDialogo[0]}</color>");
         }
-
-        // Evento para sistema de diálogo
-        //DialogueEvents.OnDialogueStart?.Invoke(this);
     }
 
-    public string GetInteractionPrompt()
+    public string GetPrompt()
     {
-        return $"Hablar con {npcName} (E)";
+        return $"Hablar con {nombreNPC}";
     }
 
-    public bool CanInteract()
+    public bool PuedeInteractuar()
     {
-        return canInteract;
+        return puedeInteractuar;
     }
 
     public Transform GetTransform()
@@ -43,9 +38,16 @@ public class NPC : MonoBehaviour, IInteractable
         return transform;
     }
 
-    // Métodos públicos para habilitar/deshabilitar
-    public void SetInteractable(bool value)
+    // Método para activar/desactivar
+    public void SetPuedeInteractuar(bool valor)
     {
-        canInteract = value;
+        puedeInteractuar = valor;
+    }
+
+    // Visualizar área de interacción
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = colorGizmo;
+        Gizmos.DrawWireSphere(transform.position, 1f);
     }
 }
