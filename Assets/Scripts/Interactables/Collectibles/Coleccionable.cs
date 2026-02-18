@@ -19,7 +19,7 @@ public class Coleccionable : MonoBehaviour, IInteractuable
         InventarioJugador.Instance.AñadirObjeto(this);
 
         // 2. Feedback en consola
-        Debug.Log($"<color=yellow>📦 ¡Has recogido: {nombreObjeto}!</color>");
+        Debug.Log($"<color=yellow>¡Has recogido: {nombreObjeto}!</color>");
 
         // 3. Desactivar interacción
         puedeInteractuar = false;

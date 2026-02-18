@@ -11,7 +11,7 @@ public class InteractuarObjetosJugador : MonoBehaviour
     [SerializeField] private LayerMask capasInteractuables;
 
     [Header("UI Interaction")]
-    [SerializeField] private GameObject prefabPrompt; // Sprite "E"
+    [SerializeField] private GameObject prefabPrompt; 
 
     // Diccionario para prompts activos
     private Dictionary<IInteractuable, GameObject> promptsActivos = new Dictionary<IInteractuable, GameObject>();
