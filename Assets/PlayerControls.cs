@@ -109,6 +109,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Compress"",
+                    ""type"": ""Button"",
+                    ""id"": ""a16f05d7-6d9e-4390-b041-39fd6b16440b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -243,6 +252,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f7c22af-b23e-487e-b16b-d313252d8b07"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Compress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec4e7281-872f-4c21-847d-e71e49963007"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Compress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -253,6 +284,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
+        m_Gameplay_Compress = m_Gameplay.FindAction("Compress", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -335,6 +367,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Interact;
+    private readonly InputAction m_Gameplay_Compress;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -354,6 +387,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/Compress".
+        /// </summary>
+        public InputAction @Compress => m_Wrapper.m_Gameplay_Compress;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -386,6 +423,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Compress.started += instance.OnCompress;
+            @Compress.performed += instance.OnCompress;
+            @Compress.canceled += instance.OnCompress;
         }
 
         /// <summary>
@@ -403,6 +443,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Compress.started -= instance.OnCompress;
+            @Compress.performed -= instance.OnCompress;
+            @Compress.canceled -= instance.OnCompress;
         }
 
         /// <summary>
@@ -457,5 +500,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Compress" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCompress(InputAction.CallbackContext context);
     }
 }

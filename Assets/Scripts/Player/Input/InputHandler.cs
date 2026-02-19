@@ -9,8 +9,6 @@ public class InputHandler : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 moveInput;
 
-    // ✅ Solo movimiento, la interacción va en InteractuarObjetosJugador
-
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -19,12 +17,8 @@ public class InputHandler : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Gameplay.Enable();
-
-        // Solo movimiento
         playerControls.Gameplay.Move.performed += OnMovePerformed;
         playerControls.Gameplay.Move.canceled += OnMoveCanceled;
-
-        // ❌ INTERACCIÓN ELIMINADA DE AQUÍ
     }
 
     private void OnDisable()
@@ -39,7 +33,6 @@ public class InputHandler : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        // Priorizar dirección
         if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
             moveInput.y = 0;
         else if (Mathf.Abs(moveInput.y) > Mathf.Abs(moveInput.x))
