@@ -61,12 +61,17 @@ public class MinigameManager : MonoBehaviour
     private void DisablePlayer()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerMovement>().enabled = false;
+        var movement = player.GetComponent<PlayerMovement>();
+        if (movement != null)
+            movement.SetCanMove(false);
     }
 
     private void EnablePlayer()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerMovement>().enabled = true;
+        var movement = player.GetComponent<PlayerMovement>();
+        if (movement != null)
+            movement.SetCanMove(true); 
     }
+
 }

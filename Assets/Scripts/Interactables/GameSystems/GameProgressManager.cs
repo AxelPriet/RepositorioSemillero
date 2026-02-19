@@ -30,4 +30,3 @@ public class GameProgressManager : MonoBehaviour
         return currentMinigameIndex;
     }
 }
-

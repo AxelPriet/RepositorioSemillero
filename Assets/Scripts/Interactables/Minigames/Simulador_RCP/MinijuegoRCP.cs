@@ -31,6 +31,8 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     private InputHandler inputHandler;
     private PlayerControls playerControls;
 
+    private PlayerMovement playerMovement;
+
 
     void Start()
     {
@@ -43,7 +45,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     }
     private void Awake()
     {
-        inputHandler = FindObjectOfType<InputHandler>();
+        inputHandler = InputHandler.Instance;
     }
     void Update()
     {
@@ -64,12 +66,15 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
     public string GetPrompt()
     {
+        if (!PuedeInteractuar())
+            return "Minijuego completado";
         return "Iniciar RCP";
     }
 
     public bool PuedeInteractuar()
     {
-        return true; 
+        //return true;
+        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex);
     }
 
     public Transform GetTransform()
@@ -80,48 +85,42 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
     public void StartMinigame()
     {
-        if (inputHandler == null)
-            inputHandler = FindObjectOfType<InputHandler>();
+        playerControls = InputHandler.Instance.GetControls();
+        playerMovement = FindObjectOfType<PlayerMovement>();
 
-        if (playerControls == null && inputHandler != null)
-
-        if (playerControls == null)
-        {
-            Debug.LogError("PlayerControls es NULL");
-            return;
-        }
+        playerMovement.SetCanMove(false);
 
         panel.SetActive(true);
-        puntos = 0;
 
+        puntos = 0;
         errores = 0;
         ActualizarUI();
 
-        playerControls.Gameplay.Enable();
-        playerControls.Gameplay.Move.Disable();
         playerControls.Gameplay.Compress.performed += OnCompress;
     }
-
 
     public void CompleteMinigame()
     {
         playerControls.Gameplay.Compress.performed -= OnCompress;
 
-        playerControls.Gameplay.Move.Enable();
-
+        playerMovement.SetCanMove(true);
 
         panel.SetActive(false);
+        GameProgressManager.Instance.CompleteMinigame();
+
+        Debug.Log("Minijuego completado, puedes pasar al siguiente");
     }
 
     public void FailMinigame()
     {
         playerControls.Gameplay.Compress.performed -= OnCompress;
 
-        playerControls.Gameplay.Move.Enable();
-
+        playerMovement.SetCanMove(true);
 
         panel.SetActive(false);
+        Debug.Log("Minijuego fallido, debes intentarlo de nuevo para avanzar");
     }
+
 
 
     private void OnCompress(InputAction.CallbackContext context)

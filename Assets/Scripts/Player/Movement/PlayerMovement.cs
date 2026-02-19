@@ -15,25 +15,45 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
 
+    private bool canMove = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         targetPosition = transform.position;
     }
-
     private void Update()
     {
-        if (!isMoving && moveInput != Vector2.zero)
+        if (!canMove) return;
+
+        Vector2 currentInput = InputHandler.Instance.GetMoveInput();
+
+        if (!isMoving && currentInput != Vector2.zero)
         {
-            StartCoroutine(MoveToTile(moveInput));
+            StartCoroutine(MoveToTile(currentInput));
         }
     }
+
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+        if (!canMove)
+            moveInput = Vector2.zero;
+    }
+
     public void ForceStopMovement()
     {
         StopAllCoroutines();
         isMoving = false;
         moveInput = Vector2.zero;
+    }
+    public void FullResetMovement()
+    {
+        StopAllCoroutines();
+        isMoving = false;
+        moveInput = Vector2.zero;
+        targetPosition = transform.position;
     }
 
     public void SetMoveDirection(Vector2 direction)
