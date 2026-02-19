@@ -17,6 +17,8 @@ public class SubMinijuegoFotografia : MonoBehaviour, ISubMinigame, IPointerDownH
     private MinigameCombinado parent; 
     private bool puedeTomarFoto = false;
 
+    private Vector2 marcoPosInicial;
+
     [SerializeField] private TMPro.TextMeshProUGUI textoInstrucciones;
 
     // ISubMinigame
@@ -24,10 +26,17 @@ public class SubMinijuegoFotografia : MonoBehaviour, ISubMinigame, IPointerDownH
     {
         this.parent = parent;
         gameObject.SetActive(true);
+
         puedeTomarFoto = true;
+        marco.localPosition = marcoPosInicial;
         textoInstrucciones.text = "Encuadra al objetivo dentro del marco y presiona la tecla espacio para tomar la foto";
+
+        playerControls = InputHandler.Instance.GetControls();
+        playerControls.Gameplay.Compress.performed -= OnTomarFoto;
         playerControls.Gameplay.Compress.performed += OnTomarFoto;
     }
+
+
 
     public void CompleteSubMinigame()
     {
@@ -46,12 +55,12 @@ public class SubMinijuegoFotografia : MonoBehaviour, ISubMinigame, IPointerDownH
     // Actualización
     private void Update()
     {
-        if (!puedeTomarFoto) return;
 
     }
     private void Awake()
     {
         playerControls = InputHandler.Instance.GetControls();
+        marcoPosInicial = marco.localPosition;
     }
     private void OnTomarFoto(InputAction.CallbackContext context)
     {
@@ -63,11 +72,14 @@ public class SubMinijuegoFotografia : MonoBehaviour, ISubMinigame, IPointerDownH
         }
         else
         {
-            FailSubMinigame();
+            marco.localPosition = marcoPosInicial;
+
+            textoInstrucciones.text = "¡Intenta de nuevo! Ajusta el marco sobre el objetivo y presiona espacio";
+
+            puedeTomarFoto = true;
         }
     }
 
-    // Arrastrar el marco con mouse
     public void OnPointerDown(PointerEventData eventData)
     {
         // IPointerDownHandler
