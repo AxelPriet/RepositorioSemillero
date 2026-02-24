@@ -2,27 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SubMinigameCroma : MonoBehaviour, ISubMinigame
+public class MinijuegoCroma : MonoBehaviour
 {
     [Header("UI")]
     public GameObject panel;
     public Image luz1, luz2, luz3; // luces a ajustar
     public Slider sliderR, sliderG, sliderB;
     public TextMeshProUGUI feedbackText;
-
-    private MinigameCombinado parent;
-
-    public void StartSubMinigame(MinigameCombinado parent)
-    {
-        this.parent = parent;
-        panel.SetActive(true);
-        feedbackText.text = "Ajusta las luces para que concuerden los colores";
-
-        // inicializar sliders si quieres
-        sliderR.value = 0;
-        sliderG.value = 0;
-        sliderB.value = 0;
-    }
 
     public void CheckColores()
     {
@@ -46,13 +32,11 @@ public class SubMinigameCroma : MonoBehaviour, ISubMinigame
     public void CompleteSubMinigame()
     {
         panel.SetActive(false);
-        parent.OnSubMinijuegoComplete();
     }
 
     public void FailSubMinigame()
     {
         panel.SetActive(false);
-        parent.OnSubMinijuegoFail();
     }
 }
 

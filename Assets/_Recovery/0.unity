@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 6733724}
   - component: {fileID: 6733727}
   - component: {fileID: 6733726}
+  - component: {fileID: 6733725}
   m_Layer: 5
   m_Name: PanelFotografia
   m_TagString: Untagged
@@ -152,13 +153,29 @@ RectTransform:
   - {fileID: 556859580}
   - {fileID: 1530376716}
   - {fileID: 674726520}
-  m_Father: {fileID: 608902903}
+  m_Father: {fileID: 1223060080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6733725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4388b118ddd8bbc468729c07741cba87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SubMinigameFotografia
+  marco: {fileID: 556859580}
+  canvas: {fileID: 608902902}
+  objetivo: {fileID: 1530376716}
+  textoInstrucciones: {fileID: 674726521}
 --- !u!114 &6733726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +534,7 @@ GameObject:
   - component: {fileID: 349614925}
   - component: {fileID: 349614928}
   - component: {fileID: 349614927}
+  - component: {fileID: 349614926}
   m_Layer: 5
   m_Name: PanelRadio
   m_TagString: Untagged
@@ -540,13 +558,30 @@ RectTransform:
   - {fileID: 616766098}
   - {fileID: 1773948298}
   - {fileID: 874512292}
-  m_Father: {fileID: 608902903}
+  m_Father: {fileID: 1223060080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &349614926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349614924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27cdf25ea9fa88e47895e64efa6a5ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SubMinigameRadio
+  panel: {fileID: 349614924}
+  perilla1: {fileID: 1870349622}
+  perilla2: {fileID: 616766099}
+  "se\xF1al": {fileID: 1773948299}
+  feedbackText: {fileID: 874512293}
 --- !u!114 &349614927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,7 +1369,7 @@ GameObject:
   - component: {fileID: 608902901}
   - component: {fileID: 608902900}
   m_Layer: 5
-  m_Name: Minijuegos_CEM
+  m_Name: Canvas_Minijuego_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1389,7 +1424,7 @@ Canvas:
   m_GameObject: {fileID: 608902899}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 369780386}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1415,9 +1450,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6733724}
-  - {fileID: 349614925}
-  - {fileID: 963853165}
+  - {fileID: 1223060080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2734,6 +2767,7 @@ GameObject:
   - component: {fileID: 963853165}
   - component: {fileID: 963853164}
   - component: {fileID: 963853163}
+  - component: {fileID: 963853162}
   m_Layer: 5
   m_Name: PanelCroma
   m_TagString: Untagged
@@ -2741,6 +2775,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &963853162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963853161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0f5a85b33c61847b651f81a957f175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SubMinigameCroma
+  panel: {fileID: 963853161}
+  luz1: {fileID: 383881166}
+  luz2: {fileID: 1187777306}
+  luz3: {fileID: 871223908}
+  sliderR: {fileID: 1085034013}
+  sliderG: {fileID: 1001360397}
+  sliderB: {fileID: 1805658766}
+  feedbackText: {fileID: 604495175}
 --- !u!114 &963853163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,7 +2852,7 @@ RectTransform:
   - {fileID: 1001360398}
   - {fileID: 1805658767}
   - {fileID: 604495177}
-  m_Father: {fileID: 608902903}
+  m_Father: {fileID: 1223060080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3161,6 +3215,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111533933}
   m_CullTransparentMesh: 1
+--- !u!1 &1130455018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130455020}
+  - component: {fileID: 1130455019}
+  m_Layer: 0
+  m_Name: MiniGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1130455019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130455018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd612a3ce3aa804ab7a77fb748542df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinigameManager
+  minigamePanels:
+  - {fileID: 1379395868}
+  - {fileID: 1223060079}
+--- !u!4 &1130455020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130455018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.21748, y: -1.13961, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1143077680
 GameObject:
   m_ObjectHideFlags: 0
@@ -3598,6 +3699,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189877502}
   m_CullTransparentMesh: 1
+--- !u!1 &1223060079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223060080}
+  - component: {fileID: 1223060082}
+  - component: {fileID: 1223060081}
+  m_Layer: 5
+  m_Name: PanelMinijuegoCombinado
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1223060080
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223060079}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6733724}
+  - {fileID: 349614925}
+  - {fileID: 963853165}
+  m_Father: {fileID: 608902903}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1223060081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223060079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1223060082
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223060079}
+  m_CullTransparentMesh: 1
 --- !u!1 &1226212047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,7 +3865,7 @@ GameObject:
   - component: {fileID: 1265204290}
   - component: {fileID: 1265204295}
   m_Layer: 6
-  m_Name: MiniGame1
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4524,14 +4703,31 @@ GameObject:
   - component: {fileID: 1530725663}
   - component: {fileID: 1530725662}
   - component: {fileID: 1530725661}
-  - component: {fileID: 1530725664}
+  - component: {fileID: 1530725660}
   m_Layer: 6
-  m_Name: Minijgame2
+  m_Name: Minijuego2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1530725660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530725659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83045a6d1b0665844bde8b0f144ce65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinijuegoDos
+  minigameIndex: 1
+  subMinijuegosUI:
+  - {fileID: 6733723}
+  - {fileID: 349614924}
+  - {fileID: 963853161}
 --- !u!61 &1530725661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4652,24 +4848,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1530725664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530725659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4388b118ddd8bbc468729c07741cba87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinijuegoFotografia
-  panel: {fileID: 6733723}
-  marco: {fileID: 556859580}
-  canvas: {fileID: 608902902}
-  textoInstrucciones: {fileID: 674726521}
-  objetivo: {fileID: 1530376716}
-  minigameIndex: 1
 --- !u!1 &1554089157
 GameObject:
   m_ObjectHideFlags: 0
@@ -6224,6 +6402,7 @@ SceneRoots:
   - {fileID: 1495471880}
   - {fileID: 1554089158}
   - {fileID: 608902903}
+  - {fileID: 1130455020}
   - {fileID: 1265204294}
   - {fileID: 1530725663}
   - {fileID: 340220238}

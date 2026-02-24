@@ -61,7 +61,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
     public void Interactuar()
     {
-        MinigameManager.Instance.StartMinigame(this, minigameIndex);
+        StartMinigame();
     }
 
     public string GetPrompt()
@@ -81,7 +81,6 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     {
         return transform;
     }
-
 
     public void StartMinigame()
     {
@@ -121,8 +120,6 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
         Debug.Log("Minijuego fallido, debes intentarlo de nuevo para avanzar");
     }
 
-
-
     private void OnCompress(InputAction.CallbackContext context)
     {
         VerificarZona();
@@ -161,7 +158,6 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
             }
         }
     }
-
 
     void MoverIndicador()
     {

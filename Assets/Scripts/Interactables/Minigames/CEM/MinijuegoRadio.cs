@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SubMinigameRadio : MonoBehaviour, ISubMinigame
+public class MinijuegoRadio : MonoBehaviour
 {
     [Header("UI")]
     public GameObject panel;
@@ -10,17 +10,10 @@ public class SubMinigameRadio : MonoBehaviour, ISubMinigame
     public Slider perilla2;
     public Image señal;
     public TextMeshProUGUI feedbackText;
-
-    private MinigameCombinado parent;
-
-    public void StartSubMinigame(MinigameCombinado parent)
+    public void StartMinijuego()
     {
-        this.parent = parent;
-        panel.SetActive(true);
-        feedbackText.text = "Ajusta las perillas hasta obtener señal clara";
-        señal.color = Color.red; // señal inicial
-    }
 
+    }
     public void CheckSeñal()
     {
         // ejemplo simple: si sliders cerca de 0.5 es correcto
@@ -44,12 +37,10 @@ public class SubMinigameRadio : MonoBehaviour, ISubMinigame
     public void CompleteSubMinigame()
     {
         panel.SetActive(false);
-        parent.OnSubMinijuegoComplete();
     }
 
     public void FailSubMinigame()
     {
         panel.SetActive(false);
-        parent.OnSubMinijuegoFail();
     }
 }
