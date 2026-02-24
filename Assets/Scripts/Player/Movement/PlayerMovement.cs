@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Configuración de Movimiento")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float runSpeed = 8f;
     [SerializeField] private float tileSize = 1f;
 
     [Header("Estado Actual")]
@@ -16,16 +17,24 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     private bool canMove = true;
+    private bool isRunning = false;
+    private float currentSpeed;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         targetPosition = transform.position;
+        currentSpeed = walkSpeed;
     }
+
     private void Update()
     {
         if (!canMove) return;
+
+        isRunning = InputHandler.Instance.IsRunning(); 
+
+        currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         Vector2 currentInput = InputHandler.Instance.GetMoveInput();
 
@@ -48,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         moveInput = Vector2.zero;
     }
+
     public void FullResetMovement()
     {
         StopAllCoroutines();
@@ -85,9 +95,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float elapsedTime = 0f;
+        float moveDuration = 1f / currentSpeed; 
+
         while (elapsedTime < 1f)
         {
-            elapsedTime += Time.deltaTime * moveSpeed;
+            elapsedTime += Time.deltaTime * currentSpeed;
             transform.position = Vector2.Lerp(startPosition, targetPosition, elapsedTime);
             yield return null;
         }

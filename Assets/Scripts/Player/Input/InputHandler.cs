@@ -39,4 +39,8 @@ public class InputHandler : MonoBehaviour
     {
         return playerControls;
     }
+    public bool IsRunning()
+    {
+        return playerControls.Gameplay.Run.IsPressed(); 
+    }
 }

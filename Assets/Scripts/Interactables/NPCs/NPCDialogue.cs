@@ -8,8 +8,8 @@ public class NPCDialogue : MonoBehaviour
     [SerializeField] private float interactionDistance = 2f;
 
     private Transform player;
-    private bool playerInside;
-    private bool dialogueTriggered;
+    private bool wasInside = false;
+    private string currentDialogue = "";
 
     void Start()
     {
@@ -19,31 +19,28 @@ public class NPCDialogue : MonoBehaviour
     void Update()
     {
         float distance = Vector2.Distance(transform.position, player.position);
+        bool isInside = distance <= interactionDistance;
 
-        if (distance <= interactionDistance)
+        if (isInside && !wasInside)
         {
-            if (!playerInside)
-            {
-                playerInside = true;
-                TriggerDialogue();
-            }
+            // Entró al rango - mostrar diálogo
+            wasInside = true;
+            ShowRandomDialogue();
         }
-        else
+        else if (!isInside && wasInside)
         {
-            if (playerInside)
-            {
-                playerInside = false;
-                DialogueManager.Instance.FinishAndHide();
-            }
+            // Salió del rango - ocultar inmediatamente
+            wasInside = false;
+            DialogueManager.Instance.HideDialogue();
         }
     }
 
-    void TriggerDialogue()
+    void ShowRandomDialogue()
     {
         if (dialogues.Length == 0) return;
 
         int randomIndex = Random.Range(0, dialogues.Length);
-        DialogueManager.Instance.ShowDialogue(dialogues[randomIndex]);
+        currentDialogue = dialogues[randomIndex];
+        DialogueManager.Instance.ShowDialogue(currentDialogue);
     }
 }
-

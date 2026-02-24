@@ -10,10 +10,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [SerializeField] private float typingTime = 0.03f;
-    [SerializeField] private float stayDuration = 2f;
 
     private Coroutine typingCoroutine;
     private bool isTyping;
+    private Coroutine hideCoroutine;
 
     private void Awake()
     {
@@ -27,6 +27,10 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(string text)
     {
+        // Detener cualquier rutina de ocultamiento pendiente
+        if (hideCoroutine != null)
+            StopCoroutine(hideCoroutine);
+
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
@@ -48,18 +52,14 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
     }
 
-    public void FinishAndHide()
+    public void HideDialogue()
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        StartCoroutine(HideAfterDelay());
-    }
+        if (hideCoroutine != null)
+            StopCoroutine(hideCoroutine);
 
-    IEnumerator HideAfterDelay()
-    {
-        yield return new WaitForSeconds(stayDuration);
         dialoguePanel.SetActive(false);
     }
 }
-
