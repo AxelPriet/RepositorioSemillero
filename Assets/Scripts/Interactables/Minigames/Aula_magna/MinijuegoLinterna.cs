@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 {
@@ -16,9 +17,10 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
     [Header("Configuración Linterna")]
     [SerializeField] private float radioLinterna = 50f;
+    [SerializeField] private float posicionYFija = 0f; 
 
     [Header("UI Progreso")]
-    [SerializeField] private Image barraProgreso;
+    [SerializeField] private Slider sliderProgreso; 
     [SerializeField] private TextMeshProUGUI textoTiempo;
     [SerializeField] private TextMeshProUGUI feedbackText;
 
@@ -34,10 +36,11 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
     // Temporizadores
     private float tiempoAcumulado = 0f;
-    private Rect areaJuego;
 
+    // Posiciones límite
     private float limiteIzquierdo;
     private float limiteDerecho;
+    private float limiteXLinterna; 
     private Vector2 posicionInicialGraduado;
 
     private void Awake()
@@ -55,9 +58,18 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
             limiteIzquierdo = -anchoPanel / 2 + mitadGraduado;
             limiteDerecho = anchoPanel / 2 - mitadGraduado;
+
+            limiteXLinterna = anchoPanel / 2 - radioLinterna;
         }
 
         posicionInicialGraduado = new Vector2(limiteDerecho, 0);
+
+        if (sliderProgreso != null)
+        {
+            sliderProgreso.minValue = 0;
+            sliderProgreso.maxValue = tiempoRequerido;
+            sliderProgreso.value = 0;
+        }
     }
 
     private void Update()
@@ -86,21 +98,28 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
     private void ActualizarPosicionLinterna()
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            graduado.parent as RectTransform,
-            Input.mousePosition,
-            null,
-            out Vector2 posicionMouse
-        );
+        if (Mouse.current != null)
+        {
+            Vector2 mousePos = Mouse.current.position.ReadValue();
 
-        linterna.anchoredPosition = posicionMouse;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                graduado.parent as RectTransform,
+                mousePos,
+                null,
+                out Vector2 posicionMouse
+            );
+            float nuevaX = Mathf.Clamp(posicionMouse.x, -limiteXLinterna, limiteXLinterna);
+
+            linterna.anchoredPosition = new Vector2(nuevaX, posicionYFija);
+        }
     }
 
     private void VerificarDeteccion()
     {
-        float distancia = Vector2.Distance(linterna.anchoredPosition, graduado.anchoredPosition);
+        float distanciaX = Mathf.Abs(linterna.anchoredPosition.x - graduado.anchoredPosition.x);
+        float distanciaY = Mathf.Abs(linterna.anchoredPosition.y - graduado.anchoredPosition.y);
 
-        bool estaDentro = distancia <= radioLinterna;
+        bool estaDentro = (distanciaX * distanciaX + distanciaY * distanciaY) <= (radioLinterna * radioLinterna);
 
         if (estaDentro)
         {
@@ -108,8 +127,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
             graduado.GetComponent<Image>().color = Color.white;
 
-            float progreso = tiempoAcumulado / tiempoRequerido;
-            barraProgreso.fillAmount = progreso;
+            sliderProgreso.value = tiempoAcumulado;
             textoTiempo.text = $"Tiempo: {tiempoRequerido - tiempoAcumulado:F1}s";
 
             if (tiempoAcumulado >= tiempoRequerido)
@@ -120,7 +138,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         else
         {
             tiempoAcumulado = 0f;
-            barraProgreso.fillAmount = 0;
+            sliderProgreso.value = 0;
             textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
 
             graduado.GetComponent<Image>().color = Color.gray;
@@ -131,7 +149,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
     {
         graduado.anchoredPosition = posicionInicialGraduado;
         tiempoAcumulado = 0f;
-        barraProgreso.fillAmount = 0;
+        sliderProgreso.value = 0;
         textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
         feedbackText.text = "Llegó al final. ¡Inténtalo de nuevo!";
 
@@ -176,12 +194,12 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
         graduado.anchoredPosition = posicionInicialGraduado;
 
-        linterna.anchoredPosition = Vector2.zero;
+        linterna.anchoredPosition = new Vector2(0, posicionYFija);
 
-        barraProgreso.fillAmount = 0;
+        sliderProgreso.value = 0;
         textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
         feedbackText.text = "Sigue al graduado con la linterna";
-        textoInstrucciones.text = "Mantén el mouse sobre él";
+        textoInstrucciones.text = "Mueve el mouse horizontalmente";
 
         ConfigurarLinterna();
     }
@@ -194,7 +212,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
             imagenLinterna.color = new Color(1, 1, 1, 0.2f); 
         }
 
-        // Ajustar tamaño al radio
         linterna.sizeDelta = new Vector2(radioLinterna * 2, radioLinterna * 2);
     }
 
@@ -207,7 +224,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         Debug.Log("Minijuego Linterna completado");
     }
 
-    // Interfaz IInteractuable
     public void Interactuar()
     {
         if (!PuedeInteractuar()) return;
