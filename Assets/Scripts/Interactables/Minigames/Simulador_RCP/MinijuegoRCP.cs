@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,52 +14,49 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     [Header("Configuración")]
     public float velocidad = 200f;
     public int puntosNecesarios = 5;
+    [SerializeField] private float tiempoPausa = 0.3f;
 
     private float direccion = 1f;
     private float minY;
     private float maxY;
     private int puntos = 0;
     private int errores = 0;
-
     private bool enPausa = false;
-    [SerializeField] private float tiempoPausa = 0.3f;
 
-
-    private InputAction compressAction;
-    [SerializeField] private int minigameIndex = 0;
     private InputHandler inputHandler;
     private PlayerControls playerControls;
-
     private PlayerMovement playerMovement;
 
+    [SerializeField] private int minigameIndex = 0;
 
     void Start()
     {
         float alturaBarra = ((RectTransform)indicador.parent).rect.height;
-
         minY = -alturaBarra / 2 + (indicador.rect.height / 2);
         maxY = alturaBarra / 2 - (indicador.rect.height / 2);
-
         panel.SetActive(false);
     }
+
     private void Awake()
     {
         inputHandler = InputHandler.Instance;
     }
+
     void Update()
     {
         if (panel.activeSelf)
             MoverIndicador();
     }
+
     private void ActualizarUI()
     {
         textoPuntos.text = "Aciertos: " + puntos;
         textoErrores.text = "Errores: " + errores;
     }
 
-
     public void Interactuar()
     {
+        if (!PuedeInteractuar()) return;
         StartMinigame();
     }
 
@@ -73,8 +69,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
     public bool PuedeInteractuar()
     {
-        //return true;
-        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex);
+        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && panel.activeSelf == false;
     }
 
     public Transform GetTransform()
@@ -85,9 +80,10 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     public void StartMinigame()
     {
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
 
-        playerMovement.SetCanMove(false);
+        if (playerMovement != null)
+            playerMovement.SetCanMove(false);
 
         panel.SetActive(true);
 
@@ -102,11 +98,11 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     {
         playerControls.Gameplay.Compress.performed -= OnCompress;
 
-        playerMovement.SetCanMove(true);
+        if (playerMovement != null)
+            playerMovement.SetCanMove(true);
 
         panel.SetActive(false);
         GameProgressManager.Instance.CompleteMinigame();
-
         Debug.Log("Minijuego completado, puedes pasar al siguiente");
     }
 
@@ -114,7 +110,8 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     {
         playerControls.Gameplay.Compress.performed -= OnCompress;
 
-        playerMovement.SetCanMove(true);
+        if (playerMovement != null)
+            playerMovement.SetCanMove(true);
 
         panel.SetActive(false);
         Debug.Log("Minijuego fallido, debes intentarlo de nuevo para avanzar");
@@ -122,13 +119,13 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
     private void OnCompress(InputAction.CallbackContext context)
     {
-        VerificarZona();
+        if (panel.activeSelf && !enPausa)
+            VerificarZona();
     }
 
     void VerificarZona()
     {
         float indicadorY = indicador.anchoredPosition.y;
-
         float zonaMin = zonaVerde.anchoredPosition.y - (zonaVerde.rect.height / 2);
         float zonaMax = zonaVerde.anchoredPosition.y + (zonaVerde.rect.height / 2);
 
@@ -149,7 +146,6 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
         {
             errores++;
             Debug.Log("Compresión incorrecta");
-
             ActualizarUI();
 
             if (errores >= 3)
@@ -162,6 +158,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     void MoverIndicador()
     {
         if (enPausa) return;
+
         Vector2 pos = indicador.anchoredPosition;
         pos.y += direccion * velocidad * Time.deltaTime;
 
@@ -178,6 +175,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
         indicador.anchoredPosition = pos;
     }
+
     private IEnumerator PausaIndicador()
     {
         enPausa = true;

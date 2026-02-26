@@ -24,7 +24,6 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
 
     private float valorObjetivoPerilla1;
     private float valorObjetivoPerilla2;
-
     private float tiempoCorrecto = 0f;
     private bool cuentaAtrasActivada = false;
 
@@ -32,6 +31,7 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
     private PlayerMovement playerMovement;
     private bool enJuego = false;
     private bool minijuegoCompletado = false;
+
     private void Awake()
     {
         panel.SetActive(false);
@@ -40,11 +40,7 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
     private void Update()
     {
         if (!enJuego || minijuegoCompletado) return;
-
         VerificarSeñalEnTiempoReal();
-        if (!enJuego) return;
-
-        Debug.Log($"Perilla1: {perilla1.ValorNormalizado:F2}, Perilla2: {perilla2.ValorNormalizado:F2}");
     }
 
     private void VerificarSeñalEnTiempoReal()
@@ -58,23 +54,17 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
 
         if (todoCorrecto)
         {
-            // Iniciar o continuar cuenta atrás
             tiempoCorrecto += Time.deltaTime;
 
             if (!cuentaAtrasActivada)
             {
                 cuentaAtrasActivada = true;
-                feedbackText.text = $"¡Sintonizado! Mantén {tiempoRequerido:F0}s";
             }
 
-            // Actualizar texto con cuenta atrás
             float tiempoRestante = tiempoRequerido - tiempoCorrecto;
             feedbackText.text = $"Mantén la señal: {tiempoRestante:F1}s";
-
-            // Cambiar color según progreso
             señal.color = Color.Lerp(Color.yellow, Color.green, tiempoCorrecto / tiempoRequerido);
 
-            // Verificar si ya cumplió el tiempo
             if (tiempoCorrecto >= tiempoRequerido)
             {
                 StartCoroutine(CompletarMinijuego());
@@ -82,17 +72,14 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
         }
         else
         {
-            // Resetear cuenta atrás si se desajusta
             if (cuentaAtrasActivada)
             {
                 cuentaAtrasActivada = false;
-                feedbackText.text = "Señal perdida...";
                 StartCoroutine(FeedbackError());
             }
 
             tiempoCorrecto = 0f;
 
-            // Feedback de qué perilla ajustar
             if (!perilla1Correcta && !perilla2Correcta)
                 feedbackText.text = "Ajusta ambas perillas";
             else if (!perilla1Correcta)
@@ -103,22 +90,20 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
             señal.color = Color.red;
         }
     }
+
     private void GenerarValoresAleatorios()
     {
         valorObjetivoPerilla1 = Random.Range(0.2f, 0.8f);
         valorObjetivoPerilla2 = Random.Range(0.2f, 0.8f);
-
-        Debug.Log($"Valores secretos - Perilla1: {valorObjetivoPerilla1}, Perilla2: {valorObjetivoPerilla2}");
+        Debug.Log($"Valores secretos - Perilla1: {valorObjetivoPerilla1:F2}, Perilla2: {valorObjetivoPerilla2:F2}");
     }
 
     public void CheckSeñal()
     {
         if (!enJuego || minijuegoCompletado) return;
 
-        
         float diferencia1 = Mathf.Abs(perilla1.ValorNormalizado - valorObjetivoPerilla1);
         float diferencia2 = Mathf.Abs(perilla2.ValorNormalizado - valorObjetivoPerilla2);
-
         bool correcto = diferencia1 < tolerancia && diferencia2 < tolerancia;
 
         if (correcto)
@@ -137,9 +122,7 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
         minijuegoCompletado = true;
         feedbackText.text = "¡SEÑAL CLARA!";
         señal.color = Color.green;
-
         yield return new WaitForSeconds(0.5f);
-
         CompleteMinigame();
     }
 
@@ -157,15 +140,16 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
 
         enJuego = true;
         minijuegoCompletado = false;
-        tiempoCorrecto = 0f; 
+        tiempoCorrecto = 0f;
         cuentaAtrasActivada = false;
 
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.SetCanMove(false);
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(false);
 
         panel.SetActive(true);
-
         perilla1.ResetearPerilla();
         perilla2.ResetearPerilla();
 
@@ -179,14 +163,18 @@ public class MinijuegoRadio : MonoBehaviour, IInteractuable, IMinigame
 
     private void OnConfirmar(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        CheckSeñal();
+        if (enJuego && !minijuegoCompletado)
+            CheckSeñal();
     }
 
     public void CompleteMinigame()
     {
         enJuego = false;
         playerControls.Gameplay.Compress.performed -= OnConfirmar;
-        playerMovement.SetCanMove(true);
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(true);
+
         panel.SetActive(false);
         GameProgressManager.Instance.CompleteMinigame();
         Debug.Log("Minijuego Radio completado");

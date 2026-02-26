@@ -17,10 +17,10 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
     [Header("Configuración Linterna")]
     [SerializeField] private float radioLinterna = 50f;
-    [SerializeField] private float posicionYFija = 0f; 
+    [SerializeField] private float posicionYFija = 0f;
 
     [Header("UI Progreso")]
-    [SerializeField] private Slider sliderProgreso; 
+    [SerializeField] private Slider sliderProgreso;
     [SerializeField] private TextMeshProUGUI textoTiempo;
     [SerializeField] private TextMeshProUGUI feedbackText;
 
@@ -40,7 +40,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
     // Posiciones límite
     private float limiteIzquierdo;
     private float limiteDerecho;
-    private float limiteXLinterna; 
+    private float limiteXLinterna;
     private Vector2 posicionInicialGraduado;
 
     private void Awake()
@@ -77,9 +77,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         if (!enJuego || minijuegoCompletado) return;
 
         MoverGraduado();
-
         ActualizarPosicionLinterna();
-
         VerificarDeteccion();
 
         if (graduado.anchoredPosition.x <= limiteIzquierdo)
@@ -92,7 +90,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
     {
         Vector2 posicion = graduado.anchoredPosition;
         posicion.x -= velocidadGraduado * Time.deltaTime;
-
         graduado.anchoredPosition = posicion;
     }
 
@@ -109,7 +106,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
                 out Vector2 posicionMouse
             );
             float nuevaX = Mathf.Clamp(posicionMouse.x, -limiteXLinterna, limiteXLinterna);
-
             linterna.anchoredPosition = new Vector2(nuevaX, posicionYFija);
         }
     }
@@ -118,15 +114,12 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
     {
         float distanciaX = Mathf.Abs(linterna.anchoredPosition.x - graduado.anchoredPosition.x);
         float distanciaY = Mathf.Abs(linterna.anchoredPosition.y - graduado.anchoredPosition.y);
-
         bool estaDentro = (distanciaX * distanciaX + distanciaY * distanciaY) <= (radioLinterna * radioLinterna);
 
         if (estaDentro)
         {
             tiempoAcumulado += Time.deltaTime;
-
             graduado.GetComponent<Image>().color = Color.white;
-
             sliderProgreso.value = tiempoAcumulado;
             textoTiempo.text = $"Tiempo: {tiempoRequerido - tiempoAcumulado:F1}s";
 
@@ -140,7 +133,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
             tiempoAcumulado = 0f;
             sliderProgreso.value = 0;
             textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
-
             graduado.GetComponent<Image>().color = Color.gray;
         }
     }
@@ -152,7 +144,6 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         sliderProgreso.value = 0;
         textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
         feedbackText.text = "Llegó al final. ¡Inténtalo de nuevo!";
-
         StartCoroutine(FeedbackReinicio());
     }
 
@@ -187,13 +178,13 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         tiempoAcumulado = 0f;
 
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.SetCanMove(false);
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(false);
 
         panel.SetActive(true);
-
         graduado.anchoredPosition = posicionInicialGraduado;
-
         linterna.anchoredPosition = new Vector2(0, posicionYFija);
 
         sliderProgreso.value = 0;
@@ -209,16 +200,18 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         Image imagenLinterna = linterna.GetComponent<Image>();
         if (imagenLinterna != null)
         {
-            imagenLinterna.color = new Color(1, 1, 1, 0.2f); 
+            imagenLinterna.color = new Color(1, 1, 1, 0.2f);
         }
-
         linterna.sizeDelta = new Vector2(radioLinterna * 2, radioLinterna * 2);
     }
 
     public void CompleteMinigame()
     {
         enJuego = false;
-        playerMovement.SetCanMove(true);
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(true);
+
         panel.SetActive(false);
         GameProgressManager.Instance.CompleteMinigame();
         Debug.Log("Minijuego Linterna completado");

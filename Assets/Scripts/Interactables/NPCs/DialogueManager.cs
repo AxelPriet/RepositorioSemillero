@@ -12,8 +12,6 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float typingTime = 0.03f;
 
     private Coroutine typingCoroutine;
-    private bool isTyping;
-    private Coroutine hideCoroutine;
 
     private void Awake()
     {
@@ -27,10 +25,6 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogue(string text)
     {
-        // Detener cualquier rutina de ocultamiento pendiente
-        if (hideCoroutine != null)
-            StopCoroutine(hideCoroutine);
-
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
@@ -38,27 +32,21 @@ public class DialogueManager : MonoBehaviour
         typingCoroutine = StartCoroutine(TypeLine(text));
     }
 
-    IEnumerator TypeLine(string line)
+    private IEnumerator TypeLine(string line)
     {
         dialogueText.text = string.Empty;
-        isTyping = true;
 
         foreach (char ch in line)
         {
             dialogueText.text += ch;
             yield return new WaitForSeconds(typingTime);
         }
-
-        isTyping = false;
     }
 
     public void HideDialogue()
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
-
-        if (hideCoroutine != null)
-            StopCoroutine(hideCoroutine);
 
         dialoguePanel.SetActive(false);
     }

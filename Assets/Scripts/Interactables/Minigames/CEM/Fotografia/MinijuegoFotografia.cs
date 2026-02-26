@@ -13,7 +13,6 @@ public class MinijuegoFotografia : MonoBehaviour,
 
     [Header("Objetivo")]
     [SerializeField] private Transform objetivo;
-    [SerializeField] private float tolerancia = 100f; // Tolerancia en píxeles
 
     [Header("Configuración")]
     [SerializeField] private int minigameIndex = 1;
@@ -51,7 +50,7 @@ public class MinijuegoFotografia : MonoBehaviour,
         enJuego = true;
 
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
 
         playerMovement.SetCanMove(false);
 
@@ -68,18 +67,14 @@ public class MinijuegoFotografia : MonoBehaviour,
     }
 
     // ================================
-    // TOMAR FOTO - VERSIÓN CORREGIDA
+    // TOMAR FOTO
     // ================================
 
     private void OnTomarFoto(InputAction.CallbackContext context)
     {
         if (!puedeTomarFoto) return;
 
-        // Solución directa: usar la posición del mundo directamente
-        // porque en un juego 2D orthográfico, corresponde a la pantalla
         Vector3 objetivoWorldPos = objetivo.position;
-
-        Debug.Log($"Posición objetivo en mundo: {objetivoWorldPos}");
 
         // Obtener los límites del marco
         RectTransform marcoRect = marco.GetComponent<RectTransform>();
@@ -93,13 +88,7 @@ public class MinijuegoFotografia : MonoBehaviour,
             esquinas[2].y - esquinas[0].y
         );
 
-        Debug.Log($"Rectángulo marco: {rectMarco}");
-
-        // Verificar si la posición del mundo del objetivo está dentro del marco
-        // OJO: Esto asume que la UI y el mundo comparten el mismo sistema de coordenadas
         bool dentro = rectMarco.Contains(objetivoWorldPos);
-
-        Debug.Log($"¿Dentro? {dentro}");
 
         if (dentro)
         {

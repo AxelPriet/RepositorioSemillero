@@ -27,7 +27,7 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
     [Header("Configuración")]
     [SerializeField] private float tolerancia = 0.1f;
     [SerializeField] private int minigameIndex = 3;
-    [SerializeField] private float tiempoRequerido = 2f; // Segundos que debe mantenerse
+    [SerializeField] private float tiempoRequerido = 2f;
 
     // Valores objetivo (se generan aleatoriamente)
     private float valorObjetivoRojo;
@@ -53,19 +53,13 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
     {
         if (!enJuego || minijuegoCompletado) return;
 
-        // Actualizar brillo de las luces según perillas
         ActualizarLuces();
-
-        // Actualizar color mezclado
         ActualizarColorMezclado();
-
-        // Verificar si está correcto
         VerificarMezclaEnTiempoReal();
     }
 
     private void ActualizarLuces()
     {
-        // Cambiar intensidad de las luces (alpha o color multiplicado)
         Color colorRojo = Color.red * perillaRoja.ValorNormalizado;
         Color colorVerde = Color.green * perillaVerde.ValorNormalizado;
         Color colorAzul = Color.blue * perillaAzul.ValorNormalizado;
@@ -77,11 +71,9 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
 
     private void ActualizarColorMezclado()
     {
-        // Mezclar los colores RGB
         float r = perillaRoja.ValorNormalizado;
         float g = perillaVerde.ValorNormalizado;
         float b = perillaAzul.ValorNormalizado;
-
         colorActual.color = new Color(r, g, b);
     }
 
@@ -98,7 +90,6 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
 
         if (todoCorrecto)
         {
-            // Iniciar o continuar cuenta atrás
             tiempoCorrecto += Time.deltaTime;
 
             if (!cuentaAtrasActivada)
@@ -106,14 +97,10 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
                 cuentaAtrasActivada = true;
             }
 
-            // Actualizar texto con cuenta atrás
             float tiempoRestante = tiempoRequerido - tiempoCorrecto;
             feedbackText.text = $"¡Color perfecto! Mantén {tiempoRestante:F1}s";
-
-            // Cambiar feedback visual
             colorActual.transform.localScale = Vector3.one * (1f + (tiempoCorrecto / tiempoRequerido * 0.2f));
 
-            // Verificar si ya cumplió el tiempo
             if (tiempoCorrecto >= tiempoRequerido)
             {
                 StartCoroutine(CompletarMinijuego());
@@ -121,7 +108,6 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
         }
         else
         {
-            // Resetear cuenta atrás si se desajusta
             if (cuentaAtrasActivada)
             {
                 cuentaAtrasActivada = false;
@@ -131,7 +117,6 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
             tiempoCorrecto = 0f;
             colorActual.transform.localScale = Vector3.one;
 
-            // Feedback de qué color ajustar
             if (!rojoCorrecto && !verdeCorrecto && !azulCorrecto)
                 feedbackText.text = "Ajusta todos los colores";
             else if (!rojoCorrecto && !verdeCorrecto)
@@ -151,14 +136,10 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
 
     private void GenerarColorObjetivo()
     {
-        // Generar colores aleatorios pero no extremos (0.2 a 0.8)
         valorObjetivoRojo = Random.Range(0.2f, 0.8f);
         valorObjetivoVerde = Random.Range(0.2f, 0.8f);
         valorObjetivoAzul = Random.Range(0.2f, 0.8f);
-
-        // Mostrar el color objetivo
         colorObjetivo.color = new Color(valorObjetivoRojo, valorObjetivoVerde, valorObjetivoAzul);
-
         Debug.Log($"Color objetivo - R:{valorObjetivoRojo:F2} G:{valorObjetivoVerde:F2} B:{valorObjetivoAzul:F2}");
     }
 
@@ -167,7 +148,6 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
         minijuegoCompletado = true;
         feedbackText.text = "¡CROMA PERFECTO!";
 
-        // Efecto de destello
         float tiempo = 0;
         while (tiempo < 0.5f)
         {
@@ -196,17 +176,17 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
         cuentaAtrasActivada = false;
 
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.SetCanMove(false);
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(false);
 
         panel.SetActive(true);
 
-        // Resetear perillas a posición central
         perillaRoja.ResetearPerilla();
         perillaVerde.ResetearPerilla();
         perillaAzul.ResetearPerilla();
 
-        // Inicializar luces
         ActualizarLuces();
         ActualizarColorMezclado();
 
@@ -217,7 +197,10 @@ public class MinijuegoCroma : MonoBehaviour, IInteractuable, IMinigame
     public void CompleteMinigame()
     {
         enJuego = false;
-        playerMovement.SetCanMove(true);
+
+        if (playerMovement != null)
+            playerMovement.SetCanMove(true);
+
         panel.SetActive(false);
         GameProgressManager.Instance.CompleteMinigame();
         Debug.Log("Minijuego Croma completado");
