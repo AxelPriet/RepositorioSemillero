@@ -3,13 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
+public class MinijuegoLinterna : MonoBehaviour
 {
-    [Header("Panel UI")]
-    [SerializeField] private GameObject panel;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-
     [Header("Elementos del Juego")]
     [SerializeField] private RectTransform graduado;
     [SerializeField] private RectTransform linterna;
@@ -23,32 +20,28 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
     [SerializeField] private Slider sliderProgreso;
     [SerializeField] private TextMeshProUGUI textoTiempo;
     [SerializeField] private TextMeshProUGUI feedbackText;
+    [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoRequerido = 10f;
-    [SerializeField] private int minigameIndex = 4;
+    [SerializeField] private string nombreEscenaPrincipal = "SampleScene";
 
-    // Estado del juego
-    private PlayerControls playerControls;
-    private PlayerMovement playerMovement;
-    private bool enJuego = false;
+    private float tiempoAcumulado = 0f;
     private bool minijuegoCompletado = false;
 
-    // Temporizadores
-    private float tiempoAcumulado = 0f;
-
-    // Posiciones límite
     private float limiteIzquierdo;
     private float limiteDerecho;
     private float limiteXLinterna;
     private Vector2 posicionInicialGraduado;
 
-    private void Awake()
+    private void Start()
     {
-        panel.SetActive(false);
+        CalcularLimites();
+        ConfigurarUI();
+        ConfigurarLinterna();
     }
 
-    private void Start()
+    private void CalcularLimites()
     {
         RectTransform panelRect = graduado.parent as RectTransform;
         if (panelRect != null)
@@ -58,23 +51,37 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
 
             limiteIzquierdo = -anchoPanel / 2 + mitadGraduado;
             limiteDerecho = anchoPanel / 2 - mitadGraduado;
-
             limiteXLinterna = anchoPanel / 2 - radioLinterna;
         }
 
         posicionInicialGraduado = new Vector2(limiteDerecho, 0);
+        graduado.anchoredPosition = posicionInicialGraduado;
+    }
 
-        if (sliderProgreso != null)
+    private void ConfigurarUI()
+    {
+        sliderProgreso.minValue = 0;
+        sliderProgreso.maxValue = tiempoRequerido;
+        sliderProgreso.value = 0;
+        textoTiempo.text = $"{tiempoRequerido:F0}s";
+        feedbackText.text = "Sigue al graduado con la linterna";
+        textoInstrucciones.text = "Mueve el mouse horizontalmente";
+    }
+
+    private void ConfigurarLinterna()
+    {
+        Image imagenLinterna = linterna.GetComponent<Image>();
+        if (imagenLinterna != null)
         {
-            sliderProgreso.minValue = 0;
-            sliderProgreso.maxValue = tiempoRequerido;
-            sliderProgreso.value = 0;
+            imagenLinterna.color = new Color(1, 1, 1, 0.2f);
         }
+        linterna.sizeDelta = new Vector2(radioLinterna * 2, radioLinterna * 2);
+        linterna.anchoredPosition = new Vector2(0, posicionYFija);
     }
 
     private void Update()
     {
-        if (!enJuego || minijuegoCompletado) return;
+        if (minijuegoCompletado) return;
 
         MoverGraduado();
         ActualizarPosicionLinterna();
@@ -121,7 +128,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
             tiempoAcumulado += Time.deltaTime;
             graduado.GetComponent<Image>().color = Color.white;
             sliderProgreso.value = tiempoAcumulado;
-            textoTiempo.text = $"Tiempo: {tiempoRequerido - tiempoAcumulado:F1}s";
+            textoTiempo.text = $"{tiempoRequerido - tiempoAcumulado:F1}s";
 
             if (tiempoAcumulado >= tiempoRequerido)
             {
@@ -132,7 +139,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         {
             tiempoAcumulado = 0f;
             sliderProgreso.value = 0;
-            textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
+            textoTiempo.text = $"{tiempoRequerido:F0}s";
             graduado.GetComponent<Image>().color = Color.gray;
         }
     }
@@ -142,7 +149,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
         graduado.anchoredPosition = posicionInicialGraduado;
         tiempoAcumulado = 0f;
         sliderProgreso.value = 0;
-        textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
+        textoTiempo.text = $"{tiempoRequerido:F0}s";
         feedbackText.text = "Llegó al final. ¡Inténtalo de nuevo!";
         StartCoroutine(FeedbackReinicio());
     }
@@ -168,73 +175,7 @@ public class MinijuegoLinterna : MonoBehaviour, IInteractuable, IMinigame
             yield return null;
         }
 
-        CompleteMinigame();
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
-
-    public void StartMinigame()
-    {
-        enJuego = true;
-        minijuegoCompletado = false;
-        tiempoAcumulado = 0f;
-
-        playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(false);
-
-        panel.SetActive(true);
-        graduado.anchoredPosition = posicionInicialGraduado;
-        linterna.anchoredPosition = new Vector2(0, posicionYFija);
-
-        sliderProgreso.value = 0;
-        textoTiempo.text = $"Tiempo: {tiempoRequerido:F0}s";
-        feedbackText.text = "Sigue al graduado con la linterna";
-        textoInstrucciones.text = "Mueve el mouse horizontalmente";
-
-        ConfigurarLinterna();
-    }
-
-    private void ConfigurarLinterna()
-    {
-        Image imagenLinterna = linterna.GetComponent<Image>();
-        if (imagenLinterna != null)
-        {
-            imagenLinterna.color = new Color(1, 1, 1, 0.2f);
-        }
-        linterna.sizeDelta = new Vector2(radioLinterna * 2, radioLinterna * 2);
-    }
-
-    public void CompleteMinigame()
-    {
-        enJuego = false;
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(true);
-
-        panel.SetActive(false);
-        GameProgressManager.Instance.CompleteMinigame();
-        Debug.Log("Minijuego Linterna completado");
-    }
-
-    public void Interactuar()
-    {
-        if (!PuedeInteractuar()) return;
-        StartMinigame();
-    }
-
-    public bool PuedeInteractuar()
-    {
-        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && !enJuego;
-    }
-
-    public string GetPrompt()
-    {
-        if (!PuedeInteractuar())
-            return "Minijuego completado";
-        return "Seguir al graduado";
-    }
-
-    public Transform GetTransform() => transform;
-    public void FailMinigame() { }
 }

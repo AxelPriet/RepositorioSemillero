@@ -11,27 +11,9 @@ public class OndaVisualSimple : MonoBehaviour
     {
         if (imagenOnda == null) return;
 
-        // Crear una onda simple moviendo la posición Y
         float onda = Mathf.Sin(Time.time * velocidad) * amplitud;
-
-        // Aplicar a la imagen (puedes modificar la rotación, escala o posición)
         Vector3 pos = imagenOnda.rectTransform.anchoredPosition;
         pos.y = onda;
         imagenOnda.rectTransform.anchoredPosition = pos;
-    }
-
-    public void SetCalidad(float calidad)
-    {
-        // Cambiar color o amplitud según la calidad
-        if (calidad > 0.8f)
-        {
-            imagenOnda.color = Color.green;
-            amplitud = 15f;
-        }
-        else
-        {
-            imagenOnda.color = Color.red;
-            amplitud = 5f + (calidad * 10f);
-        }
     }
 }

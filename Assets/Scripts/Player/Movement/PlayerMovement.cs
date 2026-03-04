@@ -29,9 +29,21 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = walkSpeed;
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        StartCoroutine(InicializarMovimiento());
+    }
+
+    private IEnumerator InicializarMovimiento()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+
+        FullResetMovement();
+        SetCanMove(true);
+
         inputHandler = InputHandler.Instance;
+
     }
 
     private void Update()
@@ -41,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (inputHandler == null)
         {
             inputHandler = InputHandler.Instance;
-            if (inputHandler == null) return; 
+            if (inputHandler == null) return;
         }
 
         isRunning = inputHandler.IsRunning();
@@ -57,10 +69,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCanMove(bool value)
     {
-        Debug.Log($"SetCanMove({value}) llamado");
         canMove = value;
         if (!canMove)
+        {
             moveInput = Vector2.zero;
+            StopAllCoroutines();
+            isMoving = false;
+        }
     }
 
     public void ForceStopMovement()
@@ -76,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         moveInput = Vector2.zero;
         targetPosition = transform.position;
+        canMove = true; 
     }
 
     public void SetMoveDirection(Vector2 direction)
@@ -107,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float elapsedTime = 0f;
-        float moveDuration = 1f / currentSpeed;
 
         while (elapsedTime < 1f)
         {

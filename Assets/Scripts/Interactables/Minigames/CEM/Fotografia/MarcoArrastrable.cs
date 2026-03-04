@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MarcoArrastrable : MonoBehaviour, IDragHandler
+public class MarcoArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerDownHandler
 {
     private bool puedeMoverse = false;
     private RectTransform rectTransform;
@@ -18,9 +18,25 @@ public class MarcoArrastrable : MonoBehaviour, IDragHandler
         puedeMoverse = estado;
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("OnPointerDown - Click en el marco");
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("OnBeginDrag - Comienza arrastre");
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
-        if (!puedeMoverse) return;
+        if (!puedeMoverse)
+        {
+            Debug.Log("OnDrag ignorado - puedeMoverse = false");
+            return;
+        }
+
+        Debug.Log($"OnDrag ejecutándose. Delta: {eventData.delta}");
 
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

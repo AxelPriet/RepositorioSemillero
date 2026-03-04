@@ -41,6 +41,10 @@ public class MinijuegoFotografia : MonoBehaviour
 
     private void Start()
     {
+        Vector3 pos = marco.position;
+        pos.z = 0;
+        marco.position = pos;
+
         marcoPosInicial = marco.position;
         Debug.Log($"Marco posición inicial: {marcoPosInicial}");
 

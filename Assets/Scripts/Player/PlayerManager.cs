@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
 
             if (playerMovement != null)
             {
-                playerMovement.SetCanMove(true);
+                playerMovement.FullResetMovement();
                 playerMovement.enabled = true;
             }
         }
