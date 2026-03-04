@@ -12,6 +12,9 @@ public class MinijuegoLinterna : MonoBehaviour
     [SerializeField] private RectTransform linterna;
     [SerializeField] private float velocidadGraduado = 50f;
 
+    [Header("Referencias")]
+    [SerializeField] private LinternaArrastrable linternaScript;
+
     [Header("Configuración Linterna")]
     [SerializeField] private float radioLinterna = 50f;
     [SerializeField] private float posicionYFija = 0f;
@@ -24,7 +27,7 @@ public class MinijuegoLinterna : MonoBehaviour
 
     [Header("Configuración")]
     [SerializeField] private float tiempoRequerido = 10f;
-    [SerializeField] private string nombreEscenaPrincipal = "SampleScene";
+    [SerializeField] private string nombreEscenaPrincipal = "Main";
 
     private float tiempoAcumulado = 0f;
     private bool minijuegoCompletado = false;
@@ -39,6 +42,9 @@ public class MinijuegoLinterna : MonoBehaviour
         CalcularLimites();
         ConfigurarUI();
         ConfigurarLinterna();
+
+        if (linternaScript != null)
+            linternaScript.SetPuedeMoverse(true);
     }
 
     private void CalcularLimites()
@@ -65,17 +71,17 @@ public class MinijuegoLinterna : MonoBehaviour
         sliderProgreso.value = 0;
         textoTiempo.text = $"{tiempoRequerido:F0}s";
         feedbackText.text = "Sigue al graduado con la linterna";
-        textoInstrucciones.text = "Mueve el mouse horizontalmente";
+        textoInstrucciones.text = "Mueve la linterna con clic izquierdo";
     }
 
     private void ConfigurarLinterna()
     {
-        Image imagenLinterna = linterna.GetComponent<Image>();
-        if (imagenLinterna != null)
+        if (linternaScript != null)
         {
-            imagenLinterna.color = new Color(1, 1, 1, 0.2f);
+            Color colorLinterna = new Color(1, 1, 1, 0.2f);
+            linternaScript.ConfigurarLinterna(radioLinterna, colorLinterna);
         }
-        linterna.sizeDelta = new Vector2(radioLinterna * 2, radioLinterna * 2);
+
         linterna.anchoredPosition = new Vector2(0, posicionYFija);
     }
 
@@ -84,7 +90,6 @@ public class MinijuegoLinterna : MonoBehaviour
         if (minijuegoCompletado) return;
 
         MoverGraduado();
-        ActualizarPosicionLinterna();
         VerificarDeteccion();
 
         if (graduado.anchoredPosition.x <= limiteIzquierdo)
@@ -99,22 +104,9 @@ public class MinijuegoLinterna : MonoBehaviour
         posicion.x -= velocidadGraduado * Time.deltaTime;
         graduado.anchoredPosition = posicion;
     }
-
-    private void ActualizarPosicionLinterna()
+    public float ObtenerLimiteXLinterna()
     {
-        if (Mouse.current != null)
-        {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                graduado.parent as RectTransform,
-                mousePos,
-                null,
-                out Vector2 posicionMouse
-            );
-            float nuevaX = Mathf.Clamp(posicionMouse.x, -limiteXLinterna, limiteXLinterna);
-            linterna.anchoredPosition = new Vector2(nuevaX, posicionYFija);
-        }
+        return limiteXLinterna;
     }
 
     private void VerificarDeteccion()

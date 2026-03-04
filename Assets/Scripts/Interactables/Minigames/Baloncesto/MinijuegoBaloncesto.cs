@@ -2,82 +2,119 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class MinijuegoBaloncesto : MonoBehaviour, IInteractuable, IMinigame
+public class MinijuegoBaloncesto : MonoBehaviour
 {
-    [Header("Panel UI")]
-    [SerializeField] private GameObject panel;
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
     [SerializeField] private TextMeshProUGUI textoIntentos;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoFuerza;
+    [SerializeField] private RectTransform barraFuerza;
 
     [Header("Elementos")]
     [SerializeField] private RectTransform flecha;
-    [SerializeField] private GameObject balonPrefab; 
+    [SerializeField] private GameObject balonPrefab;
+    [SerializeField] private Transform puntoLanzamiento;
     [SerializeField] private Aro aro;
 
     [Header("Configuración")]
-    [SerializeField] private float fuerzaMin = 15f;
-    [SerializeField] private float fuerzaMax = 40f;
-    [SerializeField] private float tiempoCarga = 1.5f;
+    [SerializeField] private float fuerzaMin = 0f;
+    [SerializeField] private float fuerzaMax = 5f; 
+    [SerializeField] private float velocidadCarga = 2f;
+    [SerializeField] private float anguloMin = 30f;
+    [SerializeField] private float anguloMax = 70f;
+    [SerializeField] private float velocidadRotacion = 40f;
     [SerializeField] private int canastasRequeridas = 3;
     [SerializeField] private int intentosMaximos = 6;
-    [SerializeField] private int minigameIndex = 5;
+    [SerializeField] private string nombreEscenaPrincipal = "Main";
 
     private PlayerControls playerControls;
-    private PlayerMovement playerMovement;
-    private bool enJuego = false;
     private int canastas = 0;
     private int intentos;
+    private float anguloActual = 45f;
+    private float fuerzaActual = 8f;
     private bool cargando = false;
-    private float fuerzaActual = 5f;
-    private GameObject balonActual; 
+    private bool minijuegoCompletado = false;
+    private int direccionFuerza = 1;
 
-    private void Awake()
+    private void Start()
     {
-        panel.SetActive(false);
+        playerControls = InputHandler.Instance.GetControls();
+        InicializarJuego();
+    }
+
+    private void InicializarJuego()
+    {
+        canastas = 0;
+        intentos = intentosMaximos;
+        anguloActual = 45f;
+        fuerzaActual = fuerzaMin;
+
+        textoPuntuacion.text = $"0/{canastasRequeridas}";
+        textoIntentos.text = intentos.ToString();
+        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
+        flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
+
+        ActualizarBarraFuerza();
     }
 
     private void Update()
     {
-        if (!enJuego) return;
-        if (playerControls == null) return;
+        if (minijuegoCompletado) return;
 
-        // Rotar flecha
+        ProcesarRotacion();
+        ProcesarFuerza();
+    }
+
+    private void ProcesarRotacion()
+    {
         Vector2 move = playerControls.Gameplay.Move.ReadValue<Vector2>();
         if (move.x != 0)
         {
-            float angulo = flecha.rotation.eulerAngles.z;
-            angulo -= move.x * 100f * Time.deltaTime;
-            angulo = Mathf.Clamp(angulo, 20, 70);
-            flecha.rotation = Quaternion.Euler(0, 0, angulo);
+            anguloActual += move.x * velocidadRotacion * Time.deltaTime;
+            anguloActual = Mathf.Clamp(anguloActual, anguloMin, anguloMax);
+            flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
         }
+    }
 
-        // Cargar fuerza con espacio
+    private void ProcesarFuerza()
+    {
         if (playerControls.Gameplay.Compress.WasPressedThisFrame() && !cargando)
         {
             cargando = true;
-            fuerzaActual = fuerzaMin;
+            direccionFuerza = 1;
         }
 
-        if (playerControls.Gameplay.Compress.IsPressed() && cargando)
+        if (cargando)
         {
-            fuerzaActual += (fuerzaMax - fuerzaMin) / tiempoCarga * Time.deltaTime;
-            fuerzaActual = Mathf.Clamp(fuerzaActual, fuerzaMin, fuerzaMax);
+            fuerzaActual += direccionFuerza * velocidadCarga * Time.deltaTime;
 
-            if (textoFuerza != null)
-                textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
+            if (fuerzaActual >= fuerzaMax)
+            {
+                fuerzaActual = fuerzaMax;
+                direccionFuerza = -1;
+            }
+            else if (fuerzaActual <= fuerzaMin)
+            {
+                fuerzaActual = fuerzaMin;
+                direccionFuerza = 1;
+            }
+
+            ActualizarBarraFuerza();
         }
 
         if (playerControls.Gameplay.Compress.WasReleasedThisFrame() && cargando)
         {
             cargando = false;
             Lanzar();
-
-            if (textoFuerza != null)
-                textoFuerza.text = "Fuerza: 5.0";
         }
+    }
+
+    private void ActualizarBarraFuerza()
+    {
+        float progreso = (fuerzaActual - fuerzaMin) / (fuerzaMax - fuerzaMin);
+        barraFuerza.localScale = new Vector3(progreso, 1, 1);
     }
 
     private void Lanzar()
@@ -87,35 +124,42 @@ public class MinijuegoBaloncesto : MonoBehaviour, IInteractuable, IMinigame
         intentos--;
         textoIntentos.text = intentos.ToString();
 
-        // INSTANCIAR NUEVO BALÓN
-        balonActual = Instantiate(balonPrefab, flecha.position, Quaternion.identity, panel.transform);
-
-        float angulo = flecha.rotation.eulerAngles.z;
-        Balon scriptBalon = balonActual.GetComponent<Balon>();
+        GameObject balon = Instantiate(balonPrefab, flecha.position, Quaternion.identity);
+        Balon scriptBalon = balon.GetComponent<Balon>();
 
         if (scriptBalon != null)
         {
+            float angulo = flecha.rotation.eulerAngles.z;
             scriptBalon.Lanzar(angulo, fuerzaActual);
-            Debug.Log($"Balón instanciado - Ángulo: {angulo}, Fuerza: {fuerzaActual}"); // ← PARA VERIFICAR
         }
-        else
+
+        if (intentos <= 0 && canastas < canastasRequeridas)
         {
-            Debug.LogError("El prefab del balón no tiene el script Balon.cs");
+            StartCoroutine(ReiniciarJuego());
         }
     }
 
-    private IEnumerator Victoria()
+    private IEnumerator ReiniciarJuego()
     {
-        textoInstrucciones.text = "¡VICTORIA!";
-        yield return new WaitForSeconds(1f);
-        CompleteMinigame();
+        textoInstrucciones.text = "¡Sin intentos! Reiniciando...";
+        yield return new WaitForSeconds(1.5f);
+
+        canastas = 0;
+        intentos = intentosMaximos;
+        anguloActual = 45f;
+        fuerzaActual = fuerzaMin;
+
+        textoPuntuacion.text = $"0/{canastasRequeridas}";
+        textoIntentos.text = intentos.ToString();
+        flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
+        ActualizarBarraFuerza();
+        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
     }
+
     public void RegistrarCanasta()
     {
         canastas++;
         textoPuntuacion.text = $"{canastas}/{canastasRequeridas}";
-
-        Debug.Log($"¡Canasta! Total: {canastas}");
 
         if (canastas >= canastasRequeridas)
         {
@@ -123,60 +167,11 @@ public class MinijuegoBaloncesto : MonoBehaviour, IInteractuable, IMinigame
         }
     }
 
-    public void StartMinigame()
+    private IEnumerator Victoria()
     {
-        enJuego = true;
-        canastas = 0;
-        intentos = intentosMaximos;
-        cargando = false;
-        fuerzaActual = fuerzaMin;
-
-        playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(false);
-
-        panel.SetActive(true);
-
-        textoPuntuacion.text = $"0/{canastasRequeridas}";
-        textoIntentos.text = intentos.ToString();
-        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Cargar y soltar";
-        textoFuerza.text = "Fuerza: 5.0";
-
-        flecha.rotation = Quaternion.Euler(0, 0, 45);
+        minijuegoCompletado = true;
+        textoInstrucciones.text = "¡VICTORIA!";
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
-
-    public void CompleteMinigame()
-    {
-        enJuego = false;
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(true);
-
-        panel.SetActive(false);
-        GameProgressManager.Instance.CompleteMinigame();
-    }
-
-    public void Interactuar()
-    {
-        if (!PuedeInteractuar()) return;
-        StartMinigame();
-    }
-
-    public bool PuedeInteractuar()
-    {
-        //return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && !enJuego;
-        return !enJuego;
-    }
-
-    public string GetPrompt()
-    {
-        if (!PuedeInteractuar())
-            return "Minijuego completado";
-        return "Jugar al Baloncesto";
-    }
-
-    public Transform GetTransform() => transform;
-    public void FailMinigame() { }
 }

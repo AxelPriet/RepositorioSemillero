@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2607f9e18702b0a4d836fe228f690af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinijuegoBaloncesto
-  panel: {fileID: 856017011}
   textoPuntuacion: {fileID: 668291537}
   textoIntentos: {fileID: 100068550}
   textoInstrucciones: {fileID: 837380797}
@@ -198,7 +197,7 @@ MonoBehaviour:
   tiempoCarga: 1.5
   canastasRequeridas: 3
   intentosMaximos: 6
-  minigameIndex: 5
+  nombreEscenaPrincipal: SampleScene
 --- !u!61 &21828660
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -996,7 +995,7 @@ GameObject:
   - component: {fileID: 451859222}
   - component: {fileID: 451859221}
   - component: {fileID: 451859220}
-  - component: {fileID: 451859219}
+  - component: {fileID: 451859223}
   m_Layer: 6
   m_Name: Minijgame5
   m_TagString: Untagged
@@ -1004,29 +1003,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &451859219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 451859218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392ffba3cfc6654d921ce8a61bcf243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinijuegoLinterna
-  graduado: {fileID: 0}
-  linterna: {fileID: 0}
-  velocidadGraduado: 50
-  radioLinterna: 50
-  posicionYFija: 0
-  sliderProgreso: {fileID: 0}
-  textoTiempo: {fileID: 0}
-  feedbackText: {fileID: 0}
-  textoInstrucciones: {fileID: 0}
-  tiempoRequerido: 10
-  nombreEscenaPrincipal: SampleScene
 --- !u!61 &451859220
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1147,6 +1123,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &451859223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451859218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c39be0dc24ed7d47baee5c141366366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
+  nombreEscena: MiniGame_Aula-Manga
+  mensajePrompt: Iniciar Minijuego
+  idProgreso: 4
 --- !u!1 &452338376
 GameObject:
   m_ObjectHideFlags: 0
