@@ -1,148 +1,179 @@
+using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MinijuegoFotografia : MonoBehaviour,
-    IInteractuable,
-    IMinigame
+public class MinijuegoFotografia : MonoBehaviour
 {
-    [Header("Panel UI")]
-    [SerializeField] private GameObject panel;
-    [SerializeField] private MarcoArrastrable marco;
+    [Header("UI")]
+    [SerializeField] private RectTransform marco;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
+    [SerializeField] private TextMeshProUGUI textoTemporizador;
+    [SerializeField] private Image barraProgreso;
+    [SerializeField] private Image flashImage; 
 
     [Header("Objetivo")]
     [SerializeField] private Transform objetivo;
+    [SerializeField] private float tiempoRequerido = 2f;
+
+    [Header("Referencias")]
+    [SerializeField] private Canvas canvas;
 
     [Header("Configuración")]
-    [SerializeField] private int minigameIndex = 1;
+    [SerializeField] private string nombreEscenaPrincipal = "SampleScene";
 
     private PlayerControls playerControls;
-    private PlayerMovement playerMovement;
-
+    private MarcoArrastrable marcoScript;
     private Vector3 marcoPosInicial;
-    private bool enJuego = false;
-    private bool puedeTomarFoto = false;
-
-    // ================================
-    // INICIALIZACIÓN
-    // ================================
+    private float tiempoAcumulado = 0f;
+    private bool puedeTomarFoto = true;
+    private bool fotoTomada = false;
 
     private void Awake()
     {
-        panel.SetActive(false);
+        marcoScript = marco.GetComponent<MarcoArrastrable>();
+        if (marcoScript == null)
+            marcoScript = marco.gameObject.AddComponent<MarcoArrastrable>();
     }
 
     private void Start()
     {
-        if (marco != null)
-        {
-            marcoPosInicial = marco.transform.position;
-        }
-    }
-
-    // ================================
-    // INICIAR MINIJUEGO
-    // ================================
-
-    public void StartMinigame()
-    {
-        enJuego = true;
+        marcoPosInicial = marco.position;
+        Debug.Log($"Marco posición inicial: {marcoPosInicial}");
 
         playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
-
-        playerMovement.SetCanMove(false);
-
-        panel.SetActive(true);
-
-        marco.transform.position = marcoPosInicial;
-        marco.SetPuedeMoverse(true);
-
-        textoInstrucciones.text = "Encuadra el objetivo y presiona ESPACIO para tomar la foto";
-        puedeTomarFoto = true;
-
-        playerControls.Gameplay.Compress.performed -= OnTomarFoto;
         playerControls.Gameplay.Compress.performed += OnTomarFoto;
+
+        marcoScript.SetPuedeMoverse(true);
+        Debug.Log("Marco puede moverse: true");
+
+        if (flashImage != null)
+            flashImage.gameObject.SetActive(false);
+
+        ActualizarUI();
     }
 
-    // ================================
-    // TOMAR FOTO
-    // ================================
-
-    private void OnTomarFoto(InputAction.CallbackContext context)
+    private void Update()
     {
-        if (!puedeTomarFoto) return;
+        if (!puedeTomarFoto || fotoTomada) return;
 
-        Vector3 objetivoWorldPos = objetivo.position;
+        bool dentro = EstaObjetivoEnMarco();
 
-        // Obtener los límites del marco
-        RectTransform marcoRect = marco.GetComponent<RectTransform>();
-        Vector3[] esquinas = new Vector3[4];
-        marcoRect.GetWorldCorners(esquinas);
-
-        Rect rectMarco = new Rect(
-            esquinas[0].x,
-            esquinas[0].y,
-            esquinas[2].x - esquinas[0].x,
-            esquinas[2].y - esquinas[0].y
-        );
-
-        bool dentro = rectMarco.Contains(objetivoWorldPos);
+        Color colorMarco = dentro ? Color.green : Color.white;
+        marco.GetComponent<Image>().color = colorMarco;
 
         if (dentro)
         {
-            CompleteMinigame();
+            tiempoAcumulado += Time.deltaTime;
+
+            float progreso = tiempoAcumulado / tiempoRequerido;
+            if (barraProgreso != null)
+                barraProgreso.fillAmount = progreso;
+
+            float tiempoRestante = tiempoRequerido - tiempoAcumulado;
+            textoTemporizador.text = $"{tiempoRestante:F1}s";
+
+            if (tiempoAcumulado >= tiempoRequerido && !fotoTomada)
+            {
+                StartCoroutine(TomarFotoExitosa());
+            }
         }
         else
         {
-            marco.transform.position = marcoPosInicial;
-            textoInstrucciones.text = "Intenta de nuevo y presiona ESPACIO";
+            tiempoAcumulado = Mathf.Max(0, tiempoAcumulado - Time.deltaTime * 2f);
+
+            if (barraProgreso != null)
+                barraProgreso.fillAmount = tiempoAcumulado / tiempoRequerido;
+
+            textoTemporizador.text = $"{tiempoRequerido:F0}s";
         }
     }
 
-    // ================================
-    // COMPLETAR MINIJUEGO
-    // ================================
-
-    public void CompleteMinigame()
+    private bool EstaObjetivoEnMarco()
     {
-        puedeTomarFoto = false;
-        marco.SetPuedeMoverse(false);
-        playerControls.Gameplay.Compress.performed -= OnTomarFoto;
-        playerMovement.SetCanMove(true);
-        panel.SetActive(false);
-        enJuego = false;
-        GameProgressManager.Instance.CompleteMinigame();
-        Debug.Log("Minijuego Fotografía completado");
+        if (objetivo == null || marco == null) return false;
+
+        Vector3 objetivoScreenPos = Camera.main.WorldToScreenPoint(objetivo.position);
+
+        Camera camaraCanvas = canvas.worldCamera;
+        if (camaraCanvas == null) camaraCanvas = Camera.main;
+
+        RectTransform marcoRect = marco;
+        Vector3[] esquinas = new Vector3[4];
+        marcoRect.GetWorldCorners(esquinas);
+
+        Vector2[] esquinasPantalla = new Vector2[4];
+        for (int i = 0; i < 4; i++)
+        {
+            esquinasPantalla[i] = camaraCanvas.WorldToScreenPoint(esquinas[i]);
+        }
+
+        float minX = Mathf.Min(esquinasPantalla[0].x, esquinasPantalla[1].x, esquinasPantalla[2].x, esquinasPantalla[3].x);
+        float minY = Mathf.Min(esquinasPantalla[0].y, esquinasPantalla[1].y, esquinasPantalla[2].y, esquinasPantalla[3].y);
+        float maxX = Mathf.Max(esquinasPantalla[0].x, esquinasPantalla[1].x, esquinasPantalla[2].x, esquinasPantalla[3].x);
+        float maxY = Mathf.Max(esquinasPantalla[0].y, esquinasPantalla[1].y, esquinasPantalla[2].y, esquinasPantalla[3].y);
+
+        Rect rectMarco = new Rect(minX, minY, maxX - minX, maxY - minY);
+
+        return rectMarco.Contains(new Vector2(objetivoScreenPos.x, objetivoScreenPos.y));
     }
 
-    // ================================
-    // INTERACCIÓN
-    // ================================
-
-    public void Interactuar()
+    private IEnumerator TomarFotoExitosa()
     {
-        if (!PuedeInteractuar()) return;
-        StartMinigame();
+        fotoTomada = true;
+        marcoScript.SetPuedeMoverse(false);
+
+        if (flashImage != null)
+        {
+            flashImage.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            flashImage.gameObject.SetActive(false);
+        }
+
+        textoInstrucciones.text = "¡Foto perfecta!";
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+
     }
 
-    public bool PuedeInteractuar()
+    private void OnTomarFoto(InputAction.CallbackContext context)
     {
-        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && !enJuego;
+        if (!puedeTomarFoto || fotoTomada) return;
+
+        if (EstaObjetivoEnMarco())
+        {
+            StartCoroutine(TomarFotoExitosa());
+        }
+        else
+        {
+            StartCoroutine(FeedbackError());
+        }
     }
 
-    public string GetPrompt()
+    private IEnumerator FeedbackError()
     {
-        if (!PuedeInteractuar())
-            return "Minijuego completado";
-        return "Iniciar Fotografía";
+        marco.GetComponent<Image>().color = Color.red;
+        textoInstrucciones.text = "¡No está encuadrado!";
+        yield return new WaitForSeconds(0.5f);
+        marco.GetComponent<Image>().color = Color.white;
+        textoInstrucciones.text = "Encuadra el objetivo " + tiempoRequerido + " segundos";
     }
 
-    public Transform GetTransform()
+    private void ActualizarUI()
     {
-        return transform;
+        textoInstrucciones.text = "Encuadra el objetivo " + tiempoRequerido + " segundos";
+        textoTemporizador.text = $"{tiempoRequerido:F0}s";
+        if (barraProgreso != null)
+            barraProgreso.fillAmount = 0;
     }
 
-    public void FailMinigame() { }
+    private void OnDestroy()
+    {
+        if (playerControls != null)
+            playerControls.Gameplay.Compress.performed -= OnTomarFoto;
+    }
 }

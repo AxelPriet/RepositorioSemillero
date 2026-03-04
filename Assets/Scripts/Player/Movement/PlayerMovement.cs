@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
     private bool isRunning = false;
     private float currentSpeed;
+    private InputHandler inputHandler;
 
     private void Awake()
     {
@@ -28,15 +29,25 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = walkSpeed;
     }
 
+    private void Start()
+    {
+        inputHandler = InputHandler.Instance;
+    }
+
     private void Update()
     {
         if (!canMove) return;
 
-        isRunning = InputHandler.Instance.IsRunning(); 
+        if (inputHandler == null)
+        {
+            inputHandler = InputHandler.Instance;
+            if (inputHandler == null) return; 
+        }
 
+        isRunning = inputHandler.IsRunning();
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        Vector2 currentInput = InputHandler.Instance.GetMoveInput();
+        Vector2 currentInput = inputHandler.GetMoveInput();
 
         if (!isMoving && currentInput != Vector2.zero)
         {
@@ -46,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCanMove(bool value)
     {
+        Debug.Log($"SetCanMove({value}) llamado");
         canMove = value;
         if (!canMove)
             moveInput = Vector2.zero;
@@ -95,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float elapsedTime = 0f;
-        float moveDuration = 1f / currentSpeed; 
+        float moveDuration = 1f / currentSpeed;
 
         while (elapsedTime < 1f)
         {

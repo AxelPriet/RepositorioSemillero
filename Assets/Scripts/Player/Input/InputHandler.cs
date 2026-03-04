@@ -10,7 +10,10 @@ public class InputHandler : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
         {
             Destroy(gameObject);
@@ -22,25 +25,28 @@ public class InputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        playerControls.Gameplay.Enable();
+        if (playerControls != null)
+            playerControls.Gameplay.Enable();
     }
 
     private void OnDisable()
     {
-        playerControls.Gameplay.Disable();
+        if (playerControls != null)
+            playerControls.Gameplay.Disable();
     }
 
     public Vector2 GetMoveInput()
     {
-        return playerControls.Gameplay.Move.ReadValue<Vector2>();
+        return playerControls?.Gameplay.Move.ReadValue<Vector2>() ?? Vector2.zero;
     }
 
     public PlayerControls GetControls()
     {
         return playerControls;
     }
+
     public bool IsRunning()
     {
-        return playerControls.Gameplay.Run.IsPressed(); 
+        return playerControls != null && playerControls.Gameplay.Run.IsPressed();
     }
 }

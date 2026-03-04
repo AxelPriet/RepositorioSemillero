@@ -6,11 +6,32 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Inicio.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/prueba.unity
+    path: Assets/Scenes/Main.unity
     guid: ee977bb33d7cada4785f506129716cdb
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_RCP.unity
+    guid: f7ca1f9d7a254aa4faa28011939115e6
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Aula-Magna.unity
+    guid: fad0f0dba4c69be4095058a8803ea149
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Baloncesto.unity
+    guid: 33378ea278d532747b5f108cbc5c92a6
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_CEM_Croma.unity
+    guid: 2a3ba67b88f328b45ab7226d4ce3e8a1
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_CEM_Fotografia.unity
+    guid: a79e7aaceb9931c4198878e1f21772ff
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_IlustratorBuho.unity
+    guid: ad90a3ed099760e46b6694023293e1ca
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_CEM_Radio.unity
+    guid: 1df3d9a23c0087b4fb8e162201bfcc41
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

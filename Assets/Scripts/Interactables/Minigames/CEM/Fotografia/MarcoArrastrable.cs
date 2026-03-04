@@ -4,6 +4,14 @@ using UnityEngine.EventSystems;
 public class MarcoArrastrable : MonoBehaviour, IDragHandler
 {
     private bool puedeMoverse = false;
+    private RectTransform rectTransform;
+    private Canvas canvas;
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
+    }
 
     public void SetPuedeMoverse(bool estado)
     {
@@ -12,9 +20,16 @@ public class MarcoArrastrable : MonoBehaviour, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (puedeMoverse)
-        {
-            transform.position += (Vector3)eventData.delta;
-        }
+        if (!puedeMoverse) return;
+
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            eventData.position,
+            canvas.worldCamera,
+            out pos
+        );
+
+        rectTransform.anchoredPosition = pos;
     }
 }

@@ -27,19 +27,25 @@ public class CameraFollow : MonoBehaviour
     private void LateUpdate()
     {
         if (target == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                target = player.transform;
+            else
+                return;
+        }
+
+        if (!target.gameObject.activeInHierarchy)
             return;
 
-        
         Vector3 targetPosition = target.position + offset;
 
-        
         if (useBounds)
         {
             targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
             targetPosition.y = Mathf.Clamp(targetPosition.y, minBounds.y, maxBounds.y);
         }
 
-        
         transform.position = Vector3.SmoothDamp(
             transform.position,
             targetPosition,
@@ -48,7 +54,6 @@ public class CameraFollow : MonoBehaviour
         );
     }
 
-    
     public void SetBounds(Vector2 min, Vector2 max)
     {
         minBounds = min;
@@ -62,7 +67,6 @@ public class CameraFollow : MonoBehaviour
         useBounds = false;
     }
 
-    
     private void OnDrawGizmosSelected()
     {
         if (useBounds)

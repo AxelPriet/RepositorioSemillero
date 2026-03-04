@@ -1,18 +1,19 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
+public class MinijuegoRCP : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject panel;
     public RectTransform indicador;
     public RectTransform zonaVerde;
     [SerializeField] private TMPro.TextMeshProUGUI textoPuntos;
     [SerializeField] private TMPro.TextMeshProUGUI textoErrores;
+    [SerializeField] private GameObject panelInstrucciones;
 
     [Header("Configuración")]
-    public float velocidad = 200f;
+    public float velocidad = 700f;
     public int puntosNecesarios = 5;
     [SerializeField] private float tiempoPausa = 0.3f;
 
@@ -22,30 +23,34 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
     private int puntos = 0;
     private int errores = 0;
     private bool enPausa = false;
+    private bool juegoActivo = true;
 
-    private InputHandler inputHandler;
     private PlayerControls playerControls;
-    private PlayerMovement playerMovement;
-
-    [SerializeField] private int minigameIndex = 0;
 
     void Start()
     {
         float alturaBarra = ((RectTransform)indicador.parent).rect.height;
         minY = -alturaBarra / 2 + (indicador.rect.height / 2);
         maxY = alturaBarra / 2 - (indicador.rect.height / 2);
-        panel.SetActive(false);
-    }
 
-    private void Awake()
-    {
-        inputHandler = InputHandler.Instance;
+        playerControls = InputHandler.Instance.GetControls();
+        playerControls.Gameplay.Compress.performed += OnCompress;
+
+        ActualizarUI();
+
+        Debug.Log("Minijuego RCP iniciado");
     }
 
     void Update()
     {
-        if (panel.activeSelf)
+        if (juegoActivo)
             MoverIndicador();
+    }
+
+    private void OnDestroy()
+    {
+        if (playerControls != null)
+            playerControls.Gameplay.Compress.performed -= OnCompress;
     }
 
     private void ActualizarUI()
@@ -54,72 +59,9 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
         textoErrores.text = "Errores: " + errores;
     }
 
-    public void Interactuar()
-    {
-        if (!PuedeInteractuar()) return;
-        StartMinigame();
-    }
-
-    public string GetPrompt()
-    {
-        if (!PuedeInteractuar())
-            return "Minijuego completado";
-        return "Iniciar RCP";
-    }
-
-    public bool PuedeInteractuar()
-    {
-        return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && panel.activeSelf == false;
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
-    }
-
-    public void StartMinigame()
-    {
-        playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(false);
-
-        panel.SetActive(true);
-
-        puntos = 0;
-        errores = 0;
-        ActualizarUI();
-
-        playerControls.Gameplay.Compress.performed += OnCompress;
-    }
-
-    public void CompleteMinigame()
-    {
-        playerControls.Gameplay.Compress.performed -= OnCompress;
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(true);
-
-        panel.SetActive(false);
-        GameProgressManager.Instance.CompleteMinigame();
-        Debug.Log("Minijuego completado, puedes pasar al siguiente");
-    }
-
-    public void FailMinigame()
-    {
-        playerControls.Gameplay.Compress.performed -= OnCompress;
-
-        if (playerMovement != null)
-            playerMovement.SetCanMove(true);
-
-        panel.SetActive(false);
-        Debug.Log("Minijuego fallido, debes intentarlo de nuevo para avanzar");
-    }
-
     private void OnCompress(InputAction.CallbackContext context)
     {
-        if (panel.activeSelf && !enPausa)
+        if (juegoActivo && !enPausa)
             VerificarZona();
     }
 
@@ -133,13 +75,12 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
         {
             puntos++;
             Debug.Log("¡Buena compresión! Puntos: " + puntos);
-
             StartCoroutine(PausaIndicador());
             ActualizarUI();
 
             if (puntos >= puntosNecesarios)
             {
-                CompleteMinigame();
+                StartCoroutine(CompletarMinijuego());
             }
         }
         else
@@ -150,7 +91,7 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
 
             if (errores >= 3)
             {
-                FailMinigame();
+                StartCoroutine(FallarMinijuego());
             }
         }
     }
@@ -181,5 +122,27 @@ public class MinijuegoRCP : MonoBehaviour, IInteractuable, IMinigame
         enPausa = true;
         yield return new WaitForSeconds(tiempoPausa);
         enPausa = false;
+    }
+
+    private IEnumerator CompletarMinijuego()
+    {
+        juegoActivo = false;
+        textoPuntos.text = "¡COMPLETADO!";
+        textoErrores.text = "¡Bien hecho!";
+
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
+
+    private IEnumerator FallarMinijuego()
+    {
+        juegoActivo = false;
+        textoPuntos.text = "¡INTÉNTALO";
+        textoErrores.text = "DE NUEVO!";
+
+        yield return new WaitForSeconds(1.5f);
+
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
 }

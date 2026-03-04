@@ -13,26 +13,38 @@ public class NPCDialogue : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        BuscarPlayer();
     }
 
     void Update()
     {
+        if (player == null)
+        {
+            BuscarPlayer(); 
+            if (player == null) return; 
+        }
+
         float distance = Vector2.Distance(transform.position, player.position);
         bool isInside = distance <= interactionDistance;
 
         if (isInside && !wasInside)
         {
-            // Entró al rango - mostrar diálogo
             wasInside = true;
             ShowRandomDialogue();
         }
         else if (!isInside && wasInside)
         {
-            // Salió del rango - ocultar inmediatamente
             wasInside = false;
-            DialogueManager.Instance.HideDialogue();
+            if (DialogueManager.Instance != null)
+                DialogueManager.Instance.HideDialogue();
         }
+    }
+
+    void BuscarPlayer()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
     }
 
     void ShowRandomDialogue()
@@ -41,6 +53,8 @@ public class NPCDialogue : MonoBehaviour
 
         int randomIndex = Random.Range(0, dialogues.Length);
         currentDialogue = dialogues[randomIndex];
-        DialogueManager.Instance.ShowDialogue(currentDialogue);
+
+        if (DialogueManager.Instance != null)
+            DialogueManager.Instance.ShowDialogue(currentDialogue);
     }
 }
