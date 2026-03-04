@@ -1,36 +1,35 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class MinijuegoBuho : MonoBehaviour, IInteractuable, IMinigame
+public class MinijuegoBuho : MonoBehaviour
 {
-    [Header("Panel UI")]
-    [SerializeField] private GameObject panel;
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI textoPuntuacion;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoFeedback;
 
     [Header("Configuración")]
-    [SerializeField] private int totalPuntos = 6;
-    [SerializeField] private int minigameIndex = 6;
+    [SerializeField] private int totalPiezas = 6;
+    [SerializeField] private string nombreEscenaPrincipal = "Main";
 
-    private PlayerControls playerControls;
-    private PlayerMovement playerMovement;
-    private bool enJuego = false;
     private int piezasColocadas = 0;
+    private bool minijuegoCompletado = false;
 
-    private void Awake()
+    private void Start()
     {
-        panel.SetActive(false);
+        textoPuntuacion.text = $"0/{totalPiezas}";
+        textoInstrucciones.text = "Arrastra las piezas a la silueta";
     }
 
     public void PiezaColocada()
     {
-        if (!enJuego) return;
+        if (minijuegoCompletado) return;
 
         piezasColocadas++;
-        textoFeedback.text = $"¡Bien! {piezasColocadas}/{totalPuntos}";
+        textoPuntuacion.text = $"{piezasColocadas}/{totalPiezas}";
 
-        if (piezasColocadas >= totalPuntos)
+        if (piezasColocadas >= totalPiezas)
         {
             StartCoroutine(CompletarMinijuego());
         }
@@ -38,60 +37,9 @@ public class MinijuegoBuho : MonoBehaviour, IInteractuable, IMinigame
 
     private IEnumerator CompletarMinijuego()
     {
-        textoFeedback.text = "¡BÚHO COMPLETADO!";
-        textoInstrucciones.text = "¡Felicidades!";
-        yield return new WaitForSeconds(1f);
-        CompleteMinigame();
+        minijuegoCompletado = true;
+        textoInstrucciones.text = "¡BÚHO COMPLETADO!";
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
-
-    public void StartMinigame()
-    {
-        enJuego = true;
-        piezasColocadas = 0;
-
-        playerControls = InputHandler.Instance.GetControls();
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
-        playerMovement?.SetCanMove(false);
-
-        panel.SetActive(true);
-
-        textoInstrucciones.text = "Arrastra las piezas a la silueta";
-        textoFeedback.text = $"Piezas: 0/{totalPuntos}";
-
-        // Limpiar puntos ocupados
-        foreach (var punto in FindObjectsByType<PuntoOcupado>(FindObjectsSortMode.None))
-        {
-            Destroy(punto);
-        }
-    }
-
-    public void CompleteMinigame()
-    {
-        enJuego = false;
-        playerMovement?.SetCanMove(true);
-        panel.SetActive(false);
-        GameProgressManager.Instance.CompleteMinigame();
-    }
-
-    public void Interactuar()
-    {
-        if (!PuedeInteractuar()) return;
-        StartMinigame();
-    }
-
-    public bool PuedeInteractuar()
-    {
-        //return GameProgressManager.Instance.CanPlayMinigame(minigameIndex) && !enJuego;
-        return !enJuego;
-    }
-
-    public string GetPrompt()
-    {
-        if (!PuedeInteractuar())
-            return "Minijuego completado";
-        return "Armar Búho";
-    }
-
-    public Transform GetTransform() => transform;
-    public void FailMinigame() { }
 }
