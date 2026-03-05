@@ -7,6 +7,7 @@ public class BalonPorteria : MonoBehaviour
     private float porteroX;
     private float porteroY;
     private bool golMarcado = false;
+    private bool atajado = false;
 
     private void Awake()
     {
@@ -20,8 +21,9 @@ public class BalonPorteria : MonoBehaviour
         posicionPortero = posPortero;
 
         float anguloRad = angulo * Mathf.Deg2Rad;
+
         Vector2 direccion = new Vector2(
-            Mathf.Tan(anguloRad),
+            -Mathf.Tan(anguloRad),
             Mathf.Cos(anguloRad)
         );
 
@@ -31,25 +33,57 @@ public class BalonPorteria : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (golMarcado) return;
+        if (golMarcado || atajado) return;
 
-        string zona = other.tag; 
-
-        bool porteroEnZona = false;
-
-        if (zona == "Izquierda" && porteroX < -100f)
-            porteroEnZona = true;
-        else if (zona == "Centro" && Mathf.Abs(porteroX) < 100f)
-            porteroEnZona = true;
-        else if (zona == "Derecha" && porteroX > 100f)
-            porteroEnZona = true;
-
-        if (!porteroEnZona)
+        if (other.gameObject.name == "Portero")
         {
-            golMarcado = true;
-            FindFirstObjectByType<MiniGamePorteria>()?.RegistrarGol(zona);
+            atajado = true;
+            Debug.Log("¡Atajado!");
+            Destroy(gameObject);
+            return;
         }
 
-        Destroy(gameObject, 0.1f);
+        if (other.gameObject.name == "ZonaIzquierda")
+        {
+            if (posicionPortero < -100f)
+            {
+                Debug.Log("Atajado a la izquierda");
+                Destroy(gameObject);
+            }
+            else
+            {
+                golMarcado = true;
+                FindFirstObjectByType<MiniGamePorteria>()?.RegistrarGol("izquierda");
+                Destroy(gameObject);
+            }
+        }
+        else if (other.gameObject.name == "ZonaCentro")
+        {
+            if (Mathf.Abs(posicionPortero) > 100f)
+            {
+                Debug.Log("Atajado al centro");
+                Destroy(gameObject);
+            }
+            else
+            {
+                golMarcado = true;
+                FindFirstObjectByType<MiniGamePorteria>()?.RegistrarGol("centro");
+                Destroy(gameObject);
+            }
+        }
+        else if (other.gameObject.name == "ZonaDerecha")
+        {
+            if (posicionPortero > 100f)
+            {
+                Debug.Log("Atajado a la derecha");
+                Destroy(gameObject);
+            }
+            else
+            {
+                golMarcado = true;
+                FindFirstObjectByType<MiniGamePorteria>()?.RegistrarGol("derecha");
+                Destroy(gameObject);
+            }
+        }
     }
 }

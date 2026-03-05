@@ -94,6 +94,7 @@ public class MiniGamePorteria : MonoBehaviour
         {
             anguloActual += move.x * 100f * Time.deltaTime;
             anguloActual = Mathf.Clamp(anguloActual, anguloMin, anguloMax);
+
             flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
         }
     }

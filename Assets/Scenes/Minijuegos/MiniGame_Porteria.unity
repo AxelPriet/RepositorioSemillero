@@ -211,50 +211,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &206563140
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 206563142}
-  - component: {fileID: 206563141}
-  m_Layer: 0
-  m_Name: input
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &206563141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206563140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db2df48bfa1144d4dab372765a1a58ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputHandler
---- !u!4 &206563142
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206563140}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.57697, y: -0.04044, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &369849619
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,11 +376,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1367810634}
+  m_Father: {fileID: 1893984645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.446}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6, y: 36.07997}
+  m_AnchoredPosition: {x: 0.39999986, y: -161.20001}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &642581266
@@ -589,8 +545,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 617014314}
+  m_Children: []
   m_Father: {fileID: 1893984645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -748,12 +703,12 @@ MonoBehaviour:
   balonPrefab: {fileID: 14879447832783321, guid: 78a8d4ca8d5a55b4789780ec4dda50e3, type: 3}
   puntoLanzamiento: {fileID: 617014314}
   portero: {fileID: 1784492004}
-  velocidadPortero: 2
+  velocidadPortero: 800
   fuerzaMin: 5
   fuerzaMax: 15
   anguloMin: -50
   anguloMax: 50
-  golesRequeridos: 50
+  golesRequeridos: 3
   intentosMaximos: 3
   nombreEscenaPrincipal: Main
 --- !u!4 &1495177040
@@ -1267,7 +1222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 142, y: 52}
+  m_AnchoredPosition: {x: 134.2, y: 52}
   m_SizeDelta: {x: 62.71, y: 128.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1784492005
@@ -1390,6 +1345,7 @@ RectTransform:
   - {fileID: 1784492004}
   - {fileID: 642581267}
   - {fileID: 1367810634}
+  - {fileID: 617014314}
   - {fileID: 1614194594}
   - {fileID: 1894553163}
   - {fileID: 369849620}
@@ -1704,4 +1660,3 @@ SceneRoots:
   - {fileID: 1893984645}
   - {fileID: 1670889078}
   - {fileID: 1495177040}
-  - {fileID: 206563142}

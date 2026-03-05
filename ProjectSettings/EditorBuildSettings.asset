@@ -32,6 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuegos/CEM/MiniGame_CEM_Radio.unity
     guid: 1df3d9a23c0087b4fb8e162201bfcc41
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Porteria.unity
+    guid: a129245dde0bf0a4fb4c6b9b4258fd38
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Temperatura.unity
+    guid: 530a347ff47c08b47a645bf80df22b89
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
