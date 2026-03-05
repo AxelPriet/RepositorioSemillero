@@ -44,7 +44,6 @@ public class BalonPorteria : MonoBehaviour
         else if (zona == "Derecha" && porteroX > 100f)
             porteroEnZona = true;
 
-        // Si el portero NO está en la zona, es gol
         if (!porteroEnZona)
         {
             golMarcado = true;
