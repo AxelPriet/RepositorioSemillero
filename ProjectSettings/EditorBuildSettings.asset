@@ -38,6 +38,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuegos/MiniGame_Temperatura.unity
     guid: 530a347ff47c08b47a645bf80df22b89
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Dibujo.unity
+    guid: 2147270967815a848a1094088d9bedca
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Soluciones.unity
+    guid: 75121f1bc04d213418391abfe8c8843d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
