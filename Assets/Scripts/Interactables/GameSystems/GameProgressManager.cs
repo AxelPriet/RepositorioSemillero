@@ -1,33 +1,67 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameProgressManager : MonoBehaviour
 {
     public static GameProgressManager Instance;
 
-    [SerializeField] private int currentMinigameIndex = 0;
+    [SerializeField] private int totalMinijuegos = 18; 
+    private bool[] minijuegosCompletados;
 
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+            InicializarProgreso();
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
-    public bool CanPlayMinigame(int index)
+    private void InicializarProgreso()
     {
-        return index == currentMinigameIndex;
+        minijuegosCompletados = new bool[totalMinijuegos];
+
+        for (int i = 0; i < totalMinijuegos; i++)
+        {
+            minijuegosCompletados[i] = PlayerPrefs.GetInt($"Minijuego_{i}", 0) == 1;
+        }
     }
 
-    public void CompleteMinigame()
+    public bool PuedeJugar(int index)
     {
-        currentMinigameIndex++;
-        CarnetManager.Instance.AddCarnetPiece();
+        return !minijuegosCompletados[index];
     }
 
-    public int GetCurrentIndex()
+    public void CompletarMinijuego(int index)
     {
-        return currentMinigameIndex;
+        if (!minijuegosCompletados[index])
+        {
+            minijuegosCompletados[index] = true;
+            PlayerPrefs.SetInt($"Minijuego_{index}", 1);
+            PlayerPrefs.Save();
+
+            CarnetManager.Instance?.AddCarnetPiece();
+
+            Debug.Log($"Minijuego {index} completado. Progreso guardado.");
+        }
+    }
+
+    public bool EstaCompletado(int index)
+    {
+        return minijuegosCompletados[index];
+    }
+
+    public int ObtenerProgreso()
+    {
+        int completados = 0;
+        foreach (bool completado in minijuegosCompletados)
+        {
+            if (completado) completados++;
+        }
+        return completados;
     }
 }

@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         StartCoroutine(BuscarJugadorInicial());
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -41,12 +42,15 @@ public class PlayerManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log($"Escena cargada: {scene.name}");
+        Time.timeScale = 1f;
         StartCoroutine(ReactivarJugadorProximoFrame(scene));
     }
 
     private IEnumerator ReactivarJugadorProximoFrame(Scene scene)
     {
-        yield return null;
+        yield return null; // Esperar un frame
+        yield return null; // Esperar otro frame para asegurar
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -54,13 +58,21 @@ public class PlayerManager : MonoBehaviour
             jugadorActual = player;
             playerMovement = player.GetComponent<PlayerMovement>();
 
+            // FORZAR ACTIVACIÓN
             jugadorActual.SetActive(true);
+            Debug.Log($"Jugador activado: {jugadorActual.activeInHierarchy}");
 
             if (playerMovement != null)
             {
                 playerMovement.FullResetMovement();
                 playerMovement.enabled = true;
+                playerMovement.SetCanMove(true);
+                Debug.Log("PlayerMovement restaurado");
             }
+        }
+        else
+        {
+            Debug.LogError("No se encontró jugador con tag 'Player' en la escena");
         }
     }
 
@@ -71,6 +83,7 @@ public class PlayerManager : MonoBehaviour
         {
             jugadorActual = player;
             playerMovement = player.GetComponent<PlayerMovement>();
+            Debug.Log("Jugador encontrado y cacheado");
         }
     }
 
@@ -83,6 +96,7 @@ public class PlayerManager : MonoBehaviour
                 movement.SetCanMove(false);
 
             jugadorActual.SetActive(false);
+            Debug.Log("Jugador ocultado");
         }
         else
         {
@@ -103,6 +117,7 @@ public class PlayerManager : MonoBehaviour
                 movement.SetCanMove(true);
                 movement.enabled = true;
             }
+            Debug.Log("Jugador mostrado");
         }
         else
         {

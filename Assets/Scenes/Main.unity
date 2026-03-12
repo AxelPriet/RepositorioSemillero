@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Baloncesto
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 5
+  idMinijuego: 6
 --- !u!1 &57289181
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +349,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57289181}
   m_CullTransparentMesh: 1
+--- !u!114 &77086075 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4831020401266730999, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &145180883
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Soluciones
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 10
+  idMinijuego: 11
 --- !u!61 &145180885
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -532,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a449e42c1100a148bcdf6c23046163c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameProgressManager
-  currentMinigameIndex: 0
+  totalMinijuegos: 19
 --- !u!4 &340220238
 Transform:
   m_ObjectHideFlags: 0
@@ -548,6 +559,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &352541367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8526019386614547609, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &353229156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353229157}
+  - component: {fileID: 353229159}
+  - component: {fileID: 353229158}
+  m_Layer: 5
+  m_Name: Carnet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &353229157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353229156}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1118100869}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -343.2, y: -178}
+  m_SizeDelta: {x: 101, y: 64}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &353229158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353229156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -651917999434551745, guid: 5a3ac01cd4e67c44aa30037eb7f4b8d7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &353229159
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353229156}
+  m_CullTransparentMesh: 1
 --- !u!1 &369780384
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc72c68c9ddf93043917e853b51d81cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarnetManager
-  totalPieces: 4
+  totalPieces: 18
+  textoContador: {fileID: 715033814}
 --- !u!4 &411148820
 Transform:
   m_ObjectHideFlags: 0
@@ -782,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Temperatura
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 8
+  idMinijuego: 9
 --- !u!61 &411637367
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1056,7 +1148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Aula-Magna
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 4
+  idMinijuego: 5
 --- !u!1 &489759416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Atelier
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 12
+  idMinijuego: 13
 --- !u!61 &489759418
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1244,7 +1336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Atelier
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 13
+  idMinijuego: 14
 --- !u!61 &538106752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1568,7 +1660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Sensei
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 14
+  idMinijuego: 15
 --- !u!61 &641654494
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1707,7 +1799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Dibujo
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 9
+  idMinijuego: 10
 --- !u!61 &650994784
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1828,6 +1920,154 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1647932870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &657710997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 635478064204895271, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
+--- !u!1 &715033812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715033813}
+  - component: {fileID: 715033815}
+  - component: {fileID: 715033814}
+  m_Layer: 5
+  m_Name: ProgresoCarnet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &715033813
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715033812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118100869}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -200.7, y: -179.3}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &715033814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715033812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &715033815
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715033812}
+  m_CullTransparentMesh: 1
 --- !u!1 &803602987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +2221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Croma
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 3
+  idMinijuego: 4
 --- !u!1 &817381238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2392,7 +2632,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_IlustratorBuho
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 6
+  idMinijuego: 7
+--- !u!1 &1028841173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028841175}
+  - component: {fileID: 1028841174}
+  m_Layer: 0
+  m_Name: GameManager_Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1028841174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028841173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65d93a2dea2cf44ca6667ed3f8394c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuPausa
+  mainMenu: {fileID: 1118100868}
+  menuOptions: {fileID: 352541367}
+  textoProgresoCarnet: {fileID: 715033814}
+  toggleFullScreen: {fileID: 657710997}
+  sliderVolumen: {fileID: 77086075}
+--- !u!4 &1028841175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028841173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.12942, y: -4.30649, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1039345056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,7 +2715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Gym
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 11
+  idMinijuego: 12
 --- !u!61 &1039345058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2555,6 +2844,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3791468238498906310, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594410475885612902, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      propertyPath: m_Name
+      value: Texto(Menu)
+      objectReference: {fileID: 0}
     - target: {fileID: 6429420367604252495, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2635,6 +2932,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6523300907817334614, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091677893959566185, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526019386614547609, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9141695946375318932, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2645,9 +2954,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2556779529703234884, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 715033813}
+    - targetCorrespondingSourceObject: {fileID: 2556779529703234884, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 353229157}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+--- !u!1 &1118100868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8091677893959566185, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1118100869 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2556779529703234884, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1265204289
 GameObject:
   m_ObjectHideFlags: 0
@@ -2801,7 +3126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_RCP
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 0
+  idMinijuego: 1
 --- !u!1 &1383893941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,7 +3160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Porteria
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 7
+  idMinijuego: 8
 --- !u!61 &1383893943
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3311,7 +3636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Fotografia
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 1
+  idMinijuego: 2
 --- !u!1 &1577897982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4061,7 +4386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Anatomia
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 17
+  idMinijuego: 18
 --- !u!61 &1753882898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4320,7 +4645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Radio
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 2
+  idMinijuego: 3
 --- !u!1 &1814863185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4369,7 +4694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Laboratorio
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 16
+  idMinijuego: 17
 --- !u!61 &1814863188
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4690,7 +5015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Politeca
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 15
+  idMinijuego: 16
 --- !u!61 &1947829684
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4816,3 +5141,4 @@ SceneRoots:
   - {fileID: 340220238}
   - {fileID: 411148820}
   - {fileID: 1935096753}
+  - {fileID: 1028841175}

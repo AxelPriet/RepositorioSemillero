@@ -1,37 +1,124 @@
-using Unity.VectorGraphics;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
-    public GameObject optionsMenu;
-    public GameObject mainMenu;
+    [Header("Paneles")]
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject menuOptions;
 
-    public void OpenOptionsPanel()
+    [Header("Indicador Carnet")]
+    [SerializeField] private TextMeshProUGUI textoProgresoCarnet;
+
+    [Header("Opciones")]
+    [SerializeField] private Toggle toggleFullScreen;
+    [SerializeField] private Slider sliderVolumen;
+
+    private bool menuActivo = false;
+
+    private void Awake()
     {
-        mainMenu.SetActive(false);
-        optionsMenu.SetActive(true);
+        mainMenu?.SetActive(false);
+        menuOptions?.SetActive(false);
+
+        CargarOpciones();
     }
-    public void OpenMainMenuPanel()
+
+    private void Update()
     {
-        mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            ToggleMenu();
+        }
+
+        if (menuActivo && textoProgresoCarnet != null && CarnetManager.Instance != null)
+        {
+            int actual = CarnetManager.Instance.GetCollectedPieces();
+            int total = CarnetManager.Instance.GetTotalPieces();
+            textoProgresoCarnet.text = $"Carnet: {actual}/{total}";
+        }
     }
-    public void QuitGame()
+
+    public void ToggleMenu()
     {
+        menuActivo = !menuActivo;
+
+        if (menuActivo)
+            AbrirMenu();
+        else
+            CerrarMenu();
+    }
+
+    private void AbrirMenu()
+    {
+        Time.timeScale = 0f;
+        mainMenu?.SetActive(true);
+        menuOptions?.SetActive(false);
+    }
+
+    private void CerrarMenu()
+    {
+        Time.timeScale = 1f;
+        mainMenu?.SetActive(false);
+        menuOptions?.SetActive(false);
+    }
+
+    // ===== MÉTODOS PARA BOTONES =====
+
+    public void OnClickPlay()
+    {
+        ToggleMenu();
+    }
+
+    public void OnClickOptions()
+    {
+        mainMenu?.SetActive(false);
+        menuOptions?.SetActive(true);
+    }
+
+    public void OnClickBack()
+    {
+        menuOptions?.SetActive(false);
+        mainMenu?.SetActive(true);
+        GuardarOpciones();
+    }
+
+    public void OnClickExit()
+    {
+        Time.timeScale = 1f;
         Application.Quit();
     }
-    public void PlayGame()
+
+    public void OnToggleFullScreen(bool valor)
     {
-        SceneManager.LoadScene(1);
+        Screen.fullScreen = valor;
     }
 
-    public void ResumeGame()
+    public void OnSliderVolumen(float valor)
     {
-        gameObject.SetActive(false);
+        AudioListener.volume = valor;
     }
-    public void ExitGame()
+
+    private void CargarOpciones()
     {
-        SceneManager.LoadScene(0);
+        if (toggleFullScreen != null)
+            toggleFullScreen.isOn = PlayerPrefs.GetInt("FullScreen", 1) == 1;
+
+        if (sliderVolumen != null)
+            sliderVolumen.value = PlayerPrefs.GetFloat("Volumen", 1f);
+    }
+
+    private void GuardarOpciones()
+    {
+        if (toggleFullScreen != null)
+            PlayerPrefs.SetInt("FullScreen", toggleFullScreen.isOn ? 1 : 0);
+
+        if (sliderVolumen != null)
+            PlayerPrefs.SetFloat("Volumen", sliderVolumen.value);
+
+        PlayerPrefs.Save();
     }
 }

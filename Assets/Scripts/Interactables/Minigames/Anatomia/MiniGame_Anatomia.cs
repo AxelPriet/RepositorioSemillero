@@ -11,6 +11,7 @@ public class MiniGame_Anatomia : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoResultado;
 
     [Header("Configuración")]
+    [SerializeField] private int idMinijuego;
     [SerializeField] private int totalOrganos = 6;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
 
@@ -40,11 +41,14 @@ public class MiniGame_Anatomia : MonoBehaviour
     {
         juegoCompletado = true;
 
-        textoInstrucciones.text = "¡ANATOMÍA COMPLETA!";
+        textoInstrucciones.text = "¡COMPLETADO!";
         textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡COMPLETASTE!";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(1f);
+
+        GameProgressManager.Instance.CompletarMinijuego(idMinijuego);
+
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 {
     [Header("Configuración del Minijuego")]
-    [SerializeField] private string nombreEscena; 
+    [SerializeField] private string nombreEscena;
     [SerializeField] private string mensajePrompt = "Iniciar Minijuego";
-    [SerializeField] private int idProgreso; 
+    [SerializeField] private int idMinijuego; 
 
     private bool minijuegoActivo = false;
 
@@ -14,44 +14,33 @@ public class ActivadorMinijuego : MonoBehaviour, IInteractuable
     {
         if (minijuegoActivo) return;
 
+        if (GameProgressManager.Instance.EstaCompletado(idMinijuego))
+            return;
+
         minijuegoActivo = true;
 
-        PlayerManager.Instance.OcultarJugador();
+        PlayerManager.Instance?.OcultarJugador();
 
-        SceneManager.LoadScene(nombreEscena, LoadSceneMode.Single);
+        Time.timeScale = 1f;
+
+        SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Single);
     }
 
     public string GetPrompt()
     {
+        if (GameProgressManager.Instance.EstaCompletado(idMinijuego))
+            return "Completado ✓";
+
         return mensajePrompt;
     }
 
     public bool PuedeInteractuar()
     {
-        return !minijuegoActivo;
+        return !minijuegoActivo && GameProgressManager.Instance.PuedeJugar(idMinijuego);
     }
 
     public Transform GetTransform()
     {
         return transform;
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Main") 
-        {
-            if (PlayerManager.Instance != null)
-                PlayerManager.Instance.MostrarJugador();
-        }
     }
 }
