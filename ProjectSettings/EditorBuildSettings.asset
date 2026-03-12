@@ -53,6 +53,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuegos/MiniGame_Sensei.unity
     guid: 0378401caba63394c983939288a0d197
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Politeca.unity
+    guid: c3d758e9f6acc8a43a9187875e2db55c
+  - enabled: 1
+    path: Assets/Scenes/Minijuegos/MiniGame_Laboratorio.unity
+    guid: c6c9f386d47094c489f5a148a0583cca
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
