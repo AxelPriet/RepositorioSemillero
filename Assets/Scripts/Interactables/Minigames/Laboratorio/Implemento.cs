@@ -1,8 +1,9 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
 public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -10,6 +11,12 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [SerializeField] private string nombreImplemento;
     [SerializeField] private float distanciaSnap = 50f;
     [SerializeField] private int tamaño;
+
+    [Header("Hover")]
+    [SerializeField] private GameObject panelHoverPrefab;
+
+    private GameObject panelHoverActual;
+    private RectTransform canvasRect;
 
     private RectTransform rectTransform;
     private Canvas canvas;
@@ -33,6 +40,61 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
         posicionInicial = rectTransform.anchoredPosition;
     }
+
+    private void Start()
+    {
+        canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (panelHoverPrefab != null && panelHoverActual == null)
+        {
+            panelHoverActual = Instantiate(panelHoverPrefab, canvasRect);
+
+            TextMeshProUGUI texto = panelHoverActual.GetComponentInChildren<TextMeshProUGUI>();
+            if (texto != null)
+                texto.text = $"{nombreImplemento}\nTamaño: {tamaño}";
+
+            ActualizarPosicionPanel(eventData.position);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (panelHoverActual != null)
+        {
+            Destroy(panelHoverActual);
+            panelHoverActual = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (panelHoverActual != null)
+        {
+            ActualizarPosicionPanel(Mouse.current.position.ReadValue());
+        }
+    }
+
+    private void ActualizarPosicionPanel(Vector2 posicionMouse)
+    {
+        if (panelHoverActual != null && canvasRect != null)
+        {
+            RectTransform panelRect = panelHoverActual.GetComponent<RectTransform>();
+
+            Vector2 posLocal;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect,
+                posicionMouse + new Vector2(20, 20),
+                Camera.main,
+                out posLocal
+            );
+
+            panelRect.anchoredPosition = posLocal;
+        }
+    }
+
     public int Tamaño
     {
         get { return tamaño; }
@@ -40,29 +102,25 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (colocado) return;
-
         canvasGroup.alpha = 0.7f;
         canvasGroup.blocksRaycasts = false;
 
+        // Si estaba en un slot, removerlo
         if (slotActual != null)
         {
-            slotActual.Liberar();
+            slotActual.RemoverImplemento(this);
             slotActual = null;
+            colocado = false;
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (colocado) return;
-
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (colocado) return;
-
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
@@ -72,12 +130,9 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             // Colocar en el slot
             rectTransform.position = slotCercano.transform.position;
-            slotCercano.Ocupar(tamaño, this);
+            slotCercano.AgregarImplemento(this);
             slotActual = slotCercano;
             colocado = true;
-            canvasGroup.blocksRaycasts = false;
-
-            FindFirstObjectByType<MiniGame_Inventario>()?.ImplementoColocado();
         }
         else
         {
@@ -121,14 +176,13 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void Resetear()
     {
+        if (slotActual != null)
+        {
+            slotActual.RemoverImplemento(this);
+            slotActual = null;
+        }
         colocado = false;
         rectTransform.anchoredPosition = posicionInicial;
         canvasGroup.blocksRaycasts = true;
-
-        if (slotActual != null)
-        {
-            slotActual.Liberar();
-            slotActual = null;
-        }
     }
 }

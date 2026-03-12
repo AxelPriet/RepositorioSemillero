@@ -1,16 +1,18 @@
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SlotEstante : MonoBehaviour
 {
     [Header("Configuración")]
-    [SerializeField] private int capacidadTotal = 3;
+    [SerializeField] private int capacidadTotal = 2;
     [SerializeField] private int espacioUsado = 0;
 
     private Image imagenSlot;
     private TextMeshProUGUI textoCapacidad;
-    private Implemento implementoActual = null;
+    private List<Implemento> implementos = new List<Implemento>();
 
     private void Awake()
     {
@@ -20,6 +22,21 @@ public class SlotEstante : MonoBehaviour
         if (imagenSlot != null)
             imagenSlot.color = new Color(1, 1, 1, 0.3f);
 
+        // Crear texto si no existe
+        if (textoCapacidad == null)
+        {
+            GameObject textoObj = new GameObject("TextoCapacidad");
+            textoObj.transform.SetParent(transform, false);
+            textoCapacidad = textoObj.AddComponent<TextMeshProUGUI>();
+            textoCapacidad.fontSize = 24;
+            textoCapacidad.alignment = TextAlignmentOptions.Center;
+            textoCapacidad.color = Color.white;
+
+            RectTransform rect = textoObj.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(100, 50);
+            rect.anchoredPosition = Vector2.zero;
+        }
+
         ActualizarTexto();
     }
 
@@ -28,26 +45,34 @@ public class SlotEstante : MonoBehaviour
         return (espacioUsado + tamañoImplemento) <= capacidadTotal;
     }
 
-    public void Ocupar(int tamañoImplemento, Implemento implemento)
+    public void AgregarImplemento(Implemento implemento)
     {
-        espacioUsado += tamañoImplemento;
-        implementoActual = implemento;
+        if (!EspacioDisponible(implemento.Tamaño)) return;
+
+        implementos.Add(implemento);
+        espacioUsado += implemento.Tamaño;
 
         if (imagenSlot != null)
-            imagenSlot.color = new Color(0, 1, 0, 0.3f); 
+        {
+            float proporcion = (float)espacioUsado / capacidadTotal;
+            imagenSlot.color = Color.Lerp(new Color(1, 1, 1, 0.3f), new Color(0, 1, 0, 0.3f), proporcion);
+        }
 
         ActualizarTexto();
     }
 
-    public void Liberar()
+    public void RemoverImplemento(Implemento implemento)
     {
-        if (implementoActual != null)
+        if (implementos.Contains(implemento))
         {
-            espacioUsado -= implementoActual.Tamaño;
-            implementoActual = null;
+            implementos.Remove(implemento);
+            espacioUsado -= implemento.Tamaño;
 
             if (imagenSlot != null)
-                imagenSlot.color = new Color(1, 1, 1, 0.3f);
+            {
+                float proporcion = (float)espacioUsado / capacidadTotal;
+                imagenSlot.color = Color.Lerp(new Color(1, 1, 1, 0.3f), new Color(0, 1, 0, 0.3f), proporcion);
+            }
 
             ActualizarTexto();
         }
@@ -59,8 +84,18 @@ public class SlotEstante : MonoBehaviour
             textoCapacidad.text = $"{espacioUsado}/{capacidadTotal}";
     }
 
-    public bool EstaOcupado()
+    public bool EstaLleno()
     {
-        return implementoActual != null;
+        return espacioUsado >= capacidadTotal;
+    }
+
+    public int EspacioUsado
+    {
+        get { return espacioUsado; }
+    }
+
+    public int CapacidadTotal
+    {
+        get { return capacidadTotal; }
     }
 }

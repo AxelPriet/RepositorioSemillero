@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class MiniGame_Inventario : MonoBehaviour
@@ -15,10 +14,7 @@ public class MiniGame_Inventario : MonoBehaviour
     [SerializeField] private int totalImplementos = 7;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
 
-    private int implementosColocados = 0;
     private bool juegoCompletado = false;
-    private int espaciosTotales = 9; 
-    private int espaciosUsados = 0;
 
     private void Start()
     {
@@ -26,33 +22,28 @@ public class MiniGame_Inventario : MonoBehaviour
         textoResultado.gameObject.SetActive(false);
     }
 
-    public void ImplementoColocado()
+    private void Update()
     {
         if (juegoCompletado) return;
 
-        implementosColocados++;
-        CalcularEspaciosUsados();
-
-        if (implementosColocados >= totalImplementos)
+        // Verificar constantemente si ya se completó
+        if (TodosLosSlotsLlenos())
         {
-            if (espaciosUsados == espaciosTotales)
-            {
-                StartCoroutine(GanarJuego());
-            }
+            StartCoroutine(GanarJuego());
         }
     }
 
-    private void CalcularEspaciosUsados()
+    private bool TodosLosSlotsLlenos()
     {
-        espaciosUsados = 0;
         SlotEstante[] slots = FindObjectsByType<SlotEstante>(FindObjectsSortMode.None);
 
         foreach (var slot in slots)
         {
-           
+            if (!slot.EstaLleno())
+                return false;
         }
 
-        textoCapacidad.text = $"Espacios: {espaciosUsados}/{espaciosTotales}";
+        return true;
     }
 
     private IEnumerator GanarJuego()
@@ -61,7 +52,7 @@ public class MiniGame_Inventario : MonoBehaviour
 
         textoInstrucciones.text = "¡INVENTARIO ORGANIZADO!";
         textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡COMPLETASTE!";
+        textoResultado.text = "¡Mini juego completado!";
 
         yield return new WaitForSeconds(2f);
 
@@ -70,8 +61,8 @@ public class MiniGame_Inventario : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoInstrucciones.text = "Coloca los implementos en los estantes";
-        textoCapacidad.text = $"Espacios: 0/{espaciosTotales}";
+        textoInstrucciones.text = "Organiza los implementos para llenar todos los espacios";
+        textoCapacidad.text = "";
         textoResultado.gameObject.SetActive(false);
     }
 }
