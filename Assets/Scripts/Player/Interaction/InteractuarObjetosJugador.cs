@@ -13,10 +13,8 @@ public class InteractuarObjetosJugador : MonoBehaviour
     [Header("UI Interaction")]
     [SerializeField] private GameObject prefabPrompt; 
 
-    // Diccionario para prompts activos
     private Dictionary<IInteractuable, GameObject> promptsActivos = new Dictionary<IInteractuable, GameObject>();
 
-    // Referencias
     private PlayerControls playerControls;
     private IInteractuable interactuableActual;
 
@@ -86,7 +84,6 @@ public class InteractuarObjetosJugador : MonoBehaviour
 
         HashSet<IInteractuable> interactuablesFrame = new HashSet<IInteractuable>();
 
-        // Detectar nuevos interactuables
         foreach (Collider2D objeto in objetosTocados)
         {
             if (objeto.TryGetComponent(out IInteractuable interactuable) && interactuable.PuedeInteractuar())
@@ -100,7 +97,6 @@ public class InteractuarObjetosJugador : MonoBehaviour
             }
         }
 
-        // Remover prompts que ya no están en la caja
         List<IInteractuable> aRemover = new List<IInteractuable>();
         foreach (var kvp in promptsActivos)
         {
