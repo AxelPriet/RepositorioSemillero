@@ -22,6 +22,7 @@ public class MiniGamePorteria : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private float fuerzaMin = 5f;
     [SerializeField] private float fuerzaMax = 15f;
+    [SerializeField] private float velocidadCarga = 3f;
     [SerializeField] private float anguloMin = 20f;
     [SerializeField] private float anguloMax = 50f;
     [SerializeField] private int golesRequeridos = 2;
@@ -32,10 +33,11 @@ public class MiniGamePorteria : MonoBehaviour
     private int goles = 0;
     private int intentos;
     private float anguloActual = 35f;
-    private float fuerzaActual = 5f;
+    private float fuerzaActual;
     private bool cargando = false;
     private bool minijuegoCompletado = false;
     private int direccionPortero = 1;
+    private int direccionFuerza = 1;
     private float limiteIzquierdo = -200f;
     private float limiteDerecho = 200f;
 
@@ -50,12 +52,12 @@ public class MiniGamePorteria : MonoBehaviour
         goles = 0;
         intentos = intentosMaximos;
         anguloActual = 35f;
+        fuerzaActual = fuerzaMin;
 
         textoPuntuacion.text = $"Goles: 0/{golesRequeridos}";
         textoIntentos.text = intentos.ToString();
         textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
         flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
-
         ActualizarBarraFuerza();
     }
 
@@ -94,7 +96,6 @@ public class MiniGamePorteria : MonoBehaviour
         {
             anguloActual += move.x * 100f * Time.deltaTime;
             anguloActual = Mathf.Clamp(anguloActual, anguloMin, anguloMax);
-
             flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
         }
     }
@@ -104,13 +105,25 @@ public class MiniGamePorteria : MonoBehaviour
         if (playerControls.Gameplay.Compress.WasPressedThisFrame() && !cargando)
         {
             cargando = true;
+            direccionFuerza = 1;
             fuerzaActual = fuerzaMin;
         }
 
         if (cargando)
         {
-            fuerzaActual += (fuerzaMax - fuerzaMin) / 1.5f * Time.deltaTime;
-            fuerzaActual = Mathf.Clamp(fuerzaActual, fuerzaMin, fuerzaMax);
+            fuerzaActual += direccionFuerza * velocidadCarga * Time.deltaTime;
+
+            if (fuerzaActual >= fuerzaMax)
+            {
+                fuerzaActual = fuerzaMax;
+                direccionFuerza = -1;
+            }
+            else if (fuerzaActual <= fuerzaMin)
+            {
+                fuerzaActual = fuerzaMin;
+                direccionFuerza = 1;
+            }
+
             ActualizarBarraFuerza();
         }
 
@@ -155,13 +168,10 @@ public class MiniGamePorteria : MonoBehaviour
 
         string mensaje = zona == "centro" ? "¡Gol al centro!" :
                         zona == "izquierda" ? "¡Gol a la izquierda!" : "¡Gol a la derecha!";
-
         textoInstrucciones.text = mensaje;
 
         if (goles >= golesRequeridos)
-        {
             StartCoroutine(Victoria());
-        }
     }
 
     private IEnumerator ReiniciarJuego()

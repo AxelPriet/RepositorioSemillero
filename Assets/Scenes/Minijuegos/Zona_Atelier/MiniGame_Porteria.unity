@@ -376,12 +376,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1893984645}
+  m_Father: {fileID: 1367810634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.446}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.39999986, y: -161.20001}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0.400002, y: 28.87962}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &642581266
 GameObject:
@@ -502,7 +502,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 100, y: 214.91}
+  m_Size: {x: 100, y: 214.9}
   m_EdgeRadius: 0
 --- !u!114 &847748561
 MonoBehaviour:
@@ -545,14 +545,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 617014314}
   m_Father: {fileID: 1893984645}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -197.28}
+  m_AnchoredPosition: {x: 1.9999981, y: -235.71034}
   m_SizeDelta: {x: 40.17, y: 78.43}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.01}
 --- !u!114 &1367810635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,11 +706,12 @@ MonoBehaviour:
   portero: {fileID: 1784492004}
   velocidadPortero: 800
   fuerzaMin: 5
-  fuerzaMax: 15
+  fuerzaMax: 10
+  velocidadCarga: 5
   anguloMin: -50
   anguloMax: 50
   golesRequeridos: 3
-  intentosMaximos: 3
+  intentosMaximos: 5
   nombreEscenaPrincipal: Main
 --- !u!4 &1495177040
 Transform:
@@ -1345,7 +1347,6 @@ RectTransform:
   - {fileID: 1784492004}
   - {fileID: 642581267}
   - {fileID: 1367810634}
-  - {fileID: 617014314}
   - {fileID: 1614194594}
   - {fileID: 1894553163}
   - {fileID: 369849620}

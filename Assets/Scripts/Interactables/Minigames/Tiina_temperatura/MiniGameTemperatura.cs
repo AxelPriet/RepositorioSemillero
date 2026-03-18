@@ -9,12 +9,12 @@ public class MinijuegoTina : MonoBehaviour
 {
     [Header("Agua de la Tina")]
     [SerializeField] private Image aguaTina;
-    [SerializeField] private Gradient gradienteTemperatura; 
+    [SerializeField] private Gradient gradienteTemperatura;
 
     [Header("Termómetros de Nivel")]
-    [SerializeField] private RectTransform nivelFrio;    
-    [SerializeField] private RectTransform nivelCalor;   
-    [SerializeField] private float alturaMaxima = 200f;   
+    [SerializeField] private RectTransform nivelFrio;
+    [SerializeField] private RectTransform nivelCalor;
+    [SerializeField] private float alturaMaxima = 200f;
 
     [Header("Temperatura")]
     [SerializeField] private float temperaturaMin = 0f;
@@ -23,10 +23,8 @@ public class MinijuegoTina : MonoBehaviour
     [SerializeField] private float temperaturaOptimaMax = 60f;
 
     [Header("Llaves")]
-    [SerializeField] private bool llaveFriaAbierta = false;
-    [SerializeField] private bool llaveCalienteAbierta = false;
-    [SerializeField] private float efectoFrio = -8f;      
-    [SerializeField] private float efectoCalor = 8f;    
+    [SerializeField] private float efectoFrio = -8f;
+    [SerializeField] private float efectoCalor = 8f;
     [SerializeField] private float enfriamientoNatural = 2f;
 
     [Header("UI")]
@@ -53,36 +51,24 @@ public class MinijuegoTina : MonoBehaviour
     {
         if (minijuegoCompletado) return;
 
-        ProcesarInput();
         ActualizarTemperatura();
         ActualizarVisuales();
         VerificarRangoOptimo();
     }
 
-    private void ProcesarInput()
-    {
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            llaveFriaAbierta = !llaveFriaAbierta;
-            Debug.Log($"Llave fría: {(llaveFriaAbierta ? "ABIERTA" : "CERRADA")}");
-        }
-
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            llaveCalienteAbierta = !llaveCalienteAbierta;
-            Debug.Log($"Llave caliente: {(llaveCalienteAbierta ? "ABIERTA" : "CERRADA")}");
-        }
-    }
     private void ActualizarTemperatura()
     {
         float cambio = 0f;
 
-        if (llaveFriaAbierta)
+        bool friaPresionada = Keyboard.current.aKey.isPressed;
+        bool calientePresionada = Keyboard.current.dKey.isPressed;
+
+        if (friaPresionada)
             cambio += efectoFrio * Time.deltaTime;
-        if (llaveCalienteAbierta)
+        if (calientePresionada)
             cambio += efectoCalor * Time.deltaTime;
 
-        if (!llaveFriaAbierta && !llaveCalienteAbierta)
+        if (!friaPresionada && !calientePresionada)
         {
             if (temperaturaActual > 30f)
                 cambio = -enfriamientoNatural * Time.deltaTime;
@@ -101,11 +87,8 @@ public class MinijuegoTina : MonoBehaviour
         float proporcionFrio = Mathf.Clamp01((temperaturaMax - temperaturaActual) / (temperaturaMax - temperaturaMin));
         float proporcionCalor = Mathf.Clamp01(temperaturaActual / temperaturaMax);
 
-        float alturaFrio = proporcionFrio * alturaMaxima;
-        float alturaCalor = proporcionCalor * alturaMaxima;
-
-        nivelFrio.sizeDelta = new Vector2(nivelFrio.sizeDelta.x, alturaFrio);
-        nivelCalor.sizeDelta = new Vector2(nivelCalor.sizeDelta.x, alturaCalor);
+        nivelFrio.sizeDelta = new Vector2(nivelFrio.sizeDelta.x, proporcionFrio * alturaMaxima);
+        nivelCalor.sizeDelta = new Vector2(nivelCalor.sizeDelta.x, proporcionCalor * alturaMaxima);
 
         if (aguaTina != null)
         {
@@ -116,8 +99,7 @@ public class MinijuegoTina : MonoBehaviour
 
     private void VerificarRangoOptimo()
     {
-        bool enRango = temperaturaActual >= temperaturaOptimaMin &&
-                      temperaturaActual <= temperaturaOptimaMax;
+        bool enRango = temperaturaActual >= temperaturaOptimaMin && temperaturaActual <= temperaturaOptimaMax;
 
         if (enRango)
         {
@@ -126,15 +108,12 @@ public class MinijuegoTina : MonoBehaviour
             textoTemporizador.text = $"{restante:F1}s";
 
             if (tiempoAcumulado >= tiempoRequerido)
-            {
                 StartCoroutine(CompletarMinijuego());
-            }
         }
         else
         {
             tiempoAcumulado = Mathf.Max(0, tiempoAcumulado - Time.deltaTime * 2f);
-            float restante = tiempoRequerido - tiempoAcumulado;
-            textoTemporizador.text = $"{restante:F1}s";
+            textoTemporizador.text = $"{tiempoRequerido - tiempoAcumulado:F1}s";
         }
     }
 
@@ -148,7 +127,7 @@ public class MinijuegoTina : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoInstrucciones.text = "A: Agua fría | D: Agua caliente\nMantén la temperatura entre 40°C y 60°C";
+        textoInstrucciones.text = "Mantén A (fría) o D (caliente)\nObjetivo: 40°C – 60°C";
         textoTemperatura.text = $"{temperaturaActual:F1}°C";
         textoTemporizador.text = $"{tiempoRequerido:F0}s";
     }

@@ -130,7 +130,7 @@ public class MiniGame_Pesas : MonoBehaviour
         juegoTerminado = true;
 
         textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡LEVANTASTE LA PESA!";
+        textoResultado.text = "¡LEVANTASTE LA BARRA!";
         textoResultado.color = Color.green;
 
         yield return new WaitForSeconds(1.5f);
