@@ -337,9 +337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: 'Matraz '
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 2
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &327785764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,9 +711,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: VasoPrecipitado
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 3
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &767680214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,9 +1028,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: Bureta
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 2
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &1121634878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,9 +1119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: Probeta
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 2
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &1318318153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,9 +1583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: Pipeta
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 1
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &1731410043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,9 +1674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: TuboEnsayo
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 1
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &1829214212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,9 +1952,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Implemento
   nombreImplemento: ' Embudo'
-  distanciaSnap: 50
+  distanciaSnap: 5
   "tama\xF1o": 1
-  panelHoverPrefab: {fileID: 501658038599916823, guid: 7ddb944c4291add41b1ba513b6f7ef02, type: 3}
 --- !u!114 &2000645956
 MonoBehaviour:
   m_ObjectHideFlags: 0

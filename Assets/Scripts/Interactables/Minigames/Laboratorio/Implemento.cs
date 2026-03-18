@@ -5,17 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Configuración")]
     [SerializeField] private string nombreImplemento;
     [SerializeField] private float distanciaSnap = 50f;
     [SerializeField] private int tamaño;
-
-    [Header("Hover")]
-    [SerializeField] private GameObject panelHoverPrefab;
-
-    private GameObject panelHoverActual;
     private RectTransform canvasRect;
 
     private RectTransform rectTransform;
@@ -26,6 +21,8 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Camera camara;
     private Image imagen;
     private SlotEstante slotActual = null;
+    private GameObject textoHover;
+    private bool mouseSobreObjeto = false;
 
     private void Awake()
     {
@@ -45,53 +42,54 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (panelHoverPrefab != null && panelHoverActual == null)
-        {
-            panelHoverActual = Instantiate(panelHoverPrefab, canvasRect);
+        if (colocado) return;
 
-            TextMeshProUGUI texto = panelHoverActual.GetComponentInChildren<TextMeshProUGUI>();
-            if (texto != null)
-                texto.text = $"{nombreImplemento}\nTamaño: {tamaño}";
+        mouseSobreObjeto = true;
+        CrearTextoHover();
+    }
 
-            ActualizarPosicionPanel(eventData.position);
-        }
+    private void CrearTextoHover()
+    {
+        textoHover = new GameObject("Hover_Tamaño");
+        textoHover.transform.SetParent(canvas.transform, false);
+
+        TextMeshProUGUI texto = textoHover.AddComponent<TextMeshProUGUI>();
+        texto.text = tamaño.ToString();
+        texto.fontSize = 24;
+        texto.color = Color.white;
+        texto.alignment = TextAlignmentOptions.Center;
+
+        Outline outline = textoHover.AddComponent<Outline>();
+        outline.effectColor = Color.black;
+        outline.effectDistance = new Vector2(2, 2);
+
+        RectTransform textoRect = texto.GetComponent<RectTransform>();
+        textoRect.sizeDelta = new Vector2(50, 50);
+
+        Vector3[] corners = new Vector3[4];
+        rectTransform.GetWorldCorners(corners);
+        Vector2 posicionDerecha = RectTransformUtility.WorldToScreenPoint(camara, corners[2]);
+
+        Vector2 posLocal;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.GetComponent<RectTransform>(),
+            posicionDerecha + new Vector2(15, 0),
+            canvas.worldCamera,
+            out posLocal
+        );
+
+        textoRect.anchoredPosition = posLocal;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (panelHoverActual != null)
+        mouseSobreObjeto = false;
+        if (textoHover != null)
         {
-            Destroy(panelHoverActual);
-            panelHoverActual = null;
-        }
-    }
-
-    private void Update()
-    {
-        if (panelHoverActual != null)
-        {
-            ActualizarPosicionPanel(Mouse.current.position.ReadValue());
-        }
-    }
-
-    private void ActualizarPosicionPanel(Vector2 posicionMouse)
-    {
-        if (panelHoverActual != null && canvasRect != null)
-        {
-            RectTransform panelRect = panelHoverActual.GetComponent<RectTransform>();
-
-            Vector2 posLocal;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                posicionMouse + new Vector2(20, 20),
-                Camera.main,
-                out posLocal
-            );
-
-            panelRect.anchoredPosition = posLocal;
+            Destroy(textoHover);
+            textoHover = null;
         }
     }
 
@@ -102,10 +100,15 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (textoHover != null)
+        {
+            Destroy(textoHover);
+            textoHover = null;
+        }
+
         canvasGroup.alpha = 0.7f;
         canvasGroup.blocksRaycasts = false;
 
-        // Si estaba en un slot, removerlo
         if (slotActual != null)
         {
             slotActual.RemoverImplemento(this);
@@ -128,11 +131,15 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
         if (slotCercano != null && slotCercano.EspacioDisponible(tamaño))
         {
-            // Colocar en el slot
             rectTransform.position = slotCercano.transform.position;
             slotCercano.AgregarImplemento(this);
             slotActual = slotCercano;
             colocado = true;
+            if (textoHover != null)
+            {
+                Destroy(textoHover);
+                textoHover = null;
+            }
         }
         else
         {

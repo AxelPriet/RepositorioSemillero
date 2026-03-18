@@ -22,6 +22,7 @@ public class PiezaLibro : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private List<RectTransform> todasLasPosiciones = new List<RectTransform>();
     private RectTransform zonaDestacada = null;
     private MiniGame_Libros minijuego;
+    private Transform padreInicial;
 
     private void Awake()
     {
@@ -35,6 +36,9 @@ public class PiezaLibro : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
+        posicionInicial = rectTransform.anchoredPosition;
+
+        padreInicial = transform.parent;
         posicionInicial = rectTransform.anchoredPosition;
     }
 
@@ -155,8 +159,8 @@ public class PiezaLibro : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void RegresarInicio()
     {
+        transform.SetParent(padreInicial); 
         rectTransform.anchoredPosition = posicionInicial;
-        transform.SetParent(canvas.transform);
     }
 
     private IEnumerator FeedbackError()
@@ -170,8 +174,8 @@ public class PiezaLibro : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void Resetear()
     {
         colocada = false;
+        transform.SetParent(padreInicial);
         rectTransform.anchoredPosition = posicionInicial;
         canvasGroup.blocksRaycasts = true;
-        transform.SetParent(canvas.transform);
     }
 }

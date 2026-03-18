@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -190.5, y: 32.3}
+  m_AnchoredPosition: {x: -239, y: 32.3}
   m_SizeDelta: {x: 40, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251601089
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PiezaBarra
   nombreBarra: Ventas
   posicionCorrecta: PosicionVentas
-  distanciaSnap: 50
+  distanciaSnap: 5
   alturaOriginal: 60
 --- !u!114 &251601090
 MonoBehaviour:
@@ -383,7 +383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -238.8, y: 12.8}
+  m_AnchoredPosition: {x: -190, y: 12.8}
   m_SizeDelta: {x: 40, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &299123716
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PiezaBarra
   nombreBarra: Gastos
   posicionCorrecta: PosicionGastos
-  distanciaSnap: 50
+  distanciaSnap: 5
   alturaOriginal: 20
 --- !u!114 &299123717
 MonoBehaviour:
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PiezaBarra
   nombreBarra: Ganancias
   posicionCorrecta: PosicionGanancias
-  distanciaSnap: 50
+  distanciaSnap: 5
   alturaOriginal: 45
 --- !u!114 &721646037
 MonoBehaviour:
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PiezaBarra
   nombreBarra: Impuestos
   posicionCorrecta: PosicionImpuestos
-  distanciaSnap: 50
+  distanciaSnap: 5
   alturaOriginal: 70
 --- !u!114 &1062216189
 MonoBehaviour:
