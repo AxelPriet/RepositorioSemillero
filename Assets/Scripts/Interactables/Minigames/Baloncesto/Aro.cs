@@ -8,5 +8,7 @@ public class Aro : MonoBehaviour
         if (collider == null)
             collider = gameObject.AddComponent<BoxCollider2D>();
         collider.isTrigger = true;
+
+        gameObject.name = "Aro";
     }
 }

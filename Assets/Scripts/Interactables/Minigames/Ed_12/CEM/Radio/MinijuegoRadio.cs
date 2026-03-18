@@ -11,7 +11,6 @@ public class MinijuegoRadio : MonoBehaviour
     [SerializeField] private RectTransform perilla2;
     [SerializeField] private Image señal;
     [SerializeField] private TextMeshProUGUI feedbackText;
-    [SerializeField] private TextMeshProUGUI textoTemporizador;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
@@ -56,7 +55,6 @@ public class MinijuegoRadio : MonoBehaviour
         perilla2Script.ResetearPerilla();
         señal.color = Color.red;
         feedbackText.text = "Ajusta las perillas";
-        textoTemporizador.text = $"{tiempoRequerido:F0}s";
         textoInstrucciones.text = "Gira las perillas para sintonizar";
     }
 
@@ -75,7 +73,6 @@ public class MinijuegoRadio : MonoBehaviour
             float tiempoRestante = tiempoRequerido - tiempoCorrecto;
 
             feedbackText.text = $"Mantén la señal: {tiempoRestante:F1}s";
-            textoTemporizador.text = $"{tiempoRestante:F1}s";
             señal.color = Color.Lerp(Color.yellow, Color.green, tiempoCorrecto / tiempoRequerido);
 
             if (tiempoCorrecto >= tiempoRequerido)
@@ -86,7 +83,6 @@ public class MinijuegoRadio : MonoBehaviour
         else
         {
             tiempoCorrecto = 0f;
-            textoTemporizador.text = $"{tiempoRequerido:F0}s";
 
             if (!perilla1Correcta && !perilla2Correcta)
                 feedbackText.text = "Ajusta ambas perillas";
@@ -106,7 +102,6 @@ public class MinijuegoRadio : MonoBehaviour
         señal.color = Color.green;
 
         yield return new WaitForSeconds(1f);
-
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

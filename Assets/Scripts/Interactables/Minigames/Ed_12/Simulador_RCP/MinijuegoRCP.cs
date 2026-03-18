@@ -2,20 +2,23 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MinijuegoRCP : MonoBehaviour
 {
     [Header("UI")]
     public RectTransform indicador;
     public RectTransform zonaVerde;
-    [SerializeField] private TMPro.TextMeshProUGUI textoPuntos;
-    [SerializeField] private TMPro.TextMeshProUGUI textoErrores;
-    [SerializeField] private GameObject panelInstrucciones;
+    [SerializeField] private TextMeshProUGUI textoPuntos;
+    [SerializeField] private TextMeshProUGUI textoErrores;
+    [SerializeField] private TextMeshProUGUI textoInstrucciones; 
 
     [Header("Configuración")]
     public float velocidad = 700f;
     public int puntosNecesarios = 5;
     [SerializeField] private float tiempoPausa = 0.3f;
+    [SerializeField] private int maxErrores = 3;
+    [SerializeField] private string nombreEscenaPrincipal = "Main";
 
     private float direccion = 1f;
     private float minY;
@@ -37,8 +40,7 @@ public class MinijuegoRCP : MonoBehaviour
         playerControls.Gameplay.Compress.performed += OnCompress;
 
         ActualizarUI();
-
-        Debug.Log("Minijuego RCP iniciado");
+        textoInstrucciones.text = "Presiona ESPACIO cuando el indicador esté en la zona verde";
     }
 
     void Update()
@@ -55,8 +57,8 @@ public class MinijuegoRCP : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoPuntos.text = "Aciertos: " + puntos;
-        textoErrores.text = "Errores: " + errores;
+        textoPuntos.text = $"Aciertos: {puntos}/{puntosNecesarios}";
+        textoErrores.text = $"Errores: {errores}/{maxErrores}";
     }
 
     private void OnCompress(InputAction.CallbackContext context)
@@ -74,25 +76,19 @@ public class MinijuegoRCP : MonoBehaviour
         if (indicadorY >= zonaMin && indicadorY <= zonaMax)
         {
             puntos++;
-            Debug.Log("¡Buena compresión! Puntos: " + puntos);
             StartCoroutine(PausaIndicador());
             ActualizarUI();
 
             if (puntos >= puntosNecesarios)
-            {
                 StartCoroutine(CompletarMinijuego());
-            }
         }
         else
         {
             errores++;
-            Debug.Log("Compresión incorrecta");
             ActualizarUI();
 
-            if (errores >= 3)
-            {
+            if (errores >= maxErrores)
                 StartCoroutine(FallarMinijuego());
-            }
         }
     }
 
@@ -129,10 +125,10 @@ public class MinijuegoRCP : MonoBehaviour
         juegoActivo = false;
         textoPuntos.text = "¡COMPLETADO!";
         textoErrores.text = "¡Bien hecho!";
+        textoInstrucciones.text = "RCP exitoso";
 
         yield return new WaitForSeconds(1.5f);
-
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 
     private IEnumerator FallarMinijuego()
@@ -140,9 +136,9 @@ public class MinijuegoRCP : MonoBehaviour
         juegoActivo = false;
         textoPuntos.text = "¡INTÉNTALO";
         textoErrores.text = "DE NUEVO!";
+        textoInstrucciones.text = "Demasiados errores";
 
         yield return new WaitForSeconds(1.5f);
-
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

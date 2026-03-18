@@ -16,7 +16,6 @@ public class MinijuegoCroma : MonoBehaviour
     [SerializeField] private Image colorObjetivo;
     [SerializeField] private Image colorActual;
     [SerializeField] private TextMeshProUGUI feedbackText;
-    [SerializeField] private TextMeshProUGUI textoTemporizador;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
@@ -65,7 +64,6 @@ public class MinijuegoCroma : MonoBehaviour
     {
         feedbackText.text = "Iguala el color objetivo";
         textoInstrucciones.text = "Ajusta las perillas RGB";
-        textoTemporizador.text = $"{tiempoRequerido:F0}s";
     }
 
     private void ActualizarLuces()
@@ -96,7 +94,6 @@ public class MinijuegoCroma : MonoBehaviour
             float tiempoRestante = tiempoRequerido - tiempoCorrecto;
 
             feedbackText.text = $"¡Color perfecto! Mantén {tiempoRestante:F1}s";
-            textoTemporizador.text = $"{tiempoRestante:F1}s";
             colorActual.transform.localScale = Vector3.one * (1f + (tiempoCorrecto / tiempoRequerido * 0.2f));
 
             if (tiempoCorrecto >= tiempoRequerido)
@@ -107,7 +104,6 @@ public class MinijuegoCroma : MonoBehaviour
         else
         {
             tiempoCorrecto = 0f;
-            textoTemporizador.text = $"{tiempoRequerido:F0}s";
             colorActual.transform.localScale = Vector3.one;
 
             if (!rojoCorrecto && !verdeCorrecto && !azulCorrecto)

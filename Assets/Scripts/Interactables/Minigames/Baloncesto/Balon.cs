@@ -7,10 +7,8 @@ public class Balon : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.mass = 0.6f;
-        rb.gravityScale = 1.2f;
-        rb.linearDamping = 0.1f;
-        rb.angularDamping = 0.3f;
+        rb.mass = 0.5f;
+        rb.gravityScale = 1f;
     }
 
     public void Lanzar(float angulo, float fuerza)
@@ -18,19 +16,17 @@ public class Balon : MonoBehaviour
         float anguloRad = angulo * Mathf.Deg2Rad;
 
         Vector2 direccion = new Vector2(
-            -Mathf.Abs(Mathf.Cos(anguloRad)),
-            Mathf.Sin(anguloRad)
+            -Mathf.Tan(anguloRad),
+            Mathf.Cos(anguloRad)
         );
 
         rb.linearVelocity = direccion * fuerza * 3f;
-        rb.angularVelocity = Random.Range(-200f, 200f);
-
-        Destroy(gameObject, 4f);
+        Destroy(gameObject, 3f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Aro"))
+        if (other.gameObject.name == "Aro")
         {
             FindFirstObjectByType<MinijuegoBaloncesto>()?.RegistrarCanasta();
             Destroy(gameObject);

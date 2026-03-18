@@ -10,21 +10,22 @@ public class MinijuegoBaloncesto : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
     [SerializeField] private TextMeshProUGUI textoIntentos;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
+    [SerializeField] private TextMeshProUGUI textoFuerza; 
     [SerializeField] private RectTransform barraFuerza;
 
     [Header("Elementos")]
     [SerializeField] private RectTransform flecha;
     [SerializeField] private GameObject balonPrefab;
-    [SerializeField] private Transform puntoLanzamiento;
+    [SerializeField] private Transform puntoLanzamiento; 
     [SerializeField] private Aro aro;
 
     [Header("Configuración")]
-    [SerializeField] private float fuerzaMin = 0f;
-    [SerializeField] private float fuerzaMax = 5f; 
+    [SerializeField] private float fuerzaMin = 5f; 
+    [SerializeField] private float fuerzaMax = 15f; 
     [SerializeField] private float velocidadCarga = 2f;
-    [SerializeField] private float anguloMin = 30f;
-    [SerializeField] private float anguloMax = 70f;
-    [SerializeField] private float velocidadRotacion = 40f;
+    [SerializeField] private float anguloMin = 20f; 
+    [SerializeField] private float anguloMax = 50f; 
+    [SerializeField] private float velocidadRotacion = 100f; 
     [SerializeField] private int canastasRequeridas = 3;
     [SerializeField] private int intentosMaximos = 6;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
@@ -32,11 +33,10 @@ public class MinijuegoBaloncesto : MonoBehaviour
     private PlayerControls playerControls;
     private int canastas = 0;
     private int intentos;
-    private float anguloActual = 45f;
-    private float fuerzaActual = 8f;
+    private float anguloActual = 35f;
+    private float fuerzaActual = 5f;
     private bool cargando = false;
     private bool minijuegoCompletado = false;
-    private int direccionFuerza = 1;
 
     private void Start()
     {
@@ -48,12 +48,14 @@ public class MinijuegoBaloncesto : MonoBehaviour
     {
         canastas = 0;
         intentos = intentosMaximos;
-        anguloActual = 45f;
+        anguloActual = 35f;
         fuerzaActual = fuerzaMin;
 
         textoPuntuacion.text = $"0/{canastasRequeridas}";
         textoIntentos.text = intentos.ToString();
         textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
+        if (textoFuerza != null)
+            textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
         flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
 
         ActualizarBarraFuerza();
@@ -83,25 +85,17 @@ public class MinijuegoBaloncesto : MonoBehaviour
         if (playerControls.Gameplay.Compress.WasPressedThisFrame() && !cargando)
         {
             cargando = true;
-            direccionFuerza = 1;
+            fuerzaActual = fuerzaMin;
         }
 
         if (cargando)
         {
-            fuerzaActual += direccionFuerza * velocidadCarga * Time.deltaTime;
-
-            if (fuerzaActual >= fuerzaMax)
-            {
-                fuerzaActual = fuerzaMax;
-                direccionFuerza = -1;
-            }
-            else if (fuerzaActual <= fuerzaMin)
-            {
-                fuerzaActual = fuerzaMin;
-                direccionFuerza = 1;
-            }
-
+            fuerzaActual += (fuerzaMax - fuerzaMin) / 1.5f * Time.deltaTime;
+            fuerzaActual = Mathf.Clamp(fuerzaActual, fuerzaMin, fuerzaMax);
             ActualizarBarraFuerza();
+
+            if (textoFuerza != null)
+                textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
         }
 
         if (playerControls.Gameplay.Compress.WasReleasedThisFrame() && cargando)
@@ -124,7 +118,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
         intentos--;
         textoIntentos.text = intentos.ToString();
 
-        GameObject balon = Instantiate(balonPrefab, flecha.position, Quaternion.identity);
+        GameObject balon = Instantiate(balonPrefab, puntoLanzamiento.position, Quaternion.identity);
         Balon scriptBalon = balon.GetComponent<Balon>();
 
         if (scriptBalon != null)
@@ -143,17 +137,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
     {
         textoInstrucciones.text = "¡Sin intentos! Reiniciando...";
         yield return new WaitForSeconds(1.5f);
-
-        canastas = 0;
-        intentos = intentosMaximos;
-        anguloActual = 45f;
-        fuerzaActual = fuerzaMin;
-
-        textoPuntuacion.text = $"0/{canastasRequeridas}";
-        textoIntentos.text = intentos.ToString();
-        flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
-        ActualizarBarraFuerza();
-        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
+        InicializarJuego();
     }
 
     public void RegistrarCanasta()
