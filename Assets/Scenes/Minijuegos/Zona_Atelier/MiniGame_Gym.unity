@@ -682,6 +682,7 @@ MonoBehaviour:
   alturaMaximaPesa: 200
   decrementoNatural: 0.1
   nombreEscenaPrincipal: Main
+  minigameIndex: 9
 --- !u!4 &741138339
 Transform:
   m_ObjectHideFlags: 0

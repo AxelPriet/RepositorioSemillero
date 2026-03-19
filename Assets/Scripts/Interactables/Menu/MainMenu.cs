@@ -16,17 +16,21 @@ public class MainMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        if (InputHandler.Instance != null)
-        {
-            inputHandler = InputHandler.Instance;
+        inputHandler = InputHandler.Instance;
+        if (inputHandler != null)
             inputHandler.OnMenuToggle += ToggleMenu;
-        }
+
+        if (CarnetManager.Instance != null)
+            CarnetManager.Instance.OnPieceCollected += UpdateInventoryDisplay;
     }
 
     private void OnDisable()
     {
         if (inputHandler != null)
             inputHandler.OnMenuToggle -= ToggleMenu;
+
+        if (CarnetManager.Instance != null)
+            CarnetManager.Instance.OnPieceCollected -= UpdateInventoryDisplay;
     }
 
     private void Start()

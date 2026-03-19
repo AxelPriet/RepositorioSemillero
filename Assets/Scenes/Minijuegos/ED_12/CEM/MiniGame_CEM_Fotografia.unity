@@ -822,6 +822,7 @@ MonoBehaviour:
   objetivo: {fileID: 1696023738}
   canvas: {fileID: 905446071}
   nombreEscenaPrincipal: Main
+  minigameIndex: 1
 --- !u!4 &1815056402
 Transform:
   m_ObjectHideFlags: 0

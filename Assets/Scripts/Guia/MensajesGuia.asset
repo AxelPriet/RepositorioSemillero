@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59111ca3904cfc0478835035ed904fae, type: 3}
+  m_Name: MensajesGuia
+  m_EditorClassIdentifier: Assembly-CSharp::GuiaMensajes
+  bienvenida:
+  - "\xA1Bienvenido a la universidad! Explora el campus y completa los desaf\xEDos."
+  - Hola, soy tu asistente virtual. Recorre el mapa y busca las actividades.
+  - "\xBFListo para aprender? Ac\xE9rcate a los puntos de inter\xE9s para comenzar."
+  - Bienvenido. Tu objetivo es recolectar las partes del carnet completando los minijuegos.
+  - "\xA1Hola! Estoy aqu\xED para ayudarte. Sigue las indicaciones y divi\xE9rtete."
+  entradaMinijuego:
+  - "Ac\xE9rcate y presiona \"E\" para interactuar."
+  - "Aqu\xED hay un nuevo desaf\xEDo. Lee las instrucciones y haz tu mejor esfuerzo."
+  - "\xBFListo? Coloca los elementos en su lugar correcto."
+  - "Observa bien antes de actuar. \xA1T\xFA puedes!"
+  - "Este minijuego pondr\xE1 a prueba tus conocimientos."
+  exitoMinijuego:
+  - "\xA1Excelente trabajo! Has completado el desaf\xEDo."
+  - "\xA1Muy bien! Has ganado una parte del carnet."
+  - "\xA1Felicidades! Sigue as\xED para obtener todas las piezas."
+  - Bien hecho. Pasemos al siguiente.
+  - "\xA1Perfecto! Cada vez est\xE1s m\xE1s cerca de tu objetivo."
+  falloMinijuego:
+  - "No te preocupes, int\xE9ntalo de nuevo."
+  - "Casi lo logras. Observa con atenci\xF3n."
+  - Puedes hacerlo mejor. Revisa las instrucciones.
+  - "Fallo temporal. Analiza qu\xE9 sali\xF3 mal."
+  - "No te rindas. La pr\xE1ctica hace al maestro."
+  consejosAvanzados:
+  - "\xBFNecesitas una pista? F\xEDjate en la forma y el color."
+  - Prueba colocando el elemento en el orden correcto.
+  - Recuerda que cada cosa tiene su lugar. Observa los detalles.
+  - "Tal vez debas moverte con m\xE1s precisi\xF3n."
+  - "Intenta de nuevo, pero esta vez con m\xE1s calma."
+  progreso:
+  - "\xA1Has obtenido una pieza del carnet! Llevas {0} de {1}."
+  - "Parte del carnet conseguida. Sigue as\xED."
+  - Bien, ya tienes una parte. Te faltan {0}.
+  - "\xA1Progreso! Has recolectado una pieza."
+  - "Cada pieza te acerca m\xE1s a la meta."
+  orientacion:
+  - Usa las flechas para moverte.
+  - Presiona espacio para interactuar con objetos.
+  - "Mant\xE9n shift para correr."
+  - Si te pierdes, busca los puntos brillantes en el mapa.
+  - Revisa tu inventario para ver las piezas recolectadas.

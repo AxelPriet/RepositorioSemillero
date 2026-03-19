@@ -931,6 +931,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 1277016515}
   totalPiezas: 6
   nombreEscenaPrincipal: Main
+  minigameIndex: 5
 --- !u!4 &1406232521
 Transform:
   m_ObjectHideFlags: 0

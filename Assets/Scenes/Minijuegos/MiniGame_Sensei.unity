@@ -641,9 +641,7 @@ MonoBehaviour:
   anchoBarra: 40
   altoBarra: 20
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!1 &526401842
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +783,7 @@ MonoBehaviour:
   textoResultado: {fileID: 1061260834}
   totalBarras: 4
   nombreEscenaPrincipal: Main
+  minigameIndex: 11
 --- !u!4 &536688301
 Transform:
   m_ObjectHideFlags: 0
@@ -1074,9 +1073,7 @@ MonoBehaviour:
   anchoBarra: 40
   altoBarra: 60
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!1 &815701867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,9 +1542,7 @@ MonoBehaviour:
   anchoBarra: 40
   altoBarra: 70
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!1 &1786719048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,9 +1607,7 @@ MonoBehaviour:
   anchoBarra: 40
   altoBarra: 45
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

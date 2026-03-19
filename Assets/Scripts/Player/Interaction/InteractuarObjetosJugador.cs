@@ -65,7 +65,6 @@ public class InteractuarObjetosJugador : MonoBehaviour
             {
                 if (interactuable.PuedeInteractuar())
                 {
-                    Debug.Log($"🎯 Interactuando con: {objeto.name}");
                     interactuable.Interactuar();
                     break;
                 }

@@ -1130,6 +1130,7 @@ MonoBehaviour:
   canastasRequeridas: 3
   intentosMaximos: 6
   nombreEscenaPrincipal: Main
+  minigameIndex: 4
 --- !u!4 &1295106155
 Transform:
   m_ObjectHideFlags: 0

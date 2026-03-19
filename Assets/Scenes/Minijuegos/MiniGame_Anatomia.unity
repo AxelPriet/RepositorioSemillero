@@ -576,6 +576,7 @@ MonoBehaviour:
   textoResultado: {fileID: 1846634392}
   totalOrganos: 6
   nombreEscenaPrincipal: Main
+  minigameIndex: 14
 --- !u!1 &455435730
 GameObject:
   m_ObjectHideFlags: 0

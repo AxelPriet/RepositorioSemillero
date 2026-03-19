@@ -621,6 +621,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 1779444849}
   tiempoRequerido: 5
   nombreEscenaPrincipal: Main
+  minigameIndex: 15
 --- !u!1 &946276324
 GameObject:
   m_ObjectHideFlags: 0

@@ -1026,6 +1026,7 @@ MonoBehaviour:
   tolerancia: 0.1
   tiempoRequerido: 3
   nombreEscenaPrincipal: Main
+  minigameIndex: 2
 --- !u!1 &1876985417
 GameObject:
   m_ObjectHideFlags: 0

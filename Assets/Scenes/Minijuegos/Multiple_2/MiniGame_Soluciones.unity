@@ -2592,6 +2592,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 898081643}
   totalInstrumentos: 4
   nombreEscenaPrincipal: Main
+  minigameIndex: 8
 --- !u!1 &1644792669
 GameObject:
   m_ObjectHideFlags: 0

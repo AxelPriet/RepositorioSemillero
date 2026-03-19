@@ -10,16 +10,24 @@ public class CarnetManager : MonoBehaviour
     public int PartesRecolectadas => collectedPieces;
     public int TotalPieces => totalPieces;
 
+    public System.Action OnPieceCollected;
+
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     public void AddCarnetPiece()
     {
         collectedPieces++;
+        OnPieceCollected?.Invoke();
     }
 }

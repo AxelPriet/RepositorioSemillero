@@ -11,14 +11,14 @@ public class GameProgressManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
-    }
-
-    public bool CanPlayMinigame(int index)
-    {
-        return index == currentMinigameIndex; 
+        }
     }
 
     public void CompleteMinigame(int minigameIndex)
@@ -29,16 +29,11 @@ public class GameProgressManager : MonoBehaviour
         completedMinigames.Add(minigameIndex);
 
         if (minigameIndex == currentMinigameIndex)
-        {
             currentMinigameIndex++;
-        }
 
         if (CarnetManager.Instance != null)
             CarnetManager.Instance.AddCarnetPiece();
     }
 
-    public int GetCurrentIndex()
-    {
-        return currentMinigameIndex;
-    }
+    public int GetCurrentIndex() => currentMinigameIndex;
 }

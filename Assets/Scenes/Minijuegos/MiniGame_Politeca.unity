@@ -666,9 +666,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &729839980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,9 +731,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &737058035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -891,9 +887,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &754646419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,9 +1056,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &955131628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1113,6 +1105,7 @@ MonoBehaviour:
   tiempoLimite: 30
   totalLibros: 7
   nombreEscenaPrincipal: Main
+  minigameIndex: 12
 --- !u!4 &1021648058
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,9 +1343,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &1167164624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,9 +1447,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &1349326839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,9 +1649,7 @@ MonoBehaviour:
   anchoBarra: 45
   altoBarra: 90
   colorLinea: {r: 1, g: 1, b: 1, a: 1}
-  grosorLinea: 2
   longitudSegmento: 10
-  espacioSegmento: 5
 --- !u!114 &1645265583
 MonoBehaviour:
   m_ObjectHideFlags: 0
