@@ -12,6 +12,8 @@ public class MinijuegoLaboratorio : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private int totalInstrumentos = 4;
     [SerializeField] private string nombreEscenaPrincipal = "SampleScene";
+    [SerializeField] private int minigameIndex;
+
 
     private int aciertos = 0;
     private bool juegoCompletado = false;
@@ -42,6 +44,7 @@ public class MinijuegoLaboratorio : MonoBehaviour
         textoEstado.text = "¡COMPLETADO!";
 
         yield return new WaitForSeconds(2f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

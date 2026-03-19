@@ -27,6 +27,8 @@ public class MinijuegoRCP : MonoBehaviour
     private int errores = 0;
     private bool enPausa = false;
     private bool juegoActivo = true;
+    [SerializeField] private int minigameIndex;
+
 
     private PlayerControls playerControls;
 
@@ -128,6 +130,7 @@ public class MinijuegoRCP : MonoBehaviour
         textoInstrucciones.text = "RCP exitoso";
 
         yield return new WaitForSeconds(1.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

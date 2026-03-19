@@ -18,6 +18,8 @@ public class MiniGame_Barras : MonoBehaviour
     private int barrasColocadas = 0;
     private bool juegoCompletado = false;
     private List<string> barrasColocadasList = new List<string>();
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -54,7 +56,7 @@ public class MiniGame_Barras : MonoBehaviour
         textoResultado.text = "¡ESTADÍSTICAS ORDENADAS!";
 
         yield return new WaitForSeconds(2f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

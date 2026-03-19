@@ -21,6 +21,8 @@ public class MiniGame_Libros : MonoBehaviour
     private bool juegoActivo = false;
     private bool juegoCompletado = false;
     private bool temporizadorActivo = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -86,7 +88,7 @@ public class MiniGame_Libros : MonoBehaviour
         textoResultado.text = "¡COMPLETASTE!";
 
         yield return new WaitForSeconds(2f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

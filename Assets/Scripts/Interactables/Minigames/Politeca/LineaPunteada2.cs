@@ -7,9 +7,7 @@ public class LineaPunteada2 : MonoBehaviour
     [SerializeField] private float anchoBarra = 40f;
     [SerializeField] private float altoBarra; 
     [SerializeField] private Color colorLinea = Color.white;
-    [SerializeField] private float grosorLinea = 2f;
     [SerializeField] private float longitudSegmento = 10f;
-    [SerializeField] private float espacioSegmento = 5f;
 
     private RectTransform rectTransform;
     private Image imagenLinea;

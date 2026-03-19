@@ -26,6 +26,8 @@ public class MinijuegoFotografia : MonoBehaviour
     private Vector3 marcoPosInicial;
     private bool puedeTomarFoto = true;
     private bool fotoTomada = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Awake()
     {
@@ -104,7 +106,7 @@ public class MinijuegoFotografia : MonoBehaviour
 
         textoInstrucciones.text = "¡Foto perfecta!";
         yield return new WaitForSeconds(1f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

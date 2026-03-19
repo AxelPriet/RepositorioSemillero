@@ -1,11 +1,12 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameProgressManager : MonoBehaviour
 {
     public static GameProgressManager Instance;
 
     [SerializeField] private int currentMinigameIndex = 0;
+    private HashSet<int> completedMinigames = new HashSet<int>();
 
     private void Awake()
     {
@@ -17,13 +18,23 @@ public class GameProgressManager : MonoBehaviour
 
     public bool CanPlayMinigame(int index)
     {
-        return index == currentMinigameIndex;
+        return index == currentMinigameIndex; 
     }
 
-    public void CompleteMinigame()
+    public void CompleteMinigame(int minigameIndex)
     {
-        currentMinigameIndex++;
-        CarnetManager.Instance.AddCarnetPiece();
+        if (completedMinigames.Contains(minigameIndex))
+            return;
+
+        completedMinigames.Add(minigameIndex);
+
+        if (minigameIndex == currentMinigameIndex)
+        {
+            currentMinigameIndex++;
+        }
+
+        if (CarnetManager.Instance != null)
+            CarnetManager.Instance.AddCarnetPiece();
     }
 
     public int GetCurrentIndex()

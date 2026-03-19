@@ -15,6 +15,8 @@ public class MinijuegoBuho : MonoBehaviour
 
     private int piezasColocadas = 0;
     private bool minijuegoCompletado = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -40,6 +42,7 @@ public class MinijuegoBuho : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡BÚHO COMPLETADO!";
         yield return new WaitForSeconds(1.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

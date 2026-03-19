@@ -10,47 +10,22 @@ public class Coleccionable : MonoBehaviour, IInteractuable
     [Header("Comportamiento")]
     [SerializeField] private bool destruirAlRecoger = true;
 
-    // Implementación de IInteractuable
     public void Interactuar()
     {
         if (!puedeInteractuar) return;
 
-        // 1. Añadir al inventario del jugador
-        InventarioJugador.Instance.AñadirObjeto(this);
-
-        // 2. Feedback en consola
-        Debug.Log($"<color=yellow>¡Has recogido: {nombreObjeto}!</color>");
-
-        // 3. Desactivar interacción
+        InventarioJugador.Instance?.AñadirObjeto(this);
         puedeInteractuar = false;
 
-        // 4. Destruir o desactivar el objeto
         if (destruirAlRecoger)
-        {
             Destroy(gameObject);
-        }
         else
-        {
             gameObject.SetActive(false);
-        }
     }
 
-    public string GetPrompt()
-    {
-        return $"Recoger {nombreObjeto}";
-    }
-
-    public bool PuedeInteractuar()
-    {
-        return puedeInteractuar;
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
-    }
-
-    // Getters para el inventario
+    public string GetPrompt() => $"Recoger {nombreObjeto}";
+    public bool PuedeInteractuar() => puedeInteractuar;
+    public Transform GetTransform() => transform;
     public string GetID() => idObjeto;
     public string GetNombre() => nombreObjeto;
 }

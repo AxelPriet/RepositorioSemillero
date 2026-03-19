@@ -15,6 +15,8 @@ public class MiniGame_Inventario : MonoBehaviour
     [SerializeField] private string nombreEscenaPrincipal = "Main";
 
     private bool juegoCompletado = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -26,7 +28,6 @@ public class MiniGame_Inventario : MonoBehaviour
     {
         if (juegoCompletado) return;
 
-        // Verificar constantemente si ya se completó
         if (TodosLosSlotsLlenos())
         {
             StartCoroutine(GanarJuego());
@@ -37,13 +38,15 @@ public class MiniGame_Inventario : MonoBehaviour
     {
         SlotEstante[] slots = FindObjectsByType<SlotEstante>(FindObjectsSortMode.None);
 
+        int implementosColocados = 0;
+
         foreach (var slot in slots)
         {
-            if (!slot.EstaLleno())
-                return false;
+            if (slot.EstaLleno())
+                implementosColocados++;
         }
 
-        return true;
+        return implementosColocados >= totalImplementos;
     }
 
     private IEnumerator GanarJuego()
@@ -55,7 +58,7 @@ public class MiniGame_Inventario : MonoBehaviour
         textoResultado.text = "¡Mini juego completado!";
 
         yield return new WaitForSeconds(2f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

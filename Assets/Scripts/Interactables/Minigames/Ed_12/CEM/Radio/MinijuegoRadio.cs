@@ -24,6 +24,7 @@ public class MinijuegoRadio : MonoBehaviour
     private float valorObjetivoPerilla2;
     private float tiempoCorrecto = 0f;
     private bool minijuegoCompletado = false;
+    [SerializeField] private int minigameIndex;
 
     private void Awake()
     {
@@ -102,6 +103,7 @@ public class MinijuegoRadio : MonoBehaviour
         señal.color = Color.green;
 
         yield return new WaitForSeconds(1f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

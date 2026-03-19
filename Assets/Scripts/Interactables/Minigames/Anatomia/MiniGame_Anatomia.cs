@@ -13,6 +13,7 @@ public class MiniGame_Anatomia : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private int totalOrganos = 6;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
+    [SerializeField] private int minigameIndex;
 
     private int organosColocados = 0;
     private bool juegoCompletado = false;
@@ -45,7 +46,7 @@ public class MiniGame_Anatomia : MonoBehaviour
         textoResultado.text = "¡COMPLETASTE!";
 
         yield return new WaitForSeconds(2f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

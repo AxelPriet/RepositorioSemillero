@@ -44,7 +44,7 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (colocado) return;
+        if (colocado || mouseSobreObjeto) return;
 
         mouseSobreObjeto = true;
         CrearTextoHover();
@@ -85,7 +85,10 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!mouseSobreObjeto) return;
+
         mouseSobreObjeto = false;
+
         if (textoHover != null)
         {
             Destroy(textoHover);

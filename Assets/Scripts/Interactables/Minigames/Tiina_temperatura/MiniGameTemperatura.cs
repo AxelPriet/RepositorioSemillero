@@ -40,6 +40,8 @@ public class MinijuegoTina : MonoBehaviour
     private float temperaturaActual = 30f;
     private float tiempoAcumulado = 0f;
     private bool minijuegoCompletado = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -122,6 +124,7 @@ public class MinijuegoTina : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡TEMPERATURA PERFECTA!";
         yield return new WaitForSeconds(1.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

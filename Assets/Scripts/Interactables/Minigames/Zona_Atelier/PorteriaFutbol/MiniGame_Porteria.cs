@@ -40,6 +40,8 @@ public class MiniGamePorteria : MonoBehaviour
     private int direccionFuerza = 1;
     private float limiteIzquierdo = -200f;
     private float limiteDerecho = 200f;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -186,6 +188,7 @@ public class MiniGamePorteria : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

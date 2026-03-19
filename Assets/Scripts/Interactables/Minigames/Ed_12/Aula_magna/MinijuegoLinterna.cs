@@ -36,6 +36,8 @@ public class MinijuegoLinterna : MonoBehaviour
     private float limiteDerecho;
     private float limiteXLinterna;
     private Vector2 posicionInicialGraduado;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -168,6 +170,7 @@ public class MinijuegoLinterna : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

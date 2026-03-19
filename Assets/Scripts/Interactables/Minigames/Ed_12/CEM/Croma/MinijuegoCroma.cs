@@ -28,6 +28,8 @@ public class MinijuegoCroma : MonoBehaviour
     private float valorObjetivoAzul;
     private float tiempoCorrecto = 0f;
     private bool minijuegoCompletado = false;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -137,6 +139,7 @@ public class MinijuegoCroma : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

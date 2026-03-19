@@ -18,6 +18,8 @@ public class MiniGame_Robot : MonoBehaviour
     private int piezasColocadas = 0;
     private bool juegoCompletado = false;
     private List<string> piezasColocadasList = new List<string>();
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -54,7 +56,7 @@ public class MiniGame_Robot : MonoBehaviour
         textoResultado.text = "¡El robot baila!";
 
         yield return new WaitForSeconds(2f);
-
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

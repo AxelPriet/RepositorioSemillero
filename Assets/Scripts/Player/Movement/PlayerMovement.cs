@@ -66,6 +66,15 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(MoveToTile(currentInput));
         }
     }
+    public void SetMovementEnabled(bool enabled)
+    {
+        canMove = enabled;
+        if (!enabled)
+        {
+            StopAllCoroutines();
+            isMoving = false;
+        }
+    }
 
     public void SetCanMove(bool value)
     {

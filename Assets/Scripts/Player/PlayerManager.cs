@@ -41,7 +41,23 @@ public class PlayerManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        StartCoroutine(ReactivarJugadorProximoFrame(scene));
+        if (scene.buildIndex == 0) 
+        {
+            if (jugadorActual != null)
+            {
+                OcultarJugador();
+            }
+            else
+            {
+                BuscarJugador();
+                if (jugadorActual != null)
+                    OcultarJugador();
+            }
+        }
+        else if (scene.buildIndex == 1)
+        {
+            StartCoroutine(ReactivarJugadorProximoFrame(scene));
+        }
     }
 
     private IEnumerator ReactivarJugadorProximoFrame(Scene scene)

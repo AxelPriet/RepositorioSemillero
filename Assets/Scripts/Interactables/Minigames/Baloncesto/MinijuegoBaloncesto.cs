@@ -39,6 +39,8 @@ public class MinijuegoBaloncesto : MonoBehaviour
     private bool minijuegoCompletado = false;
     private int direccionFuerza = 1;
     private GameObject balonActual;
+    [SerializeField] private int minigameIndex;
+
 
     private void Start()
     {
@@ -169,6 +171,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

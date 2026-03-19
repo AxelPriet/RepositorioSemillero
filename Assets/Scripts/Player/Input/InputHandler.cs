@@ -4,9 +4,8 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     public static InputHandler Instance { get; private set; }
-
+    public System.Action OnMenuToggle;
     private PlayerControls playerControls;
-
     private void Awake()
     {
         if (Instance == null)
@@ -26,14 +25,25 @@ public class InputHandler : MonoBehaviour
     private void OnEnable()
     {
         if (playerControls != null)
+        {
             playerControls.Gameplay.Enable();
+            playerControls.Gameplay.Menu.performed += OnMenuPerformed;
+        }
     }
 
     private void OnDisable()
     {
         if (playerControls != null)
+        {
             playerControls.Gameplay.Disable();
+            playerControls.Gameplay.Menu.performed -= OnMenuPerformed;
+        }
     }
+    private void OnMenuPerformed(InputAction.CallbackContext context)
+    {
+        OnMenuToggle?.Invoke();
+    }
+
 
     public Vector2 GetMoveInput()
     {

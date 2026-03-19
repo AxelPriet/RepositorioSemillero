@@ -7,6 +7,9 @@ public class CarnetManager : MonoBehaviour
     [SerializeField] private int totalPieces = 4;
     private int collectedPieces = 0;
 
+    public int PartesRecolectadas => collectedPieces;
+    public int TotalPieces => totalPieces;
+
     private void Awake()
     {
         if (Instance == null)
@@ -18,12 +21,5 @@ public class CarnetManager : MonoBehaviour
     public void AddCarnetPiece()
     {
         collectedPieces++;
-
-        Debug.Log("Parte del carnet obtenida: " + collectedPieces);
-
-        if (collectedPieces >= totalPieces)
-        {
-            Debug.Log("Carnet completado. Juego terminado.");
-        }
     }
 }
