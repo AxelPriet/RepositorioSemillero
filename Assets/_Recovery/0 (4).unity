@@ -4334,7 +4334,6 @@ MonoBehaviour:
   walkSpeed: 5
   runSpeed: 8
   tileSize: 1
-  idleDelay: 1
   isMoving: 0
 --- !u!212 &1727880285
 SpriteRenderer:
