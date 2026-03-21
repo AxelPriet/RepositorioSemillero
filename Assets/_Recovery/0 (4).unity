@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Baloncesto
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 5
+  idProgreso: 0
 --- !u!1 &57289181
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Soluciones
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 10
+  idProgreso: 0
 --- !u!61 &145180885
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -829,7 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc72c68c9ddf93043917e853b51d81cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarnetManager
-  totalPieces: 17
+  totalPieces: 18
 --- !u!4 &411148820
 Transform:
   m_ObjectHideFlags: 0
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Temperatura
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 8
+  idProgreso: 0
 --- !u!61 &411637367
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Aula-Magna
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 4
+  idProgreso: 0
 --- !u!1 &489759416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Atelier
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 12
+  idProgreso: 0
 --- !u!61 &489759418
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Sensei
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 13
+  idProgreso: 0
 --- !u!61 &641654494
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1649,7 +1649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Dibujo
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 9
+  idProgreso: 0
 --- !u!61 &650994784
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2060,7 +2060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Croma
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 3
+  idProgreso: 0
 --- !u!1 &817381238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,7 +2683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_IlustratorBuho
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 6
+  idProgreso: 0
 --- !u!1 &1039345056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,7 +2717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Gym
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 11
+  idProgreso: 0
 --- !u!61 &1039345058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3309,7 +3309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Porteria
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 7
+  idProgreso: 0
 --- !u!61 &1383893943
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3785,7 +3785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Fotografia
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 1
+  idProgreso: 0
 --- !u!1 &1577897982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,7 +4334,6 @@ MonoBehaviour:
   walkSpeed: 5
   runSpeed: 8
   tileSize: 1
-  idleDelay: 1
   isMoving: 0
 --- !u!212 &1727880285
 SpriteRenderer:
@@ -4558,7 +4557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Anatomia
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 16
+  idProgreso: 0
 --- !u!61 &1753882898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4817,7 +4816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_CEM_Radio
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 2
+  idProgreso: 0
 --- !u!1 &1814863185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,7 +4865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Laboratorio
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 15
+  idProgreso: 0
 --- !u!61 &1814863188
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5187,7 +5186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActivadorMinijuego
   nombreEscena: MiniGame_Politeca
   mensajePrompt: Iniciar Minijuego
-  idProgreso: 14
+  idProgreso: 0
 --- !u!61 &1947829684
 BoxCollider2D:
   m_ObjectHideFlags: 0

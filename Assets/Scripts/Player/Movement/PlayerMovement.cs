@@ -10,21 +10,28 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Estado Actual")]
     [SerializeField] private bool isMoving = false;
+
     private Vector2 moveInput;
     private Vector2 targetPosition;
-
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-
+    private SpriteRenderer spriteRenderer;
     private bool canMove = true;
     private bool isRunning = false;
     private float currentSpeed;
     private InputHandler inputHandler;
 
+    private Animator animator;
+    private static readonly int MovementHash = Animator.StringToHash("Movement");
+    private static readonly int MoveXHash = Animator.StringToHash("MoveX");
+    private static readonly int MoveYHash = Animator.StringToHash("MoveY");
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         targetPosition = transform.position;
         currentSpeed = walkSpeed;
     }
@@ -37,13 +44,9 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator InicializarMovimiento()
     {
         yield return new WaitForSeconds(0.1f);
-
-
         FullResetMovement();
         SetCanMove(true);
-
         inputHandler = InputHandler.Instance;
-
     }
 
     private void Update()
@@ -62,10 +65,47 @@ public class PlayerMovement : MonoBehaviour
         Vector2 currentInput = inputHandler.GetMoveInput();
 
         if (!isMoving && currentInput != Vector2.zero)
-        {
             StartCoroutine(MoveToTile(currentInput));
-        }
+
+        UpdateAnimator(currentInput);
     }
+
+    // ─────────────────────────────────────────────
+    //  Animator
+    // ─────────────────────────────────────────────
+
+    private void UpdateAnimator(Vector2 currentInput)
+    {
+        if (animator == null) return;
+
+        // Sin input → Idle (Movement = 0)
+        float speed = 0f;
+        if (currentInput != Vector2.zero)
+            speed = isRunning ? 1f : 0.5f;
+
+        animator.SetFloat(MovementHash, speed);
+        animator.SetFloat(MoveXHash, currentInput.x);
+        animator.SetFloat(MoveYHash, currentInput.y);
+
+        // Voltear sprite según dirección horizontal
+        if (currentInput.x > 0)
+            spriteRenderer.flipX = true;
+        else if (currentInput.x < 0)
+            spriteRenderer.flipX = false;
+    }
+
+    private void UpdateAnimator()
+    {
+        if (animator == null) return;
+        animator.SetFloat(MovementHash, 0f);
+        animator.SetFloat(MoveXHash, 0f);
+        animator.SetFloat(MoveYHash, 0f);
+    }
+
+    // ─────────────────────────────────────────────
+    //  Control externo
+    // ─────────────────────────────────────────────
+
     public void SetMovementEnabled(bool enabled)
     {
         canMove = enabled;
@@ -73,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StopAllCoroutines();
             isMoving = false;
+            UpdateAnimator();
         }
     }
 
@@ -84,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
             moveInput = Vector2.zero;
             StopAllCoroutines();
             isMoving = false;
+            UpdateAnimator();
         }
     }
 
@@ -92,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         StopAllCoroutines();
         isMoving = false;
         moveInput = Vector2.zero;
+        UpdateAnimator();
     }
 
     public void FullResetMovement()
@@ -100,13 +143,18 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         moveInput = Vector2.zero;
         targetPosition = transform.position;
-        canMove = true; 
+        canMove = true;
+        UpdateAnimator();
     }
 
     public void SetMoveDirection(Vector2 direction)
     {
         moveInput = direction;
     }
+
+    // ─────────────────────────────────────────────
+    //  Movimiento tile-based
+    // ─────────────────────────────────────────────
 
     private IEnumerator MoveToTile(Vector2 direction)
     {
@@ -116,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         targetPosition = startPosition + (direction * tileSize);
 
         float distance = Vector2.Distance(startPosition, targetPosition);
+
         RaycastHit2D hit = Physics2D.BoxCast(
             targetPosition,
             boxCollider.bounds.size,
@@ -128,11 +177,11 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null)
         {
             isMoving = false;
+            UpdateAnimator();
             yield break;
         }
 
         float elapsedTime = 0f;
-
         while (elapsedTime < 1f)
         {
             elapsedTime += Time.deltaTime * currentSpeed;
