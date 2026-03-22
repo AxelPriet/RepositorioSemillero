@@ -11,16 +11,16 @@ public class MiniGame_Dibujo : MonoBehaviour
     private class DatosFigura
     {
         public string nombre;
-        public List<Image> cuadrados = new List<Image>();
+        public List<SpriteRenderer> cuadrados = new List<SpriteRenderer>();
         public bool terminada = false;
         public int pintados = 0;
         public float Progreso => pintados / (float)cuadrados.Count;
     }
 
-    [Header("Grupos de figuras (Empties con los cuadrados como hijos)")]
-    [SerializeField] private RectTransform grupoCirculo;
-    [SerializeField] private RectTransform grupoCuadrado;
-    [SerializeField] private RectTransform grupoTriangulo;
+    [Header("Grupos de figuras")]
+    [SerializeField] private Transform grupoCirculo;
+    [SerializeField] private Transform grupoCuadrado;
+    [SerializeField] private Transform grupoTriangulo;
 
     [Header("Colores")]
     [SerializeField] private Color colorDefecto = Color.white;
@@ -63,7 +63,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         ActualizarUI();
     }
 
-    private void RegistrarGrupo(RectTransform grupo, string nombre)
+    private void RegistrarGrupo(Transform grupo, string nombre)
     {
         if (grupo == null) return;
 
@@ -72,17 +72,16 @@ public class MiniGame_Dibujo : MonoBehaviour
 
         foreach (Transform hijo in grupo)
         {
-            Image img = hijo.GetComponent<Image>();
-            if (img != null)
+            SpriteRenderer sr = hijo.GetComponent<SpriteRenderer>();
+            if (sr != null)
             {
-                img.color = colorDefecto;
-                d.cuadrados.Add(img);
+                sr.color = colorDefecto;
+                d.cuadrados.Add(sr);
             }
         }
 
         figuras.Add(d);
     }
-
     private void Update()
     {
         if (juegoTerminado || camara == null) return;
@@ -92,39 +91,41 @@ public class MiniGame_Dibujo : MonoBehaviour
 
         if (dibujando) ProcesarDibujo();
     }
-
     private void ProcesarDibujo()
     {
         Vector2 posScreen = Mouse.current.position.ReadValue();
         sobreFigura = false;
 
-        Canvas canvas = GetComponentInParent<Canvas>();
-        Camera camaraCanvas = (canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-                              ? null
-                              : camara;
+        Vector3 posMundo = Camera.main.ScreenToWorldPoint(
+            new Vector3(posScreen.x, posScreen.y, Camera.main.nearClipPlane));
+        posMundo.z = 0;
 
-        foreach (var fig in figuras)
+        RaycastHit2D[] hits = Physics2D.RaycastAll(posMundo, Vector2.zero);
+
+        foreach (var hit in hits)
         {
-            if (fig.terminada) continue;
+            if (hit.collider == null) continue;
 
-            foreach (var cuadrado in fig.cuadrados)
+            SpriteRenderer sr = hit.collider.GetComponent<SpriteRenderer>();
+            if (sr == null) continue;
+
+            foreach (var fig in figuras)
             {
-                if (RectTransformUtility.RectangleContainsScreenPoint(
-                        cuadrado.rectTransform, posScreen, camaraCanvas))
+                if (fig.terminada) continue;
+                if (!fig.cuadrados.Contains(sr)) continue;
+
+                sobreFigura = true;
+
+                if (sr.color != colorPintado)
                 {
-                    sobreFigura = true;
+                    sr.color = colorPintado;
+                    fig.pintados++;
+                    ActualizarUI();
 
-                    if (cuadrado.color != colorPintado)
-                    {
-                        cuadrado.color = colorPintado;
-                        fig.pintados++;
-                        ActualizarUI();
-
-                        if (!fig.terminada && fig.pintados >= fig.cuadrados.Count)
-                            StartCoroutine(FiguraCompletada(fig));
-                    }
-                    break;
+                    if (!fig.terminada && fig.pintados >= fig.cuadrados.Count)
+                        StartCoroutine(FiguraCompletada(fig));
                 }
+                break;
             }
         }
 
@@ -153,7 +154,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         }
         else
         {
-            textoMensaje.text = $"¡{fig.nombre} completada!";
+            textoMensaje.text = $"¡{fig.nombre} completado!";
             yield return new WaitForSeconds(1f);
             textoMensaje.text = "";
         }
@@ -164,7 +165,12 @@ public class MiniGame_Dibujo : MonoBehaviour
         juegoTerminado = true;
         textoMensaje.text = "¡COMPLETASTE TODO!";
         yield return new WaitForSeconds(2f);
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+
+        if (GameProgressManager.Instance != null)
+            GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        else
+            Debug.LogWarning("GameProgressManager no encontrado en la escena");
+
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 
