@@ -20,23 +20,18 @@ public class MarcoArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown - Click en el marco");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag - Comienza arrastre");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!puedeMoverse)
         {
-            Debug.Log("OnDrag ignorado - puedeMoverse = false");
             return;
         }
-
-        Debug.Log($"OnDrag ejecutándose. Delta: {eventData.delta}");
 
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

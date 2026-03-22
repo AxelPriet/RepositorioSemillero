@@ -96,9 +96,7 @@ public class PiezaRobot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
 
         if (zonaDestacada != null)
-            Debug.Log($"Zona destacada para {nombrePieza}: '{zonaDestacada.name.Trim()}'");
 
-        // Iluminar zonas
         foreach (var zona in todasLasPosiciones)
         {
             PosicionRobot imgZona = zona.GetComponent<PosicionRobot>();
@@ -119,22 +117,17 @@ public class PiezaRobot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
-        // Limpiar espacios y convertir a string simple
         string nombreZona = zonaDestacada != null ? zonaDestacada.name.Trim() : "";
         string nombreEsperado = posicionCorrecta.Trim();
 
-        Debug.Log($"Comparando: '{nombreZona}' con '{nombreEsperado}'");
 
         if (zonaDestacada != null && nombreZona == nombreEsperado)
         {
-            Debug.Log($"✅ {nombrePieza} colocada correctamente en {nombreZona}");
 
-            // Colocar en la posición correcta
             rectTransform.position = zonaDestacada.position;
             colocada = true;
             canvasGroup.blocksRaycasts = false;
 
-            // Marcar zona como ocupada
             PosicionRobot imgZona = zonaDestacada.GetComponent<PosicionRobot>();
             if (imgZona != null)
                 imgZona.Completado();
@@ -143,14 +136,12 @@ public class PiezaRobot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else
         {
-            Debug.Log($"❌ {nombrePieza} - Esperaba: '{nombreEsperado}', Encontró: '{nombreZona}'");
             RegresarInicio();
 
             if (zonaDestacada != null)
                 StartCoroutine(FeedbackError());
         }
 
-        // Resetear colores
         foreach (var zona in todasLasPosiciones)
         {
             PosicionRobot imgZona = zona.GetComponent<PosicionRobot>();

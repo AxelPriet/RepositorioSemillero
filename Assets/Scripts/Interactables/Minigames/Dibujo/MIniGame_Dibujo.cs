@@ -8,46 +8,36 @@ using UnityEngine.SceneManagement;
 
 public class MiniGame_Dibujo : MonoBehaviour
 {
-    public enum TipoFigura { Circulo, Cuadrado, Triangulo }
-
     private class DatosFigura
     {
-        public TipoFigura tipo;
-        public List<Vector2> puntos = new List<Vector2>();
-        public bool[] completados;
-        public int totalCompletados = 0;
-        public LineaUI lineaUI;
+        public string nombre;
+        public List<Image> cuadrados = new List<Image>();
         public bool terminada = false;
-        public float Progreso => totalCompletados / (float)puntos.Count;
+        public int pintados = 0;
+        public float Progreso => pintados / (float)cuadrados.Count;
     }
 
-    [Header("Figuras")]
-    [SerializeField] private float tamañoFigura = 150f;
-    [SerializeField] private float grosorLinea = 4f;
-    [SerializeField] private float toleranciaPunto = 18f;
-    [SerializeField] private float toleranciaBorde = 20f;
-
-    [Header("Posiciones (local en tablero)")]
-    [SerializeField] private Vector2 posCirculo = new Vector2(-300f, 0f);
-    [SerializeField] private Vector2 posCuadrado = new Vector2(0f, 0f);
-    [SerializeField] private Vector2 posTriangulo = new Vector2(300f, 0f);
+    [Header("Grupos de figuras (Empties con los cuadrados como hijos)")]
+    [SerializeField] private RectTransform grupoCirculo;
+    [SerializeField] private RectTransform grupoCuadrado;
+    [SerializeField] private RectTransform grupoTriangulo;
 
     [Header("Colores")]
-    [SerializeField] private Color colorNoTrazado = Color.gray;
-    [SerializeField] private Color colorTrazado = Color.green;
+    [SerializeField] private Color colorDefecto = Color.white;
+    [SerializeField] private Color colorPintado = Color.black;
 
     [Header("Errores")]
     [SerializeField] private int erroresMaximos = 30;
     [SerializeField] private float cooldownError = 0.15f;
 
     [Header("UI")]
-    [SerializeField] private RectTransform tablero;
-    [SerializeField] private TextMeshProUGUI textoVidas;
+    [SerializeField] private TextMeshProUGUI textoErrores;
     [SerializeField] private TextMeshProUGUI textoProgreso;
     [SerializeField] private TextMeshProUGUI textoMensaje;
 
     [Header("Escena")]
     [SerializeField] private string nombreEscenaPrincipal = "SampleScene";
+    private Camera camaraCanvas;
 
     private List<DatosFigura> figuras = new List<DatosFigura>();
     private Camera camara;
@@ -55,131 +45,90 @@ public class MiniGame_Dibujo : MonoBehaviour
     private int erroresActuales = 0;
     private bool juegoTerminado = false;
     private float tiempoUltimoError = -999f;
-    private DatosFigura figuraActiva = null;
+    private bool sobreFigura = false;
+    [SerializeField] private int minigameIndex;
 
     private void Start()
     {
         camara = Camera.main;
-        CrearFigura(TipoFigura.Circulo, posCirculo);
-        CrearFigura(TipoFigura.Cuadrado, posCuadrado);
-        CrearFigura(TipoFigura.Triangulo, posTriangulo);
+
+        RegistrarGrupo(grupoCirculo, "Círculo");
+        RegistrarGrupo(grupoCuadrado, "Cuadrado");
+        RegistrarGrupo(grupoTriangulo, "Triángulo");
+        Canvas canvas = GetComponentInParent<Canvas>();
+        camaraCanvas = (canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                       ? null
+                       : camara;
+
         ActualizarUI();
     }
 
-    // ─── Creación ───
-    private void CrearFigura(TipoFigura tipo, Vector2 offset)
+    private void RegistrarGrupo(RectTransform grupo, string nombre)
     {
-        DatosFigura d = new DatosFigura();
-        d.tipo = tipo;
+        if (grupo == null) return;
 
-        switch (tipo)
+        DatosFigura d = new DatosFigura();
+        d.nombre = nombre;
+
+        foreach (Transform hijo in grupo)
         {
-            case TipoFigura.Circulo: GenerarCirculo(d, offset); break;
-            case TipoFigura.Cuadrado: GenerarCuadrado(d, offset); break;
-            case TipoFigura.Triangulo: GenerarTriangulo(d, offset); break;
+            Image img = hijo.GetComponent<Image>();
+            if (img != null)
+            {
+                img.color = colorDefecto;
+                d.cuadrados.Add(img);
+            }
         }
 
-        d.completados = new bool[d.puntos.Count];
-
-        GameObject go = new GameObject($"Figura_{tipo}");
-        go.transform.SetParent(tablero, false);
-        RectTransform rt = go.AddComponent<RectTransform>(); 
-        rt.anchorMin = new Vector2(0.5f, 0.5f);
-        rt.anchorMax = new Vector2(0.5f, 0.5f);
-        rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.anchoredPosition = Vector2.zero;
-        rt.sizeDelta = Vector2.zero;
-
-        LineaUI linea = go.AddComponent<LineaUI>();
-        linea.puntos = d.puntos;
-        linea.grosor = grosorLinea;
-        linea.color = colorNoTrazado;
-        linea.raycastTarget = false;
-        linea.Refrescar();
-
-        d.lineaUI = linea;
         figuras.Add(d);
     }
 
-    private void GenerarCirculo(DatosFigura d, Vector2 offset)
-    {
-        int n = 64;
-        float radio = tamañoFigura * 0.5f;
-        for (int i = 0; i <= n; i++)
-        {
-            float a = (i / (float)n) * Mathf.PI * 2f;
-            d.puntos.Add(offset + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * radio);
-        }
-    }
-
-    private void GenerarCuadrado(DatosFigura d, Vector2 offset)
-    {
-        float m = tamañoFigura * 0.5f;
-        int pasos = 25;
-
-        for (int i = 0; i <= pasos; i++) // inferior
-            d.puntos.Add(offset + new Vector2(Mathf.Lerp(-m, m, i / (float)pasos), -m));
-        for (int i = 1; i <= pasos; i++) // derecho
-            d.puntos.Add(offset + new Vector2(m, Mathf.Lerp(-m, m, i / (float)pasos)));
-        for (int i = 1; i <= pasos; i++) // superior
-            d.puntos.Add(offset + new Vector2(Mathf.Lerp(m, -m, i / (float)pasos), m));
-        for (int i = 1; i <= pasos; i++) // izquierdo
-            d.puntos.Add(offset + new Vector2(-m, Mathf.Lerp(m, -m, i / (float)pasos)));
-        d.puntos.Add(offset + new Vector2(-m, -m)); // cerrar
-    }
-
-    private void GenerarTriangulo(DatosFigura d, Vector2 offset)
-    {
-        // Triángulo equilátero centrado en offset
-        float radio = tamañoFigura * 0.5f;
-        int pasos = 30;
-
-        // Los 3 vértices distribuidos en círculo, empezando arriba
-        Vector2 v1 = offset + new Vector2(0, radio);                                         // arriba
-        Vector2 v2 = offset + new Vector2(-radio * Mathf.Sqrt(3f) / 2f, -radio * 0.5f);       // abajo izquierda
-        Vector2 v3 = offset + new Vector2(radio * Mathf.Sqrt(3f) / 2f, -radio * 0.5f);       // abajo derecha
-
-        for (int i = 0; i <= pasos; i++) d.puntos.Add(Vector2.Lerp(v1, v2, i / (float)pasos));
-        for (int i = 1; i <= pasos; i++) d.puntos.Add(Vector2.Lerp(v2, v3, i / (float)pasos));
-        for (int i = 1; i <= pasos; i++) d.puntos.Add(Vector2.Lerp(v3, v1, i / (float)pasos));
-        d.puntos.Add(v1); // cerrar al punto inicial
-    }
-
-    // ─── Update ───
     private void Update()
     {
         if (juegoTerminado || camara == null) return;
 
-        Vector2 pos = ObtenerPosicionLocal();
-
         if (Mouse.current.leftButton.wasPressedThisFrame) dibujando = true;
-        if (Mouse.current.leftButton.wasReleasedThisFrame) { dibujando = false; figuraActiva = null; }
+        if (Mouse.current.leftButton.wasReleasedThisFrame) dibujando = false;
 
-        if (dibujando) ProcesarDibujo(pos);
+        if (dibujando) ProcesarDibujo();
     }
 
-    private void ProcesarDibujo(Vector2 pos)
+    private void ProcesarDibujo()
     {
-        DatosFigura enBorde = null;
-        float mejorDist = float.MaxValue;
+        Vector2 posScreen = Mouse.current.position.ReadValue();
+        sobreFigura = false;
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Camera camaraCanvas = (canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+                              ? null
+                              : camara;
 
         foreach (var fig in figuras)
         {
             if (fig.terminada) continue;
-            float dist = DistanciaAlBorde(fig, pos);
-            if (dist < toleranciaBorde && dist < mejorDist)
+
+            foreach (var cuadrado in fig.cuadrados)
             {
-                mejorDist = dist;
-                enBorde = fig;
+                if (RectTransformUtility.RectangleContainsScreenPoint(
+                        cuadrado.rectTransform, posScreen, camaraCanvas))
+                {
+                    sobreFigura = true;
+
+                    if (cuadrado.color != colorPintado)
+                    {
+                        cuadrado.color = colorPintado;
+                        fig.pintados++;
+                        ActualizarUI();
+
+                        if (!fig.terminada && fig.pintados >= fig.cuadrados.Count)
+                            StartCoroutine(FiguraCompletada(fig));
+                    }
+                    break;
+                }
             }
         }
 
-        if (enBorde != null)
-        {
-            figuraActiva = enBorde;
-            MarcarPuntoCercano(enBorde, pos);
-        }
-        else if (figuraActiva != null && Time.time - tiempoUltimoError > cooldownError)
+        if (!sobreFigura && Time.time - tiempoUltimoError > cooldownError)
         {
             erroresActuales++;
             tiempoUltimoError = Time.time;
@@ -190,47 +139,9 @@ public class MiniGame_Dibujo : MonoBehaviour
         }
     }
 
-    private void MarcarPuntoCercano(DatosFigura fig, Vector2 pos)
-    {
-        for (int i = 0; i < fig.puntos.Count; i++)
-        {
-            if (!fig.completados[i] && Vector2.Distance(pos, fig.puntos[i]) < toleranciaPunto)
-            {
-                fig.completados[i] = true;
-                fig.totalCompletados++;
-                fig.lineaUI.ActualizarColor(Color.Lerp(colorNoTrazado, colorTrazado, fig.Progreso));
-            }
-        }
-
-        if (!fig.terminada && fig.totalCompletados >= fig.puntos.Count)
-            StartCoroutine(FiguraCompletada(fig));
-    }
-
-    private float DistanciaAlBorde(DatosFigura fig, Vector2 pos)
-    {
-        float min = float.MaxValue;
-        for (int i = 0; i < fig.puntos.Count - 1; i++)
-        {
-            float d = DistanciaPuntoSegmento(pos, fig.puntos[i], fig.puntos[i + 1]);
-            if (d < min) min = d;
-        }
-        return min;
-    }
-
-    private float DistanciaPuntoSegmento(Vector2 p, Vector2 a, Vector2 b)
-    {
-        Vector2 ab = b - a;
-        float dot = Vector2.Dot(ab, ab);
-        if (dot == 0f) return Vector2.Distance(p, a);
-        float t = Mathf.Clamp01(Vector2.Dot(p - a, ab) / dot);
-        return Vector2.Distance(p, a + t * ab);
-    }
-
-    // ─── Corrutinas ───
     private IEnumerator FiguraCompletada(DatosFigura fig)
     {
         fig.terminada = true;
-        fig.lineaUI.ActualizarColor(colorTrazado);
         ActualizarUI();
 
         bool todas = true;
@@ -242,7 +153,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         }
         else
         {
-            textoMensaje.text = $"¡{fig.tipo} completado!";
+            textoMensaje.text = $"¡{fig.nombre} completada!";
             yield return new WaitForSeconds(1f);
             textoMensaje.text = "";
         }
@@ -253,6 +164,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         juegoTerminado = true;
         textoMensaje.text = "¡COMPLETASTE TODO!";
         yield return new WaitForSeconds(2f);
+        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 
@@ -267,20 +179,10 @@ public class MiniGame_Dibujo : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoVidas.text = $"Errores: {erroresActuales}/{erroresMaximos}";
+        textoErrores.text = $"Errores: {erroresActuales}/{erroresMaximos}";
+
         float prog = 0f;
         foreach (var f in figuras) prog += f.Progreso;
         textoProgreso.text = $"Progreso: {prog / figuras.Count * 100f:F0}%";
-    }
-
-    private Vector2 ObtenerPosicionLocal()
-    {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            tablero,
-            Mouse.current.position.ReadValue(),
-            camara,
-            out Vector2 pos
-        );
-        return pos;
     }
 }
