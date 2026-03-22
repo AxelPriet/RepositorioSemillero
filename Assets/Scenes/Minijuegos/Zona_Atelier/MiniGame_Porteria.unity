@@ -713,7 +713,7 @@ MonoBehaviour:
   golesRequeridos: 3
   intentosMaximos: 5
   nombreEscenaPrincipal: Main
-  minigameIndex: 16
+  minigameIndex: 6
 --- !u!4 &1495177040
 Transform:
   m_ObjectHideFlags: 0

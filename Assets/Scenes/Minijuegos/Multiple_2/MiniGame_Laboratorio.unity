@@ -1380,7 +1380,7 @@ MonoBehaviour:
   textoResultado: {fileID: 1696078472}
   totalImplementos: 7
   nombreEscenaPrincipal: Main
-  minigameIndex: 13
+  minigameIndex: 10
 --- !u!4 &1591905114
 Transform:
   m_ObjectHideFlags: 0

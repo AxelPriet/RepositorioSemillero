@@ -992,7 +992,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 807227694}
   tiempoRequerido: 10
   nombreEscenaPrincipal: Main
-  minigameIndex: 6
+  minigameIndex: 7
 --- !u!4 &1309459242
 Transform:
   m_ObjectHideFlags: 0

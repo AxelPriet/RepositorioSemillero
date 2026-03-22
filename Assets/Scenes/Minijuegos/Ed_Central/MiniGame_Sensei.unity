@@ -783,7 +783,7 @@ MonoBehaviour:
   textoResultado: {fileID: 1061260834}
   totalBarras: 4
   nombreEscenaPrincipal: Main
-  minigameIndex: 11
+  minigameIndex: 13
 --- !u!4 &536688301
 Transform:
   m_ObjectHideFlags: 0

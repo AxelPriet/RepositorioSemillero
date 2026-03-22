@@ -6092,7 +6092,7 @@ MonoBehaviour:
   textoProgreso: {fileID: 1253088414}
   textoMensaje: {fileID: 152162912}
   nombreEscenaPrincipal: Main
-  minigameIndex: 10
+  minigameIndex: 9
 --- !u!1 &1178437471
 GameObject:
   m_ObjectHideFlags: 0
