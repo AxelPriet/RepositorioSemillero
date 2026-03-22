@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Configuración de Movimiento")]
+    public static PlayerMovement Instance;
+
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float runSpeed = 8f;
     [SerializeField] private float tileSize = 1f;
 
-    [Header("Estado Actual")]
-    [SerializeField] private bool isMoving = false;
-
+    private bool isMoving = false;
     private Vector2 moveInput;
     private Vector2 targetPosition;
     private Rigidbody2D rb;
@@ -20,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning = false;
     private float currentSpeed;
     private InputHandler inputHandler;
-
     private Animator animator;
     private static readonly int MovementHash = Animator.StringToHash("Movement");
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
@@ -28,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -70,15 +69,10 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimator(currentInput);
     }
 
-    // ─────────────────────────────────────────────
-    //  Animator
-    // ─────────────────────────────────────────────
-
     private void UpdateAnimator(Vector2 currentInput)
     {
         if (animator == null) return;
 
-        // Sin input → Idle (Movement = 0)
         float speed = 0f;
         if (currentInput != Vector2.zero)
             speed = isRunning ? 1f : 0.5f;
@@ -87,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat(MoveXHash, currentInput.x);
         animator.SetFloat(MoveYHash, currentInput.y);
 
-        // Voltear sprite según dirección horizontal
         if (currentInput.x > 0)
             spriteRenderer.flipX = true;
         else if (currentInput.x < 0)
@@ -101,10 +94,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat(MoveXHash, 0f);
         animator.SetFloat(MoveYHash, 0f);
     }
-
-    // ─────────────────────────────────────────────
-    //  Control externo
-    // ─────────────────────────────────────────────
 
     public void SetMovementEnabled(bool enabled)
     {
@@ -151,10 +140,6 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = direction;
     }
-
-    // ─────────────────────────────────────────────
-    //  Movimiento tile-based
-    // ─────────────────────────────────────────────
 
     private IEnumerator MoveToTile(Vector2 direction)
     {

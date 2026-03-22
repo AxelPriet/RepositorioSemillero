@@ -1,53 +1,186 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [Header("Panel Proximidad (solo texto)")]
+    [SerializeField] private GameObject proximidadPanel;
+    [SerializeField] private TextMeshProUGUI proximidadText;
 
-    [SerializeField] private float typingTime = 0.03f;
+    [Header("Panel Interacción (nombre + texto + skip)")]
+    [SerializeField] private GameObject interaccionPanel;
+    [SerializeField] private TextMeshProUGUI interaccionNombreText;
+    [SerializeField] private TextMeshProUGUI interaccionDialogueText;
+    [SerializeField] private GameObject skipIndicator;
+    [SerializeField] private GameObject advanceIndicator;
 
+    [Header("Settings")]
+    [SerializeField] private float typingSpeed = 0.03f;
+    [SerializeField] private float skipDelay = 2f;
+
+    public bool IsActive => isDialogueActive;
+
+    private string[] currentLines;
+    private int currentLineIndex = 0;
+    private bool isDialogueActive = false;
+    private bool isTyping = false;
+    private bool canSkip = false;
+    private System.Action onComplete;
     private Coroutine typingCoroutine;
+    private Coroutine skipTimerCoroutine;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
 
-        dialoguePanel.SetActive(false);
+        proximidadPanel.SetActive(false);
+        interaccionPanel.SetActive(false);
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
     }
+
+    private void Update()
+    {
+        if (!isDialogueActive) return;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            if (isTyping) CompleteTyping();
+            else ShowNextLine();
+        }
+
+        if (canSkip && Keyboard.current.spaceKey.wasPressedThisFrame)
+            ShowNextLine();
+    }
+
 
     public void ShowDialogue(string text)
     {
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);
-
-        dialoguePanel.SetActive(true);
-        typingCoroutine = StartCoroutine(TypeLine(text));
-    }
-
-    private IEnumerator TypeLine(string line)
-    {
-        dialogueText.text = string.Empty;
-
-        foreach (char ch in line)
-        {
-            dialogueText.text += ch;
-            yield return new WaitForSeconds(typingTime);
-        }
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        proximidadPanel.SetActive(true);
+        interaccionPanel.SetActive(false); 
+        typingCoroutine = StartCoroutine(TypeLineProximidad(text));
     }
 
     public void HideDialogue()
     {
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        proximidadPanel.SetActive(false);
+        isDialogueActive = false;
+    }
 
-        dialoguePanel.SetActive(false);
+    private IEnumerator TypeLineProximidad(string line)
+    {
+        proximidadText.text = "";
+        foreach (char c in line)
+        {
+            proximidadText.text += c;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
+
+    public void StartDialogue(string npcName, string[] lines, System.Action onDialogueComplete = null)
+    {
+        if (isDialogueActive) return;
+
+        currentLines = lines;
+        currentLineIndex = 0;
+        onComplete = onDialogueComplete;
+        isDialogueActive = true;
+
+        if (interaccionNombreText) interaccionNombreText.text = npcName;
+        interaccionPanel.SetActive(true);
+        proximidadPanel.SetActive(false); 
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+
+        if (playerMovement != null) playerMovement.SetMovementEnabled(false);
+        ShowCurrentLine();
+    }
+
+    private void ShowCurrentLine()
+    {
+        if (currentLineIndex >= currentLines.Length) { EndDialogue(); return; }
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        typingCoroutine = StartCoroutine(TypeLineInteraccion(currentLines[currentLineIndex]));
+    }
+
+    private IEnumerator TypeLineInteraccion(string line)
+    {
+        isTyping = true;
+        canSkip = false;
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+
+        interaccionDialogueText.text = "";
+        foreach (char c in line)
+        {
+            interaccionDialogueText.text += c;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        isTyping = false;
+        if (advanceIndicator) advanceIndicator.SetActive(true);
+
+        if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
+        skipTimerCoroutine = StartCoroutine(SkipTimer());
+    }
+
+    private IEnumerator SkipTimer()
+    {
+        yield return new WaitForSeconds(skipDelay);
+        if (isDialogueActive && !isTyping)
+        {
+            canSkip = true;
+            if (skipIndicator) skipIndicator.SetActive(true);
+        }
+    }
+
+    private void CompleteTyping()
+    {
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        isTyping = false;
+        interaccionDialogueText.text = currentLines[currentLineIndex];
+        if (advanceIndicator) advanceIndicator.SetActive(true);
+
+        if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
+        skipTimerCoroutine = StartCoroutine(SkipTimer());
+    }
+
+    private void ShowNextLine()
+    {
+        if (!isDialogueActive || isTyping) return;
+        currentLineIndex++;
+        canSkip = false;
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+        ShowCurrentLine();
+    }
+
+    private void EndDialogue()
+    {
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
+
+        isDialogueActive = false;
+        isTyping = false;
+        canSkip = false;
+
+        interaccionPanel.SetActive(false);
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+
+        if (playerMovement != null) playerMovement.SetMovementEnabled(true);
+
+        onComplete?.Invoke();
+        onComplete = null;
     }
 }
