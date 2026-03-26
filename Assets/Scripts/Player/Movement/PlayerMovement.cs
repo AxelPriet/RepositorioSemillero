@@ -44,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         FullResetMovement();
-        SetCanMove(true);
+
+        bool hayDialogo = DialogueManager.Instance != null && DialogueManager.Instance.IsActive;
+        SetCanMove(!hayDialogo);
+
         inputHandler = InputHandler.Instance;
     }
 

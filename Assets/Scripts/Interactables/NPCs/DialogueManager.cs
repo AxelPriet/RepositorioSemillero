@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -36,7 +37,11 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else { Destroy(gameObject); return; }
 
         proximidadPanel.SetActive(false);
@@ -182,5 +187,36 @@ public class DialogueManager : MonoBehaviour
 
         onComplete?.Invoke();
         onComplete = null;
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        isDialogueActive = false;
+        isTyping = false;
+        canSkip = false;
+
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
+
+        interaccionPanel.SetActive(false);
+        proximidadPanel.SetActive(false);
+        if (skipIndicator) skipIndicator.SetActive(false);
+        if (advanceIndicator) advanceIndicator.SetActive(false);
+
+        onComplete = null;
+
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
+
+        if (playerMovement != null)
+            playerMovement.SetMovementEnabled(true);
     }
 }

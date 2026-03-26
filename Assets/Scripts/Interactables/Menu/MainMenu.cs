@@ -47,15 +47,14 @@ public class MainMenu : MonoBehaviour
 
     private void ToggleMenu()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0)
-            return;
+        if (SceneManager.GetActiveScene().buildIndex == 0) return;
+
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsActive) return;
 
         if (mainMenu.activeSelf || optionsMenu.activeSelf)
         {
-            if (optionsMenu.activeSelf)
-                OpenMainMenuPanel();
-            else
-                ResumeGame();
+            if (optionsMenu.activeSelf) OpenMainMenuPanel();
+            else ResumeGame();
         }
         else
         {
