@@ -5481,7 +5481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d8576755fceec499c7f84ac7ff59e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coleccionable
-  idObjeto: objeto_2
+  idObjeto: objeto_1
   nombreObjeto: Objeto Misterioso
   puedeInteractuar: 1
   destruirAlRecoger: 1
@@ -6329,7 +6329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d8576755fceec499c7f84ac7ff59e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coleccionable
-  idObjeto: objeto_3
+  idObjeto: objeto_1
   nombreObjeto: Objeto Misterioso
   puedeInteractuar: 1
   destruirAlRecoger: 1

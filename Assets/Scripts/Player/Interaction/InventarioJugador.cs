@@ -9,6 +9,9 @@ public class InventarioJugador : MonoBehaviour
     [Header("Estado del Inventario")]
     [SerializeField] private List<Coleccionable> objetos = new List<Coleccionable>();
     private Dictionary<string, int> contadorObjetos = new Dictionary<string, int>();
+    private HashSet<string> idsRecogidos = new HashSet<string>();
+
+    public bool YaFueRecogido(string id) => idsRecogidos.Contains(id);
 
     public int ObjetosCount => objetos.Count;
     public int CapacidadMaxima => capacidadMaxima;
@@ -31,12 +34,13 @@ public class InventarioJugador : MonoBehaviour
     public void AñadirObjeto(Coleccionable objeto)
     {
         if (objeto == null) return;
-
         if (objetos.Count >= capacidadMaxima) return;
 
         objetos.Add(objeto);
 
         string id = objeto.GetID();
+        idsRecogidos.Add(id); 
+
         if (contadorObjetos.ContainsKey(id))
             contadorObjetos[id]++;
         else

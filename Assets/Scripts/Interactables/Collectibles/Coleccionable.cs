@@ -10,6 +10,15 @@ public class Coleccionable : MonoBehaviour, IInteractuable
     [Header("Comportamiento")]
     [SerializeField] private bool destruirAlRecoger = true;
 
+    private void Start()
+    {
+        if (InventarioJugador.Instance != null &&
+            InventarioJugador.Instance.YaFueRecogido(idObjeto))
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     public void Interactuar()
     {
         if (!puedeInteractuar) return;
