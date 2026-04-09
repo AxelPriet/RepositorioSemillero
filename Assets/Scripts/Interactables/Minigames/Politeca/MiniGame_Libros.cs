@@ -106,7 +106,7 @@ public class MiniGame_Libros : MonoBehaviour
         textoResultado.color = Color.red;
 
         yield return new WaitForSeconds(2f);
-
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinPoliteca);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

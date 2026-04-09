@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class CharacterSelectionManager : MonoBehaviour
 {
     [Header("Control — desactiva esto mientras pruebas")]
-    [SerializeField] private bool activarSeleccion = false;
+    //[SerializeField] private bool activarSeleccion = false;
 
     [Header("Panel de nombre")]
     [SerializeField] private GameObject panelNombre;
     [SerializeField] private TMP_InputField inputNombre;
     [SerializeField] private Button botonConfirmarNombre;
-    [SerializeField] private TextMeshProUGUI textoErrorNombre;
+    [SerializeField] private TextMeshProUGUI textoErrorNombre; 
 
     [Header("Panel de selección de personaje")]
     [SerializeField] private GameObject panelPersonaje;
@@ -28,20 +28,13 @@ public class CharacterSelectionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoMichell;
     [SerializeField] private Button botonMichell;
 
-    [Header("Escena del juego")]
-    [SerializeField] private int escenaJuego = 1;
 
     private void Start()
     {
-        if (!activarSeleccion)
-        {
-            SceneManager.LoadScene(escenaJuego);
-            return;
-        }
 
         if (PlayerData.Instance != null && PlayerData.Instance.PersonajeElegido)
         {
-            SceneManager.LoadScene(escenaJuego);
+            gameObject.SetActive(false);
             return;
         }
 
@@ -49,13 +42,37 @@ public class CharacterSelectionManager : MonoBehaviour
         if (textoNicolas) textoNicolas.text = "Nicolás";
         if (textoMichell) textoMichell.text = "Michell";
 
+        if (textoErrorNombre == null)
+        {
+            CrearTextoError();
+        }
+        else
+        {
+            textoErrorNombre.text = "";
+        }
+
         botonConfirmarNombre.onClick.AddListener(ConfirmarNombre);
         botonNicolas.onClick.AddListener(() => SeleccionarPersonaje("Nicolas"));
         botonMichell.onClick.AddListener(() => SeleccionarPersonaje("Michell"));
 
         panelNombre.SetActive(true);
         panelPersonaje.SetActive(false);
-        if (textoErrorNombre) textoErrorNombre.text = "";
+    }
+
+    private void CrearTextoError()
+    {
+        GameObject errorGo = new GameObject("TextoError");
+        errorGo.transform.SetParent(panelNombre.transform, false);
+
+        textoErrorNombre = errorGo.AddComponent<TextMeshProUGUI>();
+        textoErrorNombre.text = "";
+        textoErrorNombre.color = Color.red;
+        textoErrorNombre.fontSize = 18;
+        textoErrorNombre.alignment = TextAlignmentOptions.Center;
+
+        RectTransform rect = textoErrorNombre.GetComponent<RectTransform>();
+        rect.anchoredPosition = new Vector2(0, -80);
+        rect.sizeDelta = new Vector2(300, 40);
     }
 
     private void ConfirmarNombre()
@@ -64,21 +81,36 @@ public class CharacterSelectionManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(nombre))
         {
-            if (textoErrorNombre) textoErrorNombre.text = "Por favor ingresa tu nombre";
+            if (textoErrorNombre != null)
+                textoErrorNombre.text = "Por favor ingresa tu nombre";
             return;
         }
 
-        // Guardar nombre
         PlayerData.Instance?.SetNombre(nombre);
 
-        // Pasar al panel de personaje
         panelNombre.SetActive(false);
         panelPersonaje.SetActive(true);
     }
 
     private void SeleccionarPersonaje(string personaje)
     {
-        PlayerData.Instance?.SetPersonaje(personaje);
-        SceneManager.LoadScene(escenaJuego);
+        Debug.Log("Seleccionando personaje: " + personaje); // Para depurar
+
+        if (PlayerData.Instance != null)
+        {
+            PlayerData.Instance.SetPersonaje(personaje);
+        }
+        else
+        {
+            Debug.LogError("PlayerData.Instance es nulo");
+            return;
+        }
+
+        // Ocultar ambos paneles (nombre y personaje)
+        if (panelNombre != null) panelNombre.SetActive(false);
+        if (panelPersonaje != null) panelPersonaje.SetActive(false);
+
+        // Opcional: desactivar todo el objeto del manager (si quieres que no vuelva a aparecer)
+        // gameObject.SetActive(false); // Coméntalo si prefieres solo ocultar los paneles
     }
 }

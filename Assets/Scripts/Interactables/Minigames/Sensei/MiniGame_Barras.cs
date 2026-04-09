@@ -56,6 +56,7 @@ public class MiniGame_Barras : MonoBehaviour
         textoResultado.text = "¡ESTADÍSTICAS ORDENADAS!";
 
         yield return new WaitForSeconds(2f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCensei);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

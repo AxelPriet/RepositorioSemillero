@@ -20,8 +20,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject advanceIndicator;
 
     [Header("Settings")]
-    [SerializeField] private float typingSpeed = 0.03f;
-    [SerializeField] private float skipDelay = 2f;
+    [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private float skipDelay = 2.5f;
 
     public bool IsActive => isDialogueActive;
 
@@ -38,11 +38,12 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+        else
+        {
+            Destroy(gameObject);
+            return;
         }
-        else { Destroy(gameObject); return; }
 
         proximidadPanel.SetActive(false);
         interaccionPanel.SetActive(false);
@@ -66,12 +67,11 @@ public class DialogueManager : MonoBehaviour
             ShowNextLine();
     }
 
-
     public void ShowDialogue(string text)
     {
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         proximidadPanel.SetActive(true);
-        interaccionPanel.SetActive(false); 
+        interaccionPanel.SetActive(false);
         typingCoroutine = StartCoroutine(TypeLineProximidad(text));
     }
 
@@ -103,7 +103,7 @@ public class DialogueManager : MonoBehaviour
 
         if (interaccionNombreText) interaccionNombreText.text = npcName;
         interaccionPanel.SetActive(true);
-        proximidadPanel.SetActive(false); 
+        proximidadPanel.SetActive(false);
         if (skipIndicator) skipIndicator.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
 
@@ -122,10 +122,13 @@ public class DialogueManager : MonoBehaviour
     {
         isTyping = true;
         canSkip = false;
+
         if (skipIndicator) skipIndicator.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
 
+        float startTime = Time.time;
         interaccionDialogueText.text = "";
+
         foreach (char c in line)
         {
             interaccionDialogueText.text += c;
@@ -133,31 +136,34 @@ public class DialogueManager : MonoBehaviour
         }
 
         isTyping = false;
+
+        float elapsed = Time.time - startTime;
+        float remaining = skipDelay - elapsed;
+
+        if (remaining > 0f)
+            yield return new WaitForSeconds(remaining);
+
+        canSkip = true;
+        if (skipIndicator) skipIndicator.SetActive(true);
         if (advanceIndicator) advanceIndicator.SetActive(true);
-
-        if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
-        skipTimerCoroutine = StartCoroutine(SkipTimer());
-    }
-
-    private IEnumerator SkipTimer()
-    {
-        yield return new WaitForSeconds(skipDelay);
-        if (isDialogueActive && !isTyping)
-        {
-            canSkip = true;
-            if (skipIndicator) skipIndicator.SetActive(true);
-        }
     }
 
     private void CompleteTyping()
     {
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
-        isTyping = false;
         interaccionDialogueText.text = currentLines[currentLineIndex];
-        if (advanceIndicator) advanceIndicator.SetActive(true);
+        isTyping = false;
 
         if (skipTimerCoroutine != null) StopCoroutine(skipTimerCoroutine);
-        skipTimerCoroutine = StartCoroutine(SkipTimer());
+        skipTimerCoroutine = StartCoroutine(EsperarYMostrarIndicadores());
+    }
+
+    private IEnumerator EsperarYMostrarIndicadores()
+    {
+        yield return new WaitForSeconds(skipDelay);
+        canSkip = true;
+        if (skipIndicator) skipIndicator.SetActive(true);
+        if (advanceIndicator) advanceIndicator.SetActive(true);
     }
 
     private void ShowNextLine()
@@ -188,6 +194,7 @@ public class DialogueManager : MonoBehaviour
         onComplete?.Invoke();
         onComplete = null;
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -216,7 +223,8 @@ public class DialogueManager : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
 
-        if (playerMovement != null)
+        bool hayPendiente = GuideManager.Instance != null && GuideManager.Instance.TienePendiente;
+        if (playerMovement != null && !hayPendiente)
             playerMovement.SetMovementEnabled(true);
     }
 }

@@ -188,6 +188,7 @@ public class MiniGamePorteria : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCanchaSintetica);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

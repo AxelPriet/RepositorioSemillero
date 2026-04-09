@@ -136,6 +136,7 @@ public class MiniGame_Pesas : MonoBehaviour
         textoResultado.color = Color.green;
 
         yield return new WaitForSeconds(1.5f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinGym);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

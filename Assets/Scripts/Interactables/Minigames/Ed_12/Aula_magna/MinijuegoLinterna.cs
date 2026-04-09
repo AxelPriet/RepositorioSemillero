@@ -170,6 +170,7 @@ public class MinijuegoLinterna : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAulaMagna);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

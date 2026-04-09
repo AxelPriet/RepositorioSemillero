@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,10 +9,7 @@ public class GuideManager : MonoBehaviour
 
     public enum GuideEvent
     {
-        // Primera aparición
         BienvenidaInicio,
-
-        // Explicación antes de cada minijuego
         ExplicacionClinica,
         ExplicacionFotografia,
         ExplicacionRadio,
@@ -30,7 +28,8 @@ public class GuideManager : MonoBehaviour
         ExplicacionLaboratorio,
         ExplicacionAnfiteatro,
 
-        // Finalización de cada minijuego 
+        //Fin juegos
+
         FinClinica,
         FinFotografia,
         FinRadio,
@@ -56,11 +55,12 @@ public class GuideManager : MonoBehaviour
     [Header("Nombre del guía")]
     [SerializeField] private string guideName = "A.A.V.";
 
-    // Diálogos indexados por evento
     private Dictionary<GuideEvent, string[]> dialogues;
-
-    // Registro de eventos ya mostrados (para no repetirlos)
     private HashSet<GuideEvent> shownEvents = new HashSet<GuideEvent>();
+    private GuideEvent? pendingDialogue = null;
+    private bool isPetMode = false;
+
+    public bool TienePendiente => pendingDialogue.HasValue;
 
     private void Awake()
     {
@@ -69,7 +69,11 @@ public class GuideManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else { Destroy(gameObject); return; }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         InicializarDialogos();
 
@@ -77,7 +81,45 @@ public class GuideManager : MonoBehaviour
             guideCharacter.SetActive(false);
     }
 
-    // ── API pública ──────────────────────────────────────────
+    public void SetPendingDialogue(GuideEvent dialogueEvent)
+    {
+        pendingDialogue = dialogueEvent;
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 1 && pendingDialogue.HasValue)
+        {
+            StartCoroutine(MostrarDialogoPendiente(pendingDialogue.Value));
+            pendingDialogue = null;
+        }
+    }
+
+    private IEnumerator MostrarDialogoPendiente(GuideEvent evento)
+    {
+        yield return new WaitForSeconds(0.3f);
+        TriggerEvent(evento);
+    }
+
+    public void ActivatePetMode()
+    {
+        if (guideCharacter == null) return;
+        guideCharacter.SetActive(true);
+        isPetMode = true;
+
+        if (guideCharacter.GetComponent<FollowPlayer>() == null)
+            guideCharacter.AddComponent<FollowPlayer>();
+    }
 
     public void TriggerEvent(GuideEvent guideEvent, System.Action onComplete = null)
     {
@@ -104,36 +146,36 @@ public class GuideManager : MonoBehaviour
             onComplete?.Invoke();
             return;
         }
-
         MostrarGuia(guideEvent, onComplete);
     }
 
     public bool EventoMostrado(GuideEvent guideEvent) => shownEvents.Contains(guideEvent);
 
-    // ── Lógica interna ───────────────────────────────────────
-
     private void MostrarGuia(GuideEvent guideEvent, System.Action onComplete)
     {
-        if (guideCharacter != null)
+        if (!isPetMode && guideCharacter != null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
-            {
-                Vector3 offset = new Vector3(1.5f, 0f, 0f);
-                guideCharacter.transform.position = player.transform.position + offset;
-            }
+                guideCharacter.transform.position = player.transform.position + new Vector3(1.5f, 0f, 0f);
             guideCharacter.SetActive(true);
         }
 
         string[] lines = dialogues[guideEvent];
-        DialogueManager.Instance?.StartDialogue(guideName, lines, () =>
+
+        if (DialogueManager.Instance == null)
         {
-            if (guideCharacter != null)
+            onComplete?.Invoke();
+            return;
+        }
+
+        DialogueManager.Instance.StartDialogue(guideName, lines, () =>
+        {
+            if (!isPetMode && guideCharacter != null)
                 guideCharacter.SetActive(false);
             onComplete?.Invoke();
         });
     }
-
     // ── Diálogos placeholder ─────────────────────────────────
 
     private void InicializarDialogos()
@@ -290,4 +332,16 @@ public class GuideManager : MonoBehaviour
             },
         };
     }
+#if UNITY_EDITOR
+    private void Update()
+    {
+        // Usar el nuevo Input System
+        if (UnityEngine.InputSystem.Keyboard.current != null &&
+            UnityEngine.InputSystem.Keyboard.current.f1Key.wasPressedThisFrame)
+        {
+            ActivatePetMode();
+            TriggerEvent(GuideEvent.BienvenidaInicio);
+        }
+    }
+#endif
 }

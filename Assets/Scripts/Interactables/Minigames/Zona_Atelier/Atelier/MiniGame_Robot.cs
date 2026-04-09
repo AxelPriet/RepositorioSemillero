@@ -52,10 +52,9 @@ public class MiniGame_Robot : MonoBehaviour
         textoInstrucciones.text = "¡ROBOT COMPLETADO!";
         textoPuntuacion.gameObject.SetActive(false);
 
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡El robot baila!";
 
         yield return new WaitForSeconds(2f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAtelier);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

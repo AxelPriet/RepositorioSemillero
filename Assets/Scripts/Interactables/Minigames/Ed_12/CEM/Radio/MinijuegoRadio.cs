@@ -103,6 +103,7 @@ public class MinijuegoRadio : MonoBehaviour
         señal.color = Color.green;
 
         yield return new WaitForSeconds(1f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinRadio);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

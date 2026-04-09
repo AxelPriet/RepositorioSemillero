@@ -130,7 +130,11 @@ public class MinijuegoRCP : MonoBehaviour
         textoInstrucciones.text = "RCP exitoso";
 
         yield return new WaitForSeconds(1.5f);
+
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinClinica);
+
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 

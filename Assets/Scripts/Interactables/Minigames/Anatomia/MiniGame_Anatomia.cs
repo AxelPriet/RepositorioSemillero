@@ -46,6 +46,7 @@ public class MiniGame_Anatomia : MonoBehaviour
         textoResultado.text = "¡COMPLETASTE!";
 
         yield return new WaitForSeconds(2f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAnfiteatro);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }

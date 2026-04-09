@@ -171,6 +171,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
         minijuegoCompletado = true;
         textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
+        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinBasket);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
