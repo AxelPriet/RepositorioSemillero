@@ -5,8 +5,10 @@ public class PlayerData : MonoBehaviour
     public static PlayerData Instance;
 
     public string NombreJugador { get; private set; } = "";
-    public string PersonajeSeleccionado { get; private set; } = "";
-    public bool PersonajeElegido => !string.IsNullOrEmpty(PersonajeSeleccionado);
+    private int personajeIndex = -1;
+
+    public int PersonajeIndex => personajeIndex;
+    public bool PersonajeElegido => personajeIndex >= 0; 
 
     private void Awake()
     {
@@ -24,18 +26,16 @@ public class PlayerData : MonoBehaviour
     public void SetNombre(string nombre)
     {
         NombreJugador = nombre;
-        Debug.Log($"[PlayerData] Nombre: {nombre}");
     }
 
-    public void SetPersonaje(string personaje)
+    public void SetPersonajeIndex(int index)
     {
-        PersonajeSeleccionado = personaje;
-        Debug.Log($"[PlayerData] Personaje: {personaje}");
+        personajeIndex = index;
     }
 
     public void Reset()
     {
         NombreJugador = "";
-        PersonajeSeleccionado = "";
+        personajeIndex = 0;
     }
 }

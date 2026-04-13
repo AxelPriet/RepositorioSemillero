@@ -7,6 +7,9 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject mainMenu;
 
+    [Header("Selección de Personaje")]
+    [SerializeField] private CharacterSelectionManager characterSelectionManager; 
+
     [Header("Inventario UI")]
     [SerializeField] private TextMeshProUGUI totalColeccionablesText;
     [SerializeField] private TextMeshProUGUI partesCarnetText;
@@ -86,7 +89,17 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1); 
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+
+        if (PlayerData.Instance != null && PlayerData.Instance.PersonajeElegido)
+        {
+            SceneManager.LoadScene(1);
+            return;
+        }
+
+        if (characterSelectionManager != null)
+            characterSelectionManager.MostrarPanelNombre();
     }
 
     public void ResumeGame()
@@ -99,16 +112,16 @@ public class MainMenu : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(0); 
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false; 
-        #else
-            Application.Quit(); // Cierra la aplicación en builds
-        #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
     }
 
     private void UpdateInventoryDisplay()
