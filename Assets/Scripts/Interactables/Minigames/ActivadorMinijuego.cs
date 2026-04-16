@@ -4,14 +4,20 @@ using UnityEngine.SceneManagement;
 public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 {
     [Header("Configuración del Minijuego")]
-    [SerializeField] private string nombreEscena; 
+    [SerializeField] private string nombreEscena;
     [SerializeField] private string mensajePrompt = "Iniciar Minijuego";
-    [SerializeField] private int idProgreso; 
+    [SerializeField] private int idProgreso;
 
     private bool minijuegoActivo = false;
 
     public void Interactuar()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsActive)
+        {
+            Debug.Log("No puedes iniciar el minijuego mientras haya un diálogo activo.");
+            return;
+        }
+
         if (minijuegoActivo) return;
 
         minijuegoActivo = true;
@@ -28,7 +34,9 @@ public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 
     public bool PuedeInteractuar()
     {
-        return !minijuegoActivo;
+        if (minijuegoActivo) return false;
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsActive) return false;
+        return true;
     }
 
     public Transform GetTransform()
@@ -48,7 +56,7 @@ public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Main") 
+        if (scene.name == "Main")
         {
             if (PlayerManager.Instance != null)
                 PlayerManager.Instance.MostrarJugador();

@@ -23,12 +23,18 @@ public class NPCBase : MonoBehaviour, IInteractuable
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     private void Update()
     {
-        if (modo != ModoDialogo.Proximidad || player == null) return;
+        if (modo != ModoDialogo.Proximidad) return;
+
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) player = p.transform;
+            else return;
+        }
 
         float dist = Vector2.Distance(transform.position, player.position);
         bool isInside = dist <= interactionDistance;
@@ -36,7 +42,7 @@ public class NPCBase : MonoBehaviour, IInteractuable
         if (isInside && !wasInside)
         {
             wasInside = true;
-            IniciarDialogoProximidad(); 
+            IniciarDialogoProximidad();
         }
         else if (!isInside && wasInside)
         {

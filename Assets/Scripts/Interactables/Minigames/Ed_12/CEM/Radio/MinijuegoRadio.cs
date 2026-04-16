@@ -6,75 +6,129 @@ using UnityEngine.SceneManagement;
 
 public class MinijuegoRadio : MonoBehaviour
 {
+    [Header("Sliders")]
+    [SerializeField] private Slider[] sliders;              
+
+    [Header("Textos de valores actuales")]
+    [SerializeField] private TextMeshProUGUI[] textosValorActual;
+
+    [Header("Textos de valores objetivo")]
+    [SerializeField] private TextMeshProUGUI[] textosValorObjetivo;
+
     [Header("UI")]
-    [SerializeField] private RectTransform perilla1;
-    [SerializeField] private RectTransform perilla2;
-    [SerializeField] private Image señal;
     [SerializeField] private TextMeshProUGUI feedbackText;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
+    [SerializeField] private Image cartelOnAir;
 
     [Header("Configuración")]
-    [SerializeField] private float tolerancia = 0.1f;
+    [SerializeField] private float tolerancia = 0.01f; 
     [SerializeField] private float tiempoRequerido = 3f;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
-
-    private PerillaRadio perilla1Script;
-    private PerillaRadio perilla2Script;
-    private float valorObjetivoPerilla1;
-    private float valorObjetivoPerilla2;
-    private float tiempoCorrecto = 0f;
-    private bool minijuegoCompletado = false;
     [SerializeField] private int minigameIndex;
 
-    private void Awake()
-    {
-        perilla1Script = perilla1.GetComponent<PerillaRadio>();
-        perilla2Script = perilla2.GetComponent<PerillaRadio>();
-    }
+    private float[] valoresObjetivo;
+    private float tiempoCorrecto = 0f;
+    private bool minijuegoCompletado = false;
 
     private void Start()
     {
+        if (sliders.Length != textosValorActual.Length || sliders.Length != textosValorObjetivo.Length)
+        {
+            Debug.LogError("La cantidad de sliders, textos de valor actual y textos objetivo no coincide.");
+            return;
+        }
+
         GenerarValoresAleatorios();
+        ConfigurarSliders();
         ResetearUI();
     }
 
     private void Update()
     {
         if (minijuegoCompletado) return;
+
+        ActualizarTextosValoresActuales();
         VerificarSeñal();
     }
 
     private void GenerarValoresAleatorios()
     {
-        valorObjetivoPerilla1 = Random.Range(0.2f, 0.8f);
-        valorObjetivoPerilla2 = Random.Range(0.2f, 0.8f);
+        valoresObjetivo = new float[sliders.Length];
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            int objetivoInt = Random.Range(20, 81);
+            valoresObjetivo[i] = objetivoInt / 100f;
+
+            if (textosValorObjetivo[i] != null)
+                textosValorObjetivo[i].text = objetivoInt.ToString();
+        }
+    }
+
+    private void ConfigurarSliders()
+    {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            int idx = i; 
+            sliders[i].onValueChanged.AddListener((valor) => ActualizarTextoSlider(idx, valor));
+            sliders[i].value = 0f;
+        }
+    }
+
+    private void ActualizarTextoSlider(int index, float valor)
+    {
+        if (textosValorActual[index] != null)
+        {
+            int valorInt = Mathf.RoundToInt(valor * 100f);
+            textosValorActual[index].text = valorInt.ToString();
+        }
+    }
+
+    private void ActualizarTextosValoresActuales()
+    {
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            if (textosValorActual[i] != null)
+            {
+                int valorInt = Mathf.RoundToInt(sliders[i].value * 100f);
+                textosValorActual[i].text = valorInt.ToString();
+            }
+        }
     }
 
     private void ResetearUI()
     {
-        perilla1Script.ResetearPerilla();
-        perilla2Script.ResetearPerilla();
-        señal.color = Color.red;
-        feedbackText.text = "Ajusta las perillas";
-        textoInstrucciones.text = "Gira las perillas para sintonizar";
+        foreach (Slider s in sliders)
+            s.value = 0f;
+
+        tiempoCorrecto = 0f;
+        feedbackText.text = "Ajusta las frecuencias";
+        textoInstrucciones.text = "Mueve cada barra hasta alcanzar el valor indicado";
+
+        SetCartelAlpha(0f);
+        cartelOnAir.gameObject.SetActive(true);
     }
 
     private void VerificarSeñal()
     {
-        float diferencia1 = Mathf.Abs(perilla1Script.ValorNormalizado - valorObjetivoPerilla1);
-        float diferencia2 = Mathf.Abs(perilla2Script.ValorNormalizado - valorObjetivoPerilla2);
+        bool todoCorrecto = true;
 
-        bool perilla1Correcta = diferencia1 < tolerancia;
-        bool perilla2Correcta = diferencia2 < tolerancia;
-        bool todoCorrecto = perilla1Correcta && perilla2Correcta;
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            if (Mathf.Abs(sliders[i].value - valoresObjetivo[i]) > tolerancia)
+            {
+                todoCorrecto = false;
+                break;
+            }
+        }
 
         if (todoCorrecto)
         {
             tiempoCorrecto += Time.deltaTime;
-            float tiempoRestante = tiempoRequerido - tiempoCorrecto;
+            float progreso = Mathf.Clamp01(tiempoCorrecto / tiempoRequerido);
+            SetCartelAlpha(progreso);
 
-            feedbackText.text = $"Mantén la señal: {tiempoRestante:F1}s";
-            señal.color = Color.Lerp(Color.yellow, Color.green, tiempoCorrecto / tiempoRequerido);
+            float tiempoRestante = tiempoRequerido - tiempoCorrecto;
+            feedbackText.text = $"¡Señal clara! Mantén {tiempoRestante:F1}s";
 
             if (tiempoCorrecto >= tiempoRequerido)
             {
@@ -84,27 +138,31 @@ public class MinijuegoRadio : MonoBehaviour
         else
         {
             tiempoCorrecto = 0f;
-
-            if (!perilla1Correcta && !perilla2Correcta)
-                feedbackText.text = "Ajusta ambas perillas";
-            else if (!perilla1Correcta)
-                feedbackText.text = "Ajusta perilla izquierda";
-            else if (!perilla2Correcta)
-                feedbackText.text = "Ajusta perilla derecha";
-
-            señal.color = Color.red;
+            SetCartelAlpha(0f);
+            feedbackText.text = "Ajusta las barras hasta que coincidan con los valores objetivo";
         }
+    }
+
+    private void SetCartelAlpha(float alpha)
+    {
+        Color c = cartelOnAir.color;
+        c.a = alpha;
+        cartelOnAir.color = c;
     }
 
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
-        feedbackText.text = "¡SEÑAL CLARA!";
-        señal.color = Color.green;
+        SetCartelAlpha(1f);
+        feedbackText.text = "¡AL AIRE!";
 
-        yield return new WaitForSeconds(1f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinRadio);
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        yield return new WaitForSeconds(1.5f);
+
+        if (GuideManager.Instance != null)
+            GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinRadio);
+        if (GameProgressManager.Instance != null)
+            GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 }

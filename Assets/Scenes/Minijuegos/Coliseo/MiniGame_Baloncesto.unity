@@ -1125,7 +1125,7 @@ MonoBehaviour:
   fuerzaMax: 5
   velocidadCarga: 5
   anguloMin: 30
-  anguloMax: 120
+  anguloMax: 60
   velocidadRotacion: 70
   canastasRequeridas: 3
   intentosMaximos: 6

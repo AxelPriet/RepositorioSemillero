@@ -145,6 +145,51 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectRed"",
+                    ""type"": ""Button"",
+                    ""id"": ""feb99eb1-6ed1-4d4a-9c2d-fba591f738dd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectGreen"",
+                    ""type"": ""Button"",
+                    ""id"": ""a424e43f-1ef2-48b1-899e-809387da74c2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectBlue"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd1532b4-f3f1-4e09-b97b-7e5f0cee6e92"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AdjustUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""1010c593-d779-4434-a62d-0f6c028d004e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AdjustDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""f815e639-31bc-4da8-811f-075d055f6424"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -334,6 +379,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16ac303a-802e-40d6-a5dc-0606f9e66402"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectRed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a390e45e-838f-4b36-ab28-046a64b3bdc9"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectGreen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bb7e8c2-8e20-448a-9f0b-b8750b9b3974"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectBlue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f3998f2-f870-448f-9854-93c080e08c07"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8ff90d5-e5d0-4b20-8da5-22cd1080bb2b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdjustDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -348,6 +448,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
         m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
+        m_Gameplay_SelectRed = m_Gameplay.FindAction("SelectRed", throwIfNotFound: true);
+        m_Gameplay_SelectGreen = m_Gameplay.FindAction("SelectGreen", throwIfNotFound: true);
+        m_Gameplay_SelectBlue = m_Gameplay.FindAction("SelectBlue", throwIfNotFound: true);
+        m_Gameplay_AdjustUp = m_Gameplay.FindAction("AdjustUp", throwIfNotFound: true);
+        m_Gameplay_AdjustDown = m_Gameplay.FindAction("AdjustDown", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -434,6 +539,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_MousePosition;
     private readonly InputAction m_Gameplay_Menu;
+    private readonly InputAction m_Gameplay_SelectRed;
+    private readonly InputAction m_Gameplay_SelectGreen;
+    private readonly InputAction m_Gameplay_SelectBlue;
+    private readonly InputAction m_Gameplay_AdjustUp;
+    private readonly InputAction m_Gameplay_AdjustDown;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -469,6 +579,26 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Gameplay/Menu".
         /// </summary>
         public InputAction @Menu => m_Wrapper.m_Gameplay_Menu;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/SelectRed".
+        /// </summary>
+        public InputAction @SelectRed => m_Wrapper.m_Gameplay_SelectRed;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/SelectGreen".
+        /// </summary>
+        public InputAction @SelectGreen => m_Wrapper.m_Gameplay_SelectGreen;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/SelectBlue".
+        /// </summary>
+        public InputAction @SelectBlue => m_Wrapper.m_Gameplay_SelectBlue;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/AdjustUp".
+        /// </summary>
+        public InputAction @AdjustUp => m_Wrapper.m_Gameplay_AdjustUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/AdjustDown".
+        /// </summary>
+        public InputAction @AdjustDown => m_Wrapper.m_Gameplay_AdjustDown;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -513,6 +643,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
+            @SelectRed.started += instance.OnSelectRed;
+            @SelectRed.performed += instance.OnSelectRed;
+            @SelectRed.canceled += instance.OnSelectRed;
+            @SelectGreen.started += instance.OnSelectGreen;
+            @SelectGreen.performed += instance.OnSelectGreen;
+            @SelectGreen.canceled += instance.OnSelectGreen;
+            @SelectBlue.started += instance.OnSelectBlue;
+            @SelectBlue.performed += instance.OnSelectBlue;
+            @SelectBlue.canceled += instance.OnSelectBlue;
+            @AdjustUp.started += instance.OnAdjustUp;
+            @AdjustUp.performed += instance.OnAdjustUp;
+            @AdjustUp.canceled += instance.OnAdjustUp;
+            @AdjustDown.started += instance.OnAdjustDown;
+            @AdjustDown.performed += instance.OnAdjustDown;
+            @AdjustDown.canceled += instance.OnAdjustDown;
         }
 
         /// <summary>
@@ -542,6 +687,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
+            @SelectRed.started -= instance.OnSelectRed;
+            @SelectRed.performed -= instance.OnSelectRed;
+            @SelectRed.canceled -= instance.OnSelectRed;
+            @SelectGreen.started -= instance.OnSelectGreen;
+            @SelectGreen.performed -= instance.OnSelectGreen;
+            @SelectGreen.canceled -= instance.OnSelectGreen;
+            @SelectBlue.started -= instance.OnSelectBlue;
+            @SelectBlue.performed -= instance.OnSelectBlue;
+            @SelectBlue.canceled -= instance.OnSelectBlue;
+            @AdjustUp.started -= instance.OnAdjustUp;
+            @AdjustUp.performed -= instance.OnAdjustUp;
+            @AdjustUp.canceled -= instance.OnAdjustUp;
+            @AdjustDown.started -= instance.OnAdjustDown;
+            @AdjustDown.performed -= instance.OnAdjustDown;
+            @AdjustDown.canceled -= instance.OnAdjustDown;
         }
 
         /// <summary>
@@ -624,5 +784,40 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectRed" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectRed(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectGreen" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectGreen(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectBlue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectBlue(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AdjustUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAdjustUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AdjustDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAdjustDown(InputAction.CallbackContext context);
     }
 }

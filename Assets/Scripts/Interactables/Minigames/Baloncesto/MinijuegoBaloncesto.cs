@@ -24,7 +24,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
     [SerializeField] private float fuerzaMax = 15f;
     [SerializeField] private float velocidadCarga = 2f;
     [SerializeField] private float anguloMin = 20f;
-    [SerializeField] private float anguloMax = 50f;
+    [SerializeField] private float anguloMax = 60f;
     [SerializeField] private float velocidadRotacion = 100f;
     [SerializeField] private int canastasRequeridas = 3;
     [SerializeField] private int intentosMaximos = 6;
@@ -77,7 +77,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
         Vector2 move = playerControls.Gameplay.Move.ReadValue<Vector2>();
         if (move.x != 0)
         {
-            anguloActual += move.x * velocidadRotacion * Time.deltaTime;
+            anguloActual += -move.x * velocidadRotacion * Time.deltaTime;
             anguloActual = Mathf.Clamp(anguloActual, anguloMin, anguloMax);
             flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
         }
