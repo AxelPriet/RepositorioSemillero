@@ -7,7 +7,6 @@ public class MinijuegoBuho : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
     [SerializeField] private int totalPiezas = 6;
@@ -21,7 +20,6 @@ public class MinijuegoBuho : MonoBehaviour
     private void Start()
     {
         textoPuntuacion.text = $"0/{totalPiezas}";
-        textoInstrucciones.text = "Arrastra las piezas a la silueta";
     }
 
     public void PiezaColocada()
@@ -40,7 +38,6 @@ public class MinijuegoBuho : MonoBehaviour
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
-        textoInstrucciones.text = "¡BÚHO COMPLETADO!";
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinSalaMac);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);

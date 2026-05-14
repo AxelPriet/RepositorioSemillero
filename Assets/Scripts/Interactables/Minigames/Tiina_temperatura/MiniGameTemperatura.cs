@@ -11,10 +11,9 @@ public class MinijuegoTina : MonoBehaviour
     [SerializeField] private Image aguaTina;
     [SerializeField] private Gradient gradienteTemperatura;
 
-    [Header("Termómetros de Nivel")]
-    [SerializeField] private RectTransform nivelFrio;
-    [SerializeField] private RectTransform nivelCalor;
-    [SerializeField] private float alturaMaxima = 200f;
+    [Header("Termómetro (indicador de línea)")]
+    [SerializeField] private RectTransform termometroIndicador; 
+    [SerializeField] private float alturaMaximaTermometro = 200f; 
 
     [Header("Temperatura")]
     [SerializeField] private float temperaturaMin = 0f;
@@ -23,14 +22,13 @@ public class MinijuegoTina : MonoBehaviour
     [SerializeField] private float temperaturaOptimaMax = 60f;
 
     [Header("Llaves")]
-    [SerializeField] private float efectoFrio = -8f;
-    [SerializeField] private float efectoCalor = 8f;
-    [SerializeField] private float enfriamientoNatural = 2f;
+    [SerializeField] private float velocidadSubida = 15f;  
+    [SerializeField] private float velocidadBajada = 15f;   
+    [SerializeField] private float enfriamientoNatural = 5f; 
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoTemperatura;
     [SerializeField] private TextMeshProUGUI textoTemporizador;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoRequerido = 15f;
@@ -41,7 +39,6 @@ public class MinijuegoTina : MonoBehaviour
     private float tiempoAcumulado = 0f;
     private bool minijuegoCompletado = false;
     [SerializeField] private int minigameIndex;
-
 
     private void Start()
     {
@@ -62,20 +59,17 @@ public class MinijuegoTina : MonoBehaviour
     {
         float cambio = 0f;
 
-        bool friaPresionada = Keyboard.current.aKey.isPressed;
-        bool calientePresionada = Keyboard.current.dKey.isPressed;
+        bool subir = Keyboard.current.aKey.isPressed;
+        bool bajar = Keyboard.current.dKey.isPressed;
 
-        if (friaPresionada)
-            cambio += efectoFrio * Time.deltaTime;
-        if (calientePresionada)
-            cambio += efectoCalor * Time.deltaTime;
+        if (subir)
+            cambio += velocidadSubida * Time.deltaTime;
+        if (bajar)
+            cambio -= velocidadBajada * Time.deltaTime;
 
-        if (!friaPresionada && !calientePresionada)
+        if (!subir && !bajar)
         {
-            if (temperaturaActual > 30f)
-                cambio = -enfriamientoNatural * Time.deltaTime;
-            else if (temperaturaActual < 30f)
-                cambio = enfriamientoNatural * Time.deltaTime;
+            cambio -= enfriamientoNatural * Time.deltaTime;
         }
 
         temperaturaActual += cambio;
@@ -86,11 +80,14 @@ public class MinijuegoTina : MonoBehaviour
 
     private void ActualizarVisuales()
     {
-        float proporcionFrio = Mathf.Clamp01((temperaturaMax - temperaturaActual) / (temperaturaMax - temperaturaMin));
-        float proporcionCalor = Mathf.Clamp01(temperaturaActual / temperaturaMax);
+        float proporcion = (temperaturaActual - temperaturaMin) / (temperaturaMax - temperaturaMin);
 
-        nivelFrio.sizeDelta = new Vector2(nivelFrio.sizeDelta.x, proporcionFrio * alturaMaxima);
-        nivelCalor.sizeDelta = new Vector2(nivelCalor.sizeDelta.x, proporcionCalor * alturaMaxima);
+        if (termometroIndicador != null)
+        {
+            float nuevaAltura = proporcion * alturaMaximaTermometro;
+            nuevaAltura = Mathf.Clamp(nuevaAltura, 0f, alturaMaximaTermometro);
+            termometroIndicador.sizeDelta = new Vector2(termometroIndicador.sizeDelta.x, nuevaAltura);
+        }
 
         if (aguaTina != null)
         {
@@ -122,7 +119,6 @@ public class MinijuegoTina : MonoBehaviour
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
-        textoInstrucciones.text = "¡TEMPERATURA PERFECTA!";
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinFisioterapia);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
@@ -131,7 +127,6 @@ public class MinijuegoTina : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoInstrucciones.text = "Mantén A (fría) o D (caliente)\nObjetivo: 40°C – 60°C";
         textoTemperatura.text = $"{temperaturaActual:F1}°C";
         textoTemporizador.text = $"{tiempoRequerido:F0}s";
     }

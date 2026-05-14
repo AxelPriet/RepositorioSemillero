@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 public class MiniGame_Anatomia : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI textoPuntuacion;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoResultado;
+    [SerializeField] private TextMeshProUGUI textoFaltantes;
 
     [Header("Configuración")]
     [SerializeField] private int totalOrganos = 6;
@@ -21,7 +19,6 @@ public class MiniGame_Anatomia : MonoBehaviour
     private void Start()
     {
         ActualizarUI();
-        textoResultado.gameObject.SetActive(false);
     }
 
     public void OrganoColocado()
@@ -29,7 +26,8 @@ public class MiniGame_Anatomia : MonoBehaviour
         if (juegoCompletado) return;
 
         organosColocados++;
-        textoPuntuacion.text = $"{organosColocados}/{totalOrganos}";
+        int faltantes = totalOrganos - organosColocados;
+        textoFaltantes.text = $"Faltan: {faltantes}";
 
         if (organosColocados >= totalOrganos)
         {
@@ -40,11 +38,7 @@ public class MiniGame_Anatomia : MonoBehaviour
     private IEnumerator GanarJuego()
     {
         juegoCompletado = true;
-
-        textoInstrucciones.text = "¡ANATOMÍA COMPLETA!";
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡COMPLETASTE!";
-
+        textoFaltantes.text = "¡COMPLETADO!";
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAnfiteatro);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
@@ -53,8 +47,6 @@ public class MiniGame_Anatomia : MonoBehaviour
 
     private void ActualizarUI()
     {
-        textoPuntuacion.text = $"0/{totalOrganos}";
-        textoInstrucciones.text = "Arrastra cada órgano a su lugar";
-        textoResultado.gameObject.SetActive(false);
+        textoFaltantes.text = $"Faltan: {totalOrganos}";
     }
 }

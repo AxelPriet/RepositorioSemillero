@@ -41,7 +41,6 @@ public class MinijuegoLaboratorio : MonoBehaviour
     {
         juegoCompletado = true;
         textoInstrucciones.text = "¡LO LOGRASTE!";
-        textoEstado.text = "¡COMPLETADO!";
 
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinLaboratorioSoluciones);

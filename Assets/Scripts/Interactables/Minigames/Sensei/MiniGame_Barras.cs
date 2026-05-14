@@ -6,25 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class MiniGame_Barras : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI textoPuntuacion;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoResultado;
-
     [Header("Configuración")]
     [SerializeField] private int totalBarras = 4;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI textoBarras;
 
     private int barrasColocadas = 0;
     private bool juegoCompletado = false;
     private List<string> barrasColocadasList = new List<string>();
     [SerializeField] private int minigameIndex;
 
-
     private void Start()
     {
-        ActualizarUI();
-        textoResultado.gameObject.SetActive(false);
+        ActualizarTexto();
     }
 
     public void BarraColocada(string nombreBarra)
@@ -35,35 +31,26 @@ public class MiniGame_Barras : MonoBehaviour
         {
             barrasColocadasList.Add(nombreBarra);
             barrasColocadas++;
-
-            textoPuntuacion.text = $"Barras: {barrasColocadas}/{totalBarras}";
+            ActualizarTexto();
 
             if (barrasColocadas >= totalBarras)
-            {
                 StartCoroutine(CompletarJuego());
-            }
         }
+    }
+
+    private void ActualizarTexto()
+    {
+        if (textoBarras != null)
+            textoBarras.text = $"Barras: {barrasColocadas}/{totalBarras}";
     }
 
     private IEnumerator CompletarJuego()
     {
         juegoCompletado = true;
 
-        textoInstrucciones.text = "¡GRÁFICO COMPLETADO!";
-        textoPuntuacion.gameObject.SetActive(false);
-
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡ESTADÍSTICAS ORDENADAS!";
-
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCensei);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
-    }
-
-    private void ActualizarUI()
-    {
-        textoPuntuacion.text = $"Barras: 0/{totalBarras}";
-        textoInstrucciones.text = "Arrastra cada barra a su categoría";
     }
 }

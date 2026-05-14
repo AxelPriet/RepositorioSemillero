@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MiniGame_Inventario : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoCapacidad;
-    [SerializeField] private TextMeshProUGUI textoResultado;
-
     [Header("Configuración")]
     [SerializeField] private int totalImplementos = 7;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
@@ -20,8 +15,6 @@ public class MiniGame_Inventario : MonoBehaviour
 
     private void Start()
     {
-        ActualizarUI();
-        textoResultado.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -53,20 +46,9 @@ public class MiniGame_Inventario : MonoBehaviour
     {
         juegoCompletado = true;
 
-        textoInstrucciones.text = "¡INVENTARIO ORGANIZADO!";
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡Mini juego completado!";
-
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinLaboratorio);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
-    }
-
-    private void ActualizarUI()
-    {
-        textoInstrucciones.text = "Organiza los implementos para llenar todos los espacios";
-        textoCapacidad.text = "";
-        textoResultado.gameObject.SetActive(false);
     }
 }

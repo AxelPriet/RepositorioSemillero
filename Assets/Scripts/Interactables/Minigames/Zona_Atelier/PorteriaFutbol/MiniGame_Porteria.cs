@@ -9,8 +9,9 @@ public class MiniGamePorteria : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
     [SerializeField] private TextMeshProUGUI textoIntentos;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
+    [SerializeField] private TextMeshProUGUI textoFuerza;
     [SerializeField] private RectTransform barraFuerza;
+    [SerializeField] private RectTransform indicadorFuerza;
 
     [Header("Elementos")]
     [SerializeField] private RectTransform flecha;
@@ -22,7 +23,7 @@ public class MiniGamePorteria : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private float fuerzaMin = 5f;
     [SerializeField] private float fuerzaMax = 15f;
-    [SerializeField] private float velocidadCarga = 3f;
+    [SerializeField] private float velocidadOscilacion = 3f;
     [SerializeField] private float anguloMin = 20f;
     [SerializeField] private float anguloMax = 50f;
     [SerializeField] private int golesRequeridos = 2;
@@ -34,14 +35,12 @@ public class MiniGamePorteria : MonoBehaviour
     private int intentos;
     private float anguloActual = 35f;
     private float fuerzaActual;
-    private bool cargando = false;
     private bool minijuegoCompletado = false;
     private int direccionPortero = 1;
     private int direccionFuerza = 1;
     private float limiteIzquierdo = -200f;
     private float limiteDerecho = 200f;
     [SerializeField] private int minigameIndex;
-
 
     private void Start()
     {
@@ -55,12 +54,14 @@ public class MiniGamePorteria : MonoBehaviour
         intentos = intentosMaximos;
         anguloActual = 35f;
         fuerzaActual = fuerzaMin;
+        direccionFuerza = 1;
 
         textoPuntuacion.text = $"Goles: 0/{golesRequeridos}";
         textoIntentos.text = intentos.ToString();
-        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
+        if (textoFuerza != null)
+            textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
         flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
-        ActualizarBarraFuerza();
+        ActualizarIndicadorFuerza();
     }
 
     private void Update()
@@ -68,8 +69,9 @@ public class MiniGamePorteria : MonoBehaviour
         if (minijuegoCompletado) return;
 
         ProcesarRotacion();
-        ProcesarFuerza();
+        ProcesarFuerzaOscilante();
         MoverPortero();
+        DetectarDisparo();
     }
 
     private void MoverPortero()
@@ -102,44 +104,43 @@ public class MiniGamePorteria : MonoBehaviour
         }
     }
 
-    private void ProcesarFuerza()
+    private void ProcesarFuerzaOscilante()
     {
-        if (playerControls.Gameplay.Compress.WasPressedThisFrame() && !cargando)
+        fuerzaActual += direccionFuerza * velocidadOscilacion * Time.deltaTime;
+
+        if (fuerzaActual >= fuerzaMax)
         {
-            cargando = true;
-            direccionFuerza = 1;
+            fuerzaActual = fuerzaMax;
+            direccionFuerza = -1;
+        }
+        else if (fuerzaActual <= fuerzaMin)
+        {
             fuerzaActual = fuerzaMin;
+            direccionFuerza = 1;
         }
 
-        if (cargando)
-        {
-            fuerzaActual += direccionFuerza * velocidadCarga * Time.deltaTime;
-
-            if (fuerzaActual >= fuerzaMax)
-            {
-                fuerzaActual = fuerzaMax;
-                direccionFuerza = -1;
-            }
-            else if (fuerzaActual <= fuerzaMin)
-            {
-                fuerzaActual = fuerzaMin;
-                direccionFuerza = 1;
-            }
-
-            ActualizarBarraFuerza();
-        }
-
-        if (playerControls.Gameplay.Compress.WasReleasedThisFrame() && cargando)
-        {
-            cargando = false;
-            Lanzar();
-        }
+        if (textoFuerza != null)
+            textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
+        ActualizarIndicadorFuerza();
     }
 
-    private void ActualizarBarraFuerza()
+    private void ActualizarIndicadorFuerza()
     {
+        if (barraFuerza == null || indicadorFuerza == null) return;
+
         float progreso = (fuerzaActual - fuerzaMin) / (fuerzaMax - fuerzaMin);
-        barraFuerza.localScale = new Vector3(progreso, 1, 1);
+        float alturaBarra = barraFuerza.rect.height;
+        float mitadAlturaIndicador = indicadorFuerza.rect.height / 2f;
+        float y = Mathf.Lerp(-alturaBarra / 2 + mitadAlturaIndicador, alturaBarra / 2 - mitadAlturaIndicador, progreso);
+        indicadorFuerza.anchoredPosition = new Vector2(indicadorFuerza.anchoredPosition.x, y);
+    }
+
+    private void DetectarDisparo()
+    {
+        if (playerControls.Gameplay.Compress.WasPressedThisFrame())
+        {
+            Lanzar();
+        }
     }
 
     private void Lanzar()
@@ -168,17 +169,12 @@ public class MiniGamePorteria : MonoBehaviour
         goles++;
         textoPuntuacion.text = $"Goles: {goles}/{golesRequeridos}";
 
-        string mensaje = zona == "centro" ? "¡Gol al centro!" :
-                        zona == "izquierda" ? "¡Gol a la izquierda!" : "¡Gol a la derecha!";
-        textoInstrucciones.text = mensaje;
-
         if (goles >= golesRequeridos)
             StartCoroutine(Victoria());
     }
 
     private IEnumerator ReiniciarJuego()
     {
-        textoInstrucciones.text = "¡Sin intentos! Reiniciando...";
         yield return new WaitForSeconds(1.5f);
         InicializarJuego();
     }
@@ -186,7 +182,6 @@ public class MiniGamePorteria : MonoBehaviour
     private IEnumerator Victoria()
     {
         minijuegoCompletado = true;
-        textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCanchaSintetica);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);

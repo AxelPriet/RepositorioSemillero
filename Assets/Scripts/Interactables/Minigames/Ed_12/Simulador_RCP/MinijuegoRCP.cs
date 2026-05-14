@@ -11,7 +11,7 @@ public class MinijuegoRCP : MonoBehaviour
     public RectTransform zonaVerde;
     [SerializeField] private TextMeshProUGUI textoPuntos;
     [SerializeField] private TextMeshProUGUI textoErrores;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones; 
+    [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
     public float velocidad = 700f;
@@ -19,6 +19,11 @@ public class MinijuegoRCP : MonoBehaviour
     [SerializeField] private float tiempoPausa = 0.3f;
     [SerializeField] private int maxErrores = 3;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
+
+    [Header("Límites del Indicador")]
+    [SerializeField] private bool usarLimitesManuales = true;
+    [SerializeField] private float limiteInferior = -150f;
+    [SerializeField] private float limiteSuperior = 150f;
 
     private float direccion = 1f;
     private float minY;
@@ -29,14 +34,21 @@ public class MinijuegoRCP : MonoBehaviour
     private bool juegoActivo = true;
     [SerializeField] private int minigameIndex;
 
-
     private PlayerControls playerControls;
 
     void Start()
     {
-        float alturaBarra = ((RectTransform)indicador.parent).rect.height;
-        minY = -alturaBarra / 2 + (indicador.rect.height / 2);
-        maxY = alturaBarra / 2 - (indicador.rect.height / 2);
+        if (usarLimitesManuales)
+        {
+            minY = limiteInferior;
+            maxY = limiteSuperior;
+        }
+        else
+        {
+            float alturaBarra = ((RectTransform)indicador.parent).rect.height;
+            minY = -alturaBarra / 2 + (indicador.rect.height / 2);
+            maxY = alturaBarra / 2 - (indicador.rect.height / 2);
+        }
 
         playerControls = InputHandler.Instance.GetControls();
         playerControls.Gameplay.Compress.performed += OnCompress;
@@ -132,9 +144,7 @@ public class MinijuegoRCP : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinClinica);
-
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 
@@ -147,5 +157,39 @@ public class MinijuegoRCP : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!usarLimitesManuales || indicador == null) return;
+
+        Transform parent = indicador.parent;
+        if (parent == null) return;
+
+        Vector3 worldPos = parent.TransformPoint(Vector3.zero);
+        Vector3 up = parent.up;
+        Vector3 right = parent.right;
+
+        Vector3 inferior = worldPos + up * limiteInferior;
+        Vector3 superior = worldPos + up * limiteSuperior;
+
+        float lineWidth = 100f;
+        Vector3 izquierda = -right * lineWidth;
+        Vector3 derecha = right * lineWidth;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(inferior + izquierda, inferior + derecha);
+        Gizmos.DrawLine(superior + izquierda, superior + derecha);
+        Gizmos.DrawLine(inferior, superior);
+
+        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        Vector3 topLeft = superior + izquierda;
+        Vector3 topRight = superior + derecha;
+        Vector3 bottomLeft = inferior + izquierda;
+        Vector3 bottomRight = inferior + derecha;
+        Gizmos.DrawLine(topLeft, topRight);
+        Gizmos.DrawLine(topRight, bottomRight);
+        Gizmos.DrawLine(bottomRight, bottomLeft);
+        Gizmos.DrawLine(bottomLeft, topLeft);
     }
 }

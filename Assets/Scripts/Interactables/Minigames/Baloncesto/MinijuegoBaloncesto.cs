@@ -9,9 +9,9 @@ public class MinijuegoBaloncesto : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
     [SerializeField] private TextMeshProUGUI textoIntentos;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
     [SerializeField] private TextMeshProUGUI textoFuerza;
-    [SerializeField] private RectTransform barraFuerza;
+    [SerializeField] private RectTransform barraFuerza;        
+    [SerializeField] private RectTransform indicadorFuerza;   
 
     [Header("Elementos")]
     [SerializeField] private RectTransform flecha;
@@ -22,7 +22,7 @@ public class MinijuegoBaloncesto : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private float fuerzaMin = 5f;
     [SerializeField] private float fuerzaMax = 15f;
-    [SerializeField] private float velocidadCarga = 2f;
+    [SerializeField] private float velocidadOscilacion = 2f; 
     [SerializeField] private float anguloMin = 20f;
     [SerializeField] private float anguloMax = 60f;
     [SerializeField] private float velocidadRotacion = 100f;
@@ -35,12 +35,10 @@ public class MinijuegoBaloncesto : MonoBehaviour
     private int intentos;
     private float anguloActual = 35f;
     private float fuerzaActual = 5f;
-    private bool cargando = false;
     private bool minijuegoCompletado = false;
-    private int direccionFuerza = 1;
+    private int direccionFuerza = 1;  
     private GameObject balonActual;
     [SerializeField] private int minigameIndex;
-
 
     private void Start()
     {
@@ -55,11 +53,11 @@ public class MinijuegoBaloncesto : MonoBehaviour
         anguloActual = 35f;
         fuerzaActual = fuerzaMin;
         direccionFuerza = 1;
+
         textoPuntuacion.text = $"0/{canastasRequeridas}";
         textoIntentos.text = intentos.ToString();
-        textoInstrucciones.text = "← →: Ángulo | ESPACIO: Fuerza";
-        if (textoFuerza != null)
-            textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
+        textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
+
         flecha.rotation = Quaternion.Euler(0, 0, anguloActual);
         ActualizarBarraFuerza();
     }
@@ -69,7 +67,8 @@ public class MinijuegoBaloncesto : MonoBehaviour
         if (minijuegoCompletado) return;
 
         ProcesarRotacion();
-        ProcesarFuerza();
+        ProcesarFuerzaOscilante();  
+        DetectarDisparo();
     }
 
     private void ProcesarRotacion()
@@ -83,43 +82,42 @@ public class MinijuegoBaloncesto : MonoBehaviour
         }
     }
 
-    private void ProcesarFuerza()
+    private void ProcesarFuerzaOscilante()
     {
-        if (playerControls.Gameplay.Compress.WasPressedThisFrame() && !cargando)
+        fuerzaActual += direccionFuerza * velocidadOscilacion * Time.deltaTime;
+
+        if (fuerzaActual >= fuerzaMax)
         {
-            cargando = true;
+            fuerzaActual = fuerzaMax;
+            direccionFuerza = -1;
+        }
+        else if (fuerzaActual <= fuerzaMin)
+        {
+            fuerzaActual = fuerzaMin;
             direccionFuerza = 1;
         }
 
-        if (cargando)
-        {
-            fuerzaActual += direccionFuerza * velocidadCarga * Time.deltaTime;
-            if (fuerzaActual >= fuerzaMax)
-            {
-                fuerzaActual = fuerzaMax;
-                direccionFuerza = -1;
-            }
-            else if (fuerzaActual <= fuerzaMin)
-            {
-                fuerzaActual = fuerzaMin;
-                direccionFuerza = 1;
-            }
-            ActualizarBarraFuerza();
-            if (textoFuerza != null)
-                textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
-        }
-
-        if (playerControls.Gameplay.Compress.WasReleasedThisFrame() && cargando)
-        {
-            cargando = false;
-            Lanzar();
-        }
+        textoFuerza.text = $"Fuerza: {fuerzaActual:F1}";
+        ActualizarBarraFuerza();
     }
 
     private void ActualizarBarraFuerza()
     {
-        float progreso = (fuerzaActual - fuerzaMin) / (fuerzaMax - fuerzaMin);
-        barraFuerza.localScale = new Vector3(progreso, 1, 1);
+        if (barraFuerza != null && indicadorFuerza != null)
+        {
+            float alturaBarra = barraFuerza.rect.height;
+            float progreso = (fuerzaActual - fuerzaMin) / (fuerzaMax - fuerzaMin);
+            float y = Mathf.Lerp(-alturaBarra / 2f, alturaBarra / 2f, progreso);
+            indicadorFuerza.localPosition = new Vector3(indicadorFuerza.localPosition.x, y, indicadorFuerza.localPosition.z);
+        }
+    }
+
+    private void DetectarDisparo()
+    {
+        if (playerControls.Gameplay.Compress.WasPressedThisFrame())
+        {
+            Lanzar();
+        }
     }
 
     private void Lanzar()
@@ -146,12 +144,10 @@ public class MinijuegoBaloncesto : MonoBehaviour
 
     private IEnumerator EsperarBalonYReiniciar()
     {
-        textoInstrucciones.text = "¡Sin intentos! Esperando...";
         while (balonActual != null)
         {
             yield return null;
         }
-        textoInstrucciones.text = "¡Sin intentos! Reiniciando...";
         yield return new WaitForSeconds(1f);
         InicializarJuego();
     }
@@ -169,7 +165,6 @@ public class MinijuegoBaloncesto : MonoBehaviour
     private IEnumerator Victoria()
     {
         minijuegoCompletado = true;
-        textoInstrucciones.text = "¡VICTORIA!";
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinBasket);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);

@@ -9,7 +9,6 @@ public class MinijuegoFotografia : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private RectTransform marco;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
     [SerializeField] private Image flashImage;
 
     [Header("Objetivo")]
@@ -27,7 +26,6 @@ public class MinijuegoFotografia : MonoBehaviour
     private bool puedeTomarFoto = true;
     private bool fotoTomada = false;
     [SerializeField] private int minigameIndex;
-
 
     private void Awake()
     {
@@ -51,8 +49,6 @@ public class MinijuegoFotografia : MonoBehaviour
 
         if (flashImage != null)
             flashImage.gameObject.SetActive(false);
-
-        ActualizarUI();
     }
 
     private void Update()
@@ -104,7 +100,6 @@ public class MinijuegoFotografia : MonoBehaviour
             flashImage.gameObject.SetActive(false);
         }
 
-        textoInstrucciones.text = "¡Foto perfecta!";
         yield return new WaitForSeconds(1f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinFotografia);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
@@ -128,15 +123,8 @@ public class MinijuegoFotografia : MonoBehaviour
     private IEnumerator FeedbackError()
     {
         marco.GetComponent<Image>().color = Color.red;
-        textoInstrucciones.text = "¡No está encuadrado!";
         yield return new WaitForSeconds(0.5f);
         marco.GetComponent<Image>().color = Color.white;
-        textoInstrucciones.text = "Encuadra el objetivo y presiona ESPACIO";
-    }
-
-    private void ActualizarUI()
-    {
-        textoInstrucciones.text = "Encuadra el objetivo y presiona ESPACIO";
     }
 
     private void OnDestroy()

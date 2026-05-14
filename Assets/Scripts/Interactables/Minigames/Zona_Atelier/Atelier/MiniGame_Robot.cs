@@ -8,8 +8,6 @@ public class MiniGame_Robot : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoPuntuacion;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoResultado;
 
     [Header("Configuración")]
     [SerializeField] private int totalPiezas = 5;
@@ -24,7 +22,6 @@ public class MiniGame_Robot : MonoBehaviour
     private void Start()
     {
         ActualizarUI();
-        textoResultado.gameObject.SetActive(false);
     }
 
     public void PiezaColocada(string nombrePieza)
@@ -48,8 +45,6 @@ public class MiniGame_Robot : MonoBehaviour
     private IEnumerator CompletarRobot()
     {
         juegoCompletado = true;
-
-        textoInstrucciones.text = "¡ROBOT COMPLETADO!";
         textoPuntuacion.gameObject.SetActive(false);
 
 
@@ -62,6 +57,5 @@ public class MiniGame_Robot : MonoBehaviour
     private void ActualizarUI()
     {
         textoPuntuacion.text = $"Piezas: 0/{totalPiezas}";
-        textoInstrucciones.text = "Arrastra las piezas al robot";
     }
 }

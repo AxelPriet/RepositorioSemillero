@@ -10,9 +10,6 @@ public class MiniGame_Pesas : MonoBehaviour
     [Header("Elementos UI")]
     [SerializeField] private Slider barraFuerza;
     [SerializeField] private RectTransform pesa;
-    [SerializeField] private TextMeshProUGUI textoTemporizador;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoResultado;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoLimite = 10f;
@@ -64,7 +61,6 @@ public class MiniGame_Pesas : MonoBehaviour
         if (temporizadorActivo)
         {
             tiempoRestante -= Time.deltaTime;
-            textoTemporizador.text = $"Tiempo: {tiempoRestante:F1}s";
 
             if (!Keyboard.current.spaceKey.isPressed)
             {
@@ -78,10 +74,6 @@ public class MiniGame_Pesas : MonoBehaviour
                 StartCoroutine(PerderJuego());
             }
         }
-        else
-        {
-            textoTemporizador.text = "Presiona ESPACIO para comenzar";
-        }
     }
 
     private void OnPresionarEspacio(InputAction.CallbackContext context)
@@ -92,7 +84,6 @@ public class MiniGame_Pesas : MonoBehaviour
         {
             primerClick = true;
             temporizadorActivo = true;
-            textoInstrucciones.text = "¡Sigue presionando!";
         }
 
         progresoActual += incrementoPorClick;
@@ -121,9 +112,6 @@ public class MiniGame_Pesas : MonoBehaviour
     private void ActualizarUI()
     {
         barraFuerza.value = 0;
-        textoTemporizador.text = "Presiona ESPACIO para comenzar";
-        textoInstrucciones.text = "Presiona ESPACIO rápidamente";
-        textoResultado.gameObject.SetActive(false);
     }
 
     private IEnumerator GanarJuego()
@@ -131,9 +119,6 @@ public class MiniGame_Pesas : MonoBehaviour
         juegoActivo = false;
         juegoTerminado = true;
 
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡LEVANTASTE LA BARRA!";
-        textoResultado.color = Color.green;
 
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinGym);
@@ -146,9 +131,6 @@ public class MiniGame_Pesas : MonoBehaviour
         juegoActivo = false;
         juegoTerminado = true;
 
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡TIEMPO AGOTADO!";
-        textoResultado.color = Color.red;
 
         yield return new WaitForSeconds(1.5f);
 

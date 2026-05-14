@@ -10,6 +10,7 @@ public class LinternaArrastrable : MonoBehaviour, IDragHandler
     private MinijuegoLinterna minijuego;
     private Image imagen;
     private Vector2 tamañoOriginal;
+    private float posicionYOriginal;
 
     private void Awake()
     {
@@ -17,8 +18,8 @@ public class LinternaArrastrable : MonoBehaviour, IDragHandler
         canvas = GetComponentInParent<Canvas>();
         minijuego = GetComponentInParent<MinijuegoLinterna>();
         imagen = GetComponent<Image>();
-
         tamañoOriginal = rectTransform.sizeDelta;
+        posicionYOriginal = rectTransform.anchoredPosition.y; 
     }
 
     public void SetPuedeMoverse(bool estado)
@@ -41,15 +42,13 @@ public class LinternaArrastrable : MonoBehaviour, IDragHandler
         float limiteX = minijuego != null ? minijuego.ObtenerLimiteXLinterna() : 1000f;
         pos.x = Mathf.Clamp(pos.x, -limiteX, limiteX);
 
-        rectTransform.anchoredPosition = new Vector2(pos.x, rectTransform.anchoredPosition.y);
+        rectTransform.anchoredPosition = new Vector2(pos.x, posicionYOriginal);
     }
 
     public void ConfigurarLinterna(float radio, Color color)
     {
         if (imagen != null)
-        {
             imagen.color = color;
-        }
 
         float escalaNecesaria = (radio * 2) / tamañoOriginal.x;
         rectTransform.localScale = Vector3.one * escalaNecesaria;

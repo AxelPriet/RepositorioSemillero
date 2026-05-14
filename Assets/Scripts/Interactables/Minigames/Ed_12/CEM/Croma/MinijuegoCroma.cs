@@ -28,7 +28,6 @@ public class MinijuegoCroma : MonoBehaviour
     [SerializeField] private Image luzAzul;
     [SerializeField] private Image colorObjetivo;
     [SerializeField] private Image colorActual;
-    [SerializeField] private TextMeshProUGUI feedbackText;
     [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
@@ -102,7 +101,6 @@ public class MinijuegoCroma : MonoBehaviour
         if (minijuegoCompletado) return;
         ActualizarLuces();
         ActualizarColorMezclado();
-        VerificarMezcla();
     }
 
     private void AjustarValorActualHaciaArriba()
@@ -187,8 +185,7 @@ public class MinijuegoCroma : MonoBehaviour
 
     private void ActualizarUI()
     {
-        feedbackText.text = "Iguala el color objetivo usando los sliders";
-        textoInstrucciones.text = "1=R | 2=G | 3=B | ↑ ↓ para ajustar";
+        textoInstrucciones.text = "Cambia entre 1, 2 y 3 para cofigurar los colores y con ↑ ↓ ajustas el numero mas preciso";
     }
 
     private void ActualizarLuces()
@@ -203,50 +200,9 @@ public class MinijuegoCroma : MonoBehaviour
         Color mezcla = new Color(sliderRojo.value, sliderVerde.value, sliderAzul.value);
         if (colorActual) colorActual.color = mezcla;
     }
-
-    private void VerificarMezcla()
-    {
-        int rojoActual = Mathf.RoundToInt(sliderRojo.value * 255f);
-        int verdeActual = Mathf.RoundToInt(sliderVerde.value * 255f);
-        int azulActual = Mathf.RoundToInt(sliderAzul.value * 255f);
-
-        int rojoObj = Mathf.RoundToInt(valorObjetivoRojo * 255f);
-        int verdeObj = Mathf.RoundToInt(valorObjetivoVerde * 255f);
-        int azulObj = Mathf.RoundToInt(valorObjetivoAzul * 255f);
-
-        bool rojoCorrecto = rojoActual == rojoObj;
-        bool verdeCorrecto = verdeActual == verdeObj;
-        bool azulCorrecto = azulActual == azulObj;
-        bool todoCorrecto = rojoCorrecto && verdeCorrecto && azulCorrecto;
-
-        if (todoCorrecto)
-        {
-            tiempoCorrecto += Time.deltaTime;
-            float tiempoRestante = tiempoRequerido - tiempoCorrecto;
-            feedbackText.text = $"¡Color exacto! Mantén {tiempoRestante:F1}s";
-            float escala = 1f + (tiempoCorrecto / tiempoRequerido) * 0.2f;
-            if (colorActual) colorActual.transform.localScale = Vector3.one * escala;
-            if (tiempoCorrecto >= tiempoRequerido)
-                StartCoroutine(CompletarMinijuego());
-        }
-        else
-        {
-            tiempoCorrecto = 0f;
-            if (colorActual) colorActual.transform.localScale = Vector3.one;
-            string mensaje = "";
-            if (!rojoCorrecto) mensaje += $"Rojo (debe ser {rojoObj}), ";
-            if (!verdeCorrecto) mensaje += $"Verde (debe ser {verdeObj}), ";
-            if (!azulCorrecto) mensaje += $"Azul (debe ser {azulObj})";
-            feedbackText.text = string.IsNullOrEmpty(mensaje)
-                ? "Ajusta los sliders al valor mostrado"
-                : $"Ajusta: {mensaje.TrimEnd(',', ' ')}";
-        }
-    }
-
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
-        feedbackText.text = "¡CROMA PERFECTO!";
         float tiempo = 0;
         while (tiempo < 0.5f)
         {

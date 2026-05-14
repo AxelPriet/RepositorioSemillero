@@ -7,9 +7,6 @@ public class MiniGame_Libros : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textoTiempo;
-    [SerializeField] private TextMeshProUGUI textoPuntuacion;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
-    [SerializeField] private TextMeshProUGUI textoResultado;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoLimite = 30f;
@@ -38,7 +35,6 @@ public class MiniGame_Libros : MonoBehaviour
         juegoCompletado = false;
 
         ActualizarUI();
-        textoResultado.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -67,7 +63,6 @@ public class MiniGame_Libros : MonoBehaviour
         }
 
         librosColocados++;
-        textoPuntuacion.text = $"Libros: {librosColocados}/{totalLibros}";
 
         if (librosColocados >= totalLibros)
         {
@@ -80,12 +75,7 @@ public class MiniGame_Libros : MonoBehaviour
         juegoCompletado = true;
         juegoActivo = false;
 
-        textoInstrucciones.text = "¡ESTANTERÍA ORDENADA!";
-        textoPuntuacion.gameObject.SetActive(false);
         textoTiempo.gameObject.SetActive(false);
-
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡COMPLETASTE!";
 
         yield return new WaitForSeconds(2f);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
@@ -97,13 +87,7 @@ public class MiniGame_Libros : MonoBehaviour
         juegoCompletado = true;
         juegoActivo = false;
 
-        textoInstrucciones.text = "¡TIEMPO AGOTADO!";
-        textoPuntuacion.gameObject.SetActive(false);
         textoTiempo.gameObject.SetActive(false);
-
-        textoResultado.gameObject.SetActive(true);
-        textoResultado.text = "¡PERDISTE!";
-        textoResultado.color = Color.red;
 
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinPoliteca);
@@ -113,8 +97,5 @@ public class MiniGame_Libros : MonoBehaviour
     private void ActualizarUI()
     {
         textoTiempo.text = $"Tiempo: {tiempoLimite:F0}s";
-        textoPuntuacion.text = $"Libros: 0/{totalLibros}";
-        textoInstrucciones.text = "Ordena los libros de claro a oscuro";
-        textoResultado.gameObject.SetActive(false);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MinijuegoRadio : MonoBehaviour
 {
     [Header("Sliders")]
-    [SerializeField] private Slider[] sliders;              
+    [SerializeField] private Slider[] sliders;
 
     [Header("Textos de valores actuales")]
     [SerializeField] private TextMeshProUGUI[] textosValorActual;
@@ -16,12 +16,10 @@ public class MinijuegoRadio : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] textosValorObjetivo;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI feedbackText;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
     [SerializeField] private Image cartelOnAir;
 
     [Header("Configuración")]
-    [SerializeField] private float tolerancia = 0.01f; 
+    [SerializeField] private float tolerancia = 0.01f;
     [SerializeField] private float tiempoRequerido = 3f;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
     [SerializeField] private int minigameIndex;
@@ -68,7 +66,7 @@ public class MinijuegoRadio : MonoBehaviour
     {
         for (int i = 0; i < sliders.Length; i++)
         {
-            int idx = i; 
+            int idx = i;
             sliders[i].onValueChanged.AddListener((valor) => ActualizarTextoSlider(idx, valor));
             sliders[i].value = 0f;
         }
@@ -101,9 +99,6 @@ public class MinijuegoRadio : MonoBehaviour
             s.value = 0f;
 
         tiempoCorrecto = 0f;
-        feedbackText.text = "Ajusta las frecuencias";
-        textoInstrucciones.text = "Mueve cada barra hasta alcanzar el valor indicado";
-
         SetCartelAlpha(0f);
         cartelOnAir.gameObject.SetActive(true);
     }
@@ -127,9 +122,6 @@ public class MinijuegoRadio : MonoBehaviour
             float progreso = Mathf.Clamp01(tiempoCorrecto / tiempoRequerido);
             SetCartelAlpha(progreso);
 
-            float tiempoRestante = tiempoRequerido - tiempoCorrecto;
-            feedbackText.text = $"¡Señal clara! Mantén {tiempoRestante:F1}s";
-
             if (tiempoCorrecto >= tiempoRequerido)
             {
                 StartCoroutine(CompletarMinijuego());
@@ -139,7 +131,6 @@ public class MinijuegoRadio : MonoBehaviour
         {
             tiempoCorrecto = 0f;
             SetCartelAlpha(0f);
-            feedbackText.text = "Ajusta las barras hasta que coincidan con los valores objetivo";
         }
     }
 
@@ -154,7 +145,6 @@ public class MinijuegoRadio : MonoBehaviour
     {
         minijuegoCompletado = true;
         SetCartelAlpha(1f);
-        feedbackText.text = "¡AL AIRE!";
 
         yield return new WaitForSeconds(1.5f);
 

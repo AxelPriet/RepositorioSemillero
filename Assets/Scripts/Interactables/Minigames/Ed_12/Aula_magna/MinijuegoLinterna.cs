@@ -1,9 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
-using UnityEngine.InputSystem;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MinijuegoLinterna : MonoBehaviour
 {
@@ -17,32 +17,24 @@ public class MinijuegoLinterna : MonoBehaviour
 
     [Header("Configuración Linterna")]
     [SerializeField] private float radioLinterna = 50f;
-    [SerializeField] private float posicionYFija = 0f;
 
     [Header("UI Progreso")]
-    [SerializeField] private Slider sliderProgreso;
     [SerializeField] private TextMeshProUGUI textoTiempo;
-    [SerializeField] private TextMeshProUGUI feedbackText;
-    [SerializeField] private TextMeshProUGUI textoInstrucciones;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoRequerido = 10f;
     [SerializeField] private string nombreEscenaPrincipal = "Main";
+    [SerializeField] private int minigameIndex;
 
     private float tiempoAcumulado = 0f;
     private bool minijuegoCompletado = false;
-
     private float limiteIzquierdo;
-    private float limiteDerecho;
     private float limiteXLinterna;
     private Vector2 posicionInicialGraduado;
-    [SerializeField] private int minigameIndex;
-
 
     private void Start()
     {
         CalcularLimites();
-        ConfigurarUI();
         ConfigurarLinterna();
 
         if (linternaScript != null)
@@ -58,22 +50,10 @@ public class MinijuegoLinterna : MonoBehaviour
             float mitadGraduado = graduado.rect.width / 2;
 
             limiteIzquierdo = -anchoPanel / 2 + mitadGraduado;
-            limiteDerecho = anchoPanel / 2 - mitadGraduado;
             limiteXLinterna = anchoPanel / 2 - radioLinterna;
         }
 
-        posicionInicialGraduado = new Vector2(limiteDerecho, 0);
-        graduado.anchoredPosition = posicionInicialGraduado;
-    }
-
-    private void ConfigurarUI()
-    {
-        sliderProgreso.minValue = 0;
-        sliderProgreso.maxValue = tiempoRequerido;
-        sliderProgreso.value = 0;
-        textoTiempo.text = $"{tiempoRequerido:F0}s";
-        feedbackText.text = "Sigue al graduado con la linterna";
-        textoInstrucciones.text = "Mueve la linterna con clic izquierdo";
+        posicionInicialGraduado = graduado.anchoredPosition;
     }
 
     private void ConfigurarLinterna()
@@ -83,8 +63,6 @@ public class MinijuegoLinterna : MonoBehaviour
             Color colorLinterna = new Color(1, 1, 1, 0.2f);
             linternaScript.ConfigurarLinterna(radioLinterna, colorLinterna);
         }
-
-        linterna.anchoredPosition = new Vector2(0, posicionYFija);
     }
 
     private void Update()
@@ -95,9 +73,7 @@ public class MinijuegoLinterna : MonoBehaviour
         VerificarDeteccion();
 
         if (graduado.anchoredPosition.x <= limiteIzquierdo)
-        {
             ReiniciarJuego();
-        }
     }
 
     private void MoverGraduado()
@@ -106,6 +82,7 @@ public class MinijuegoLinterna : MonoBehaviour
         posicion.x -= velocidadGraduado * Time.deltaTime;
         graduado.anchoredPosition = posicion;
     }
+
     public float ObtenerLimiteXLinterna()
     {
         return limiteXLinterna;
@@ -113,26 +90,22 @@ public class MinijuegoLinterna : MonoBehaviour
 
     private void VerificarDeteccion()
     {
+        // Solo comparar en X ya que el movimiento es horizontal
         float distanciaX = Mathf.Abs(linterna.anchoredPosition.x - graduado.anchoredPosition.x);
-        float distanciaY = Mathf.Abs(linterna.anchoredPosition.y - graduado.anchoredPosition.y);
-        bool estaDentro = (distanciaX * distanciaX + distanciaY * distanciaY) <= (radioLinterna * radioLinterna);
+        bool estaDentro = distanciaX <= radioLinterna;
 
         if (estaDentro)
         {
             tiempoAcumulado += Time.deltaTime;
             graduado.GetComponent<Image>().color = Color.white;
-            sliderProgreso.value = tiempoAcumulado;
             textoTiempo.text = $"{tiempoRequerido - tiempoAcumulado:F1}s";
 
             if (tiempoAcumulado >= tiempoRequerido)
-            {
                 StartCoroutine(CompletarMinijuego());
-            }
         }
         else
         {
             tiempoAcumulado = 0f;
-            sliderProgreso.value = 0;
             textoTiempo.text = $"{tiempoRequerido:F0}s";
             graduado.GetComponent<Image>().color = Color.gray;
         }
@@ -142,24 +115,21 @@ public class MinijuegoLinterna : MonoBehaviour
     {
         graduado.anchoredPosition = posicionInicialGraduado;
         tiempoAcumulado = 0f;
-        sliderProgreso.value = 0;
         textoTiempo.text = $"{tiempoRequerido:F0}s";
-        feedbackText.text = "Llegó al final. ¡Inténtalo de nuevo!";
         StartCoroutine(FeedbackReinicio());
     }
 
     private IEnumerator FeedbackReinicio()
     {
-        Color colorOriginal = graduado.GetComponent<Image>().color;
-        graduado.GetComponent<Image>().color = Color.red;
+        Image imgGraduado = graduado.GetComponent<Image>();
+        imgGraduado.color = Color.red;
         yield return new WaitForSeconds(0.3f);
-        graduado.GetComponent<Image>().color = colorOriginal;
+        imgGraduado.color = Color.gray;
     }
 
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
-        feedbackText.text = "¡GRADUADO!";
 
         float tiempo = 0;
         while (tiempo < 0.5f)
