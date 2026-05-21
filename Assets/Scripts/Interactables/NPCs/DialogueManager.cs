@@ -57,12 +57,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (!isDialogueActive) return;
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            if (isTyping) CompleteTyping();
-            else ShowNextLine();
-        }
-
         if (canSkip && Keyboard.current.spaceKey.wasPressedThisFrame)
             ShowNextLine();
     }

@@ -61,10 +61,11 @@ public class FollowPlayer : MonoBehaviour
         guideAnimator.SetFloat(MovementHash, movement);
 
         // Idle — reproducir Down
-        if (movement == 0f)
+        if (movement < 0.1f)
         {
             guideAnimator.SetFloat(MoveXHash, 0f);
             guideAnimator.SetFloat(MoveYHash, -1f);
+            Debug.Log($"IDLE - MoveX: {guideAnimator.GetFloat(MoveXHash)} | MoveY: {guideAnimator.GetFloat(MoveYHash)} | Estado actual: {guideAnimator.GetCurrentAnimatorStateInfo(0).IsName("GuiaDown")}");
             return;
         }
 
