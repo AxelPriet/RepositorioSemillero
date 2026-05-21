@@ -123,7 +123,7 @@ public class MiniGame_Pesas : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinGym);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private IEnumerator PerderJuego()
@@ -134,7 +134,7 @@ public class MiniGame_Pesas : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void OnDestroy()

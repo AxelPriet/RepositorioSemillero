@@ -60,16 +60,13 @@ public class FollowPlayer : MonoBehaviour
 
         guideAnimator.SetFloat(MovementHash, movement);
 
-        // Idle — reproducir Down
         if (movement < 0.1f)
         {
             guideAnimator.SetFloat(MoveXHash, 0f);
             guideAnimator.SetFloat(MoveYHash, -1f);
-            Debug.Log($"IDLE - MoveX: {guideAnimator.GetFloat(MoveXHash)} | MoveY: {guideAnimator.GetFloat(MoveYHash)} | Estado actual: {guideAnimator.GetCurrentAnimatorStateInfo(0).IsName("GuiaDown")}");
             return;
         }
 
-        // Diagonal o solo X — priorizar Side
         if (Mathf.Abs(moveX) > 0f)
         {
             guideAnimator.SetFloat(MoveXHash, moveX > 0 ? 1f : -1f);
@@ -77,9 +74,8 @@ public class FollowPlayer : MonoBehaviour
         }
         else
         {
-            // Solo vertical (W o S)
             guideAnimator.SetFloat(MoveXHash, 0f);
-            guideAnimator.SetFloat(MoveYHash, moveY > 0 ? 1f : -1f); // W = Up, S = Down
+            guideAnimator.SetFloat(MoveYHash, moveY > 0 ? 1f : -1f); 
         }
 
         if (guideSpriteRenderer != null && playerSpriteRenderer != null)

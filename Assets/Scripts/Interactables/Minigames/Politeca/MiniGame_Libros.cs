@@ -91,7 +91,7 @@ public class MiniGame_Libros : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinPoliteca);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void ActualizarUI()

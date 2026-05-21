@@ -37,7 +37,6 @@ public class MinijuegoCroma : MonoBehaviour
 
     [Header("Control por teclado")]
     [SerializeField] private TextMeshProUGUI textoCanalActivo;
-    [SerializeField] private float pasoTeclado = 1f / 255f;
 
     private float valorObjetivoRojo;
     private float valorObjetivoVerde;
@@ -50,7 +49,6 @@ public class MinijuegoCroma : MonoBehaviour
 
     private void Start()
     {
-        // Obtener PlayerControls
         playerControls = InputHandler.Instance?.GetControls();
         if (playerControls != null)
         {
@@ -101,6 +99,30 @@ public class MinijuegoCroma : MonoBehaviour
         if (minijuegoCompletado) return;
         ActualizarLuces();
         ActualizarColorMezclado();
+
+        if (ColorEsCorrecto())
+        {
+            tiempoCorrecto += Time.deltaTime;
+            if (tiempoCorrecto >= tiempoRequerido)
+                StartCoroutine(CompletarMinijuego());
+        }
+        else
+        {
+            tiempoCorrecto = 0f;
+        }
+    }
+
+    private bool ColorEsCorrecto()
+    {
+        int r = Mathf.RoundToInt(sliderRojo.value * 255f);
+        int g = Mathf.RoundToInt(sliderVerde.value * 255f);
+        int b = Mathf.RoundToInt(sliderAzul.value * 255f);
+
+        int rObj = Mathf.RoundToInt(valorObjetivoRojo * 255f);
+        int gObj = Mathf.RoundToInt(valorObjetivoVerde * 255f);
+        int bObj = Mathf.RoundToInt(valorObjetivoAzul * 255f);
+
+        return r == rObj && g == gObj && b == bObj;
     }
 
     private void AjustarValorActualHaciaArriba()
@@ -109,7 +131,7 @@ public class MinijuegoCroma : MonoBehaviour
         Slider sliderActual = selectedChannel == 0 ? sliderRojo :
                              (selectedChannel == 1 ? sliderVerde : sliderAzul);
         float valorActual = Mathf.Round(sliderActual.value * 255f);
-        sliderActual.value = Mathf.Clamp01((valorActual + 1f) / 255f);
+        sliderActual.value = Mathf.Clamp01((valorActual + 1f) / 255f); 
     }
 
     private void AjustarValorActualHaciaAbajo()
@@ -118,7 +140,7 @@ public class MinijuegoCroma : MonoBehaviour
         Slider sliderActual = selectedChannel == 0 ? sliderRojo :
                              (selectedChannel == 1 ? sliderVerde : sliderAzul);
         float valorActual = Mathf.Round(sliderActual.value * 255f);
-        sliderActual.value = Mathf.Clamp01((valorActual - 1f) / 255f);
+        sliderActual.value = Mathf.Clamp01((valorActual - 1f) / 255f); 
     }
 
     private void SelectChannel(int channel)
@@ -214,6 +236,6 @@ public class MinijuegoCroma : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCroma);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

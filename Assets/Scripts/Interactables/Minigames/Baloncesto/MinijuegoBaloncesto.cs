@@ -168,6 +168,6 @@ public class MinijuegoBaloncesto : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinBasket);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

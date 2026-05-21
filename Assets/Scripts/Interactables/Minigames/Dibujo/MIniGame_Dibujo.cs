@@ -171,7 +171,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         else
             Debug.LogWarning("GameProgressManager no encontrado en la escena");
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinDibujo);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private IEnumerator PerderJuego()
@@ -180,7 +180,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         dibujando = false;
         textoMensaje.text = "¡FALLASTE!\nDemasiados errores";
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void ActualizarUI()

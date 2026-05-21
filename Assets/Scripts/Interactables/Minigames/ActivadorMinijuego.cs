@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 {
@@ -10,21 +11,18 @@ public class ActivadorMinijuego : MonoBehaviour, IInteractuable
 
     private bool minijuegoActivo = false;
 
+    private void Start()
+    {
+    }
+
     public void Interactuar()
     {
-        if (DialogueManager.Instance != null && DialogueManager.Instance.IsActive)
-        {
-            Debug.Log("No puedes iniciar el minijuego mientras haya un diálogo activo.");
-            return;
-        }
-
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsActive) return;
         if (minijuegoActivo) return;
 
         minijuegoActivo = true;
-
         PlayerManager.Instance.OcultarJugador();
-
-        SceneManager.LoadScene(nombreEscena, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscena);
     }
 
     public string GetPrompt()
@@ -60,6 +58,8 @@ public class ActivadorMinijuego : MonoBehaviour, IInteractuable
         {
             if (PlayerManager.Instance != null)
                 PlayerManager.Instance.MostrarJugador();
+
+            minijuegoActivo = false;
         }
     }
 }

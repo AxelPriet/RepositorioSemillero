@@ -122,7 +122,7 @@ public class MinijuegoTina : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinFisioterapia);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void ActualizarUI()

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SalirMinijuego : MonoBehaviour
 {
@@ -8,6 +7,6 @@ public class SalirMinijuego : MonoBehaviour
 
     public void Salir()
     {
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

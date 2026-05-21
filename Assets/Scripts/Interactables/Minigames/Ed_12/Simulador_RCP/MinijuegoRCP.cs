@@ -145,7 +145,7 @@ public class MinijuegoRCP : MonoBehaviour
 
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinClinica);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private IEnumerator FallarMinijuego()
@@ -156,7 +156,7 @@ public class MinijuegoRCP : MonoBehaviour
         textoInstrucciones.text = "Demasiados errores";
 
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void OnDrawGizmosSelected()

@@ -153,6 +153,6 @@ public class MinijuegoRadio : MonoBehaviour
         if (GameProgressManager.Instance != null)
             GameProgressManager.Instance.CompleteMinigame(minigameIndex);
 
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

@@ -90,7 +90,6 @@ public class MinijuegoLinterna : MonoBehaviour
 
     private void VerificarDeteccion()
     {
-        // Solo comparar en X ya que el movimiento es horizontal
         float distanciaX = Mathf.Abs(linterna.anchoredPosition.x - graduado.anchoredPosition.x);
         bool estaDentro = distanciaX <= radioLinterna;
 
@@ -142,6 +141,6 @@ public class MinijuegoLinterna : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAulaMagna);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

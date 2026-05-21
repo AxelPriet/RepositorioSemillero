@@ -103,7 +103,7 @@ public class MinijuegoFotografia : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinFotografia);
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
+        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
     private void OnTomarFoto(InputAction.CallbackContext context)
