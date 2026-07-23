@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
 
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
+    public bool EstaAbierto => mainMenu.activeSelf || optionsMenu.activeSelf;
 
     private void OnEnable()
     {
