@@ -6,11 +6,11 @@ public class PuertaTransicion : MonoBehaviour
 {
     [Header("Destino")]
     [SerializeField] private string nombreZonaDestino;
-    [SerializeField] private Vector2 posicionDestino;
+    [SerializeField] private Transform posicionDestino; // ← usar el mismo Empty como destino
 
     [Header("Transición")]
-    [SerializeField] private float delayAntesDeTeletransportar = 2f;
-    [SerializeField] private float duracionFade = 1f;
+    [SerializeField] private float delayAntesDeTeletransportar = 0.3f;
+    [SerializeField] private float duracionFade = 0.6f;
 
     [Header("UI Fade")]
     [SerializeField] private Image fadeImage;
@@ -39,9 +39,10 @@ public class PuertaTransicion : MonoBehaviour
             yield return Fade(fadeImage, 0f, 1f, duracionFade);
         }
 
-        player.transform.position = posicionDestino;
+        // Teletransportar al destino usando el Transform del Empty
+        if (posicionDestino != null)
+            player.transform.position = posicionDestino.position;
 
-        // ✅ Línea corregida:
         TutorialGuide guia = FindFirstObjectByType<TutorialGuide>();
         guia?.EntrarEnZona(nombreZonaDestino);
 

@@ -24,18 +24,27 @@ public class NPCBase : MonoBehaviour, IInteractuable
     [SerializeField] private float patrolSpeed = 2f;
     [SerializeField] private Color colorPatrullaje = Color.green;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool esNPCTutorial = false;
+    [SerializeField] private string idNPCTutorial = "NPC1";
+
     private Transform player;
     private bool wasInside = false;
     private bool canInteract = true;
+    private bool tutorialNotificado = false;
     private Vector2 patrolDirection;
     private Vector2 patrolCenterPos;
+    private Rigidbody2D rb;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         if (patrolEnabled && patrolRadius > 0f)
         {
-            patrolCenterPos = patrolCenter != null ?
-                (Vector2)patrolCenter.position : (Vector2)transform.position;
+            patrolCenterPos = patrolCenter != null
+                ? (Vector2)patrolCenter.position
+                : (Vector2)transform.position;
             patrolDirection = Random.insideUnitCircle.normalized;
         }
     }
@@ -95,7 +104,10 @@ public class NPCBase : MonoBehaviour, IInteractuable
             return;
         }
 
-        transform.position = nextPos;
+        if (rb != null)
+            rb.MovePosition(nextPos);
+        else
+            transform.position = nextPos;
     }
 
     private Vector2 RotarVector(Vector2 v, float grados)
@@ -110,13 +122,17 @@ public class NPCBase : MonoBehaviour, IInteractuable
     {
         if (modo != ModoDialogo.Interaccion) return;
         if (!PuedeInteractuar() || dialogues.Length == 0) return;
+
         IniciarDialogoInteraccion();
         canInteract = false;
-        patrolEnabled = false; 
+        patrolEnabled = false;
+
+        if (esNPCTutorial)
+            NotificarTutorial();
     }
 
-    public string GetPrompt() => $"Hablar con {npcName}";
-    public bool PuedeInteractuar() => canInteract && modo == ModoDialogo.Interaccion;
+    public string GetPrompt()       => $"Hablar con {npcName}";
+    public bool PuedeInteractuar()  => canInteract && modo == ModoDialogo.Interaccion;
     public Transform GetTransform() => transform;
 
     private void IniciarDialogoProximidad()
@@ -128,6 +144,12 @@ public class NPCBase : MonoBehaviour, IInteractuable
             : dialogues[0];
 
         DialogueManager.Instance?.ShowDialogue(linea);
+
+            if (esNPCTutorial && !tutorialNotificado)
+        {
+            tutorialNotificado = true;
+            NotificarTutorial();
+        }
     }
 
     private void IniciarDialogoInteraccion()
@@ -142,6 +164,19 @@ public class NPCBase : MonoBehaviour, IInteractuable
         patrolEnabled = true;
     }
 
+    private void NotificarTutorial()
+    {
+        TutorialGuide guia = FindFirstObjectByType<TutorialGuide>();
+        Debug.Log($"[Tutorial] NotificarTutorial llamado | guia encontrada: {guia != null} | id: {idNPCTutorial}");
+        if (guia == null) return;
+
+        switch (idNPCTutorial)
+        {
+            case "NPC1": guia.NotificarNPC1(); break;
+            case "NPC2": guia.NotificarNPC2(); break;
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (modo == ModoDialogo.Proximidad)
@@ -152,8 +187,9 @@ public class NPCBase : MonoBehaviour, IInteractuable
 
         if (patrolEnabled && patrolRadius > 0f)
         {
-            Vector3 centerPos = patrolCenter != null ?
-                patrolCenter.position : transform.position;
+            Vector3 centerPos = patrolCenter != null
+                ? patrolCenter.position
+                : transform.position;
             Gizmos.color = colorPatrullaje;
             Gizmos.DrawWireSphere(centerPos, patrolRadius);
         }
