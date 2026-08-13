@@ -167,7 +167,6 @@ public class NPCBase : MonoBehaviour, IInteractuable
     private void NotificarTutorial()
     {
         TutorialGuide guia = FindFirstObjectByType<TutorialGuide>();
-        Debug.Log($"[Tutorial] NotificarTutorial llamado | guia encontrada: {guia != null} | id: {idNPCTutorial}");
         if (guia == null) return;
 
         switch (idNPCTutorial)

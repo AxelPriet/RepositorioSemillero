@@ -6,7 +6,7 @@ public class PuertaTransicion : MonoBehaviour
 {
     [Header("Destino")]
     [SerializeField] private string nombreZonaDestino;
-    [SerializeField] private Transform posicionDestino; // ← usar el mismo Empty como destino
+    [SerializeField] private Transform posicionDestino;
 
     [Header("Transición")]
     [SerializeField] private float delayAntesDeTeletransportar = 0.3f;
@@ -39,7 +39,6 @@ public class PuertaTransicion : MonoBehaviour
             yield return Fade(fadeImage, 0f, 1f, duracionFade);
         }
 
-        // Teletransportar al destino usando el Transform del Empty
         if (posicionDestino != null)
             player.transform.position = posicionDestino.position;
 
@@ -51,8 +50,6 @@ public class PuertaTransicion : MonoBehaviour
             yield return Fade(fadeImage, 1f, 0f, duracionFade);
             fadeImage.gameObject.SetActive(false);
         }
-
-        movimiento?.SetMovementEnabled(true);
         transicionando = false;
     }
 

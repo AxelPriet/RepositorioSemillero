@@ -66,7 +66,7 @@ public class TutorialGuide : MonoBehaviour
         if (esperandoInput && Keyboard.current.spaceKey.wasPressedThisFrame)
             esperandoInput = false;
 
-        // Detectar movimiento y correr en Zona 1
+        // Detectar movimiento en Zona 1
         if (zonaActual == "Zona1" && playerMovement != null)
         {
             if (InputHandler.Instance != null)
@@ -80,11 +80,11 @@ public class TutorialGuide : MonoBehaviour
         }
     }
 
-    // ── Flujo principal ──────────────────────────────────────
+    // Flujo principal 
 
     private IEnumerator FlujoTutorial()
     {
-        // ── ZONA 1 ──────────────────────────────────────────
+        // ZONA 1 
         BloquearMovimiento();
         yield return new WaitForSeconds(2f);
 
@@ -93,17 +93,15 @@ public class TutorialGuide : MonoBehaviour
 
         yield return MostrarDialogos(dialogoZona1);
 
-        // Dar control para que se mueva y corra
         HabilitarMovimiento();
         yield return new WaitUntil(() => jugadorSeMovio && jugadorCorrio);
 
         yield return new WaitForSeconds(delayEntreEtapas);
         yield return MostrarPuerta(puertaZona1);
 
-        // Esperar que cruce a Zona 2 via PuertaTransicion
         yield return new WaitUntil(() => JugadorEnZona("Zona2"));
 
-        // ── ZONA 2 ──────────────────────────────────────────
+        // ZONA 2
         BloquearMovimiento();
         yield return new WaitForSeconds(delayEntreEtapas);
 
@@ -117,10 +115,9 @@ public class TutorialGuide : MonoBehaviour
         yield return new WaitForSeconds(delayEntreEtapas);
         yield return MostrarPuerta(puertaZona2);
 
-        // Esperar que cruce a Zona 3 via PuertaTransicion
         yield return new WaitUntil(() => JugadorEnZona("Zona3"));
 
-        // ── ZONA 3 ──────────────────────────────────────────
+        // ZONA 3
         BloquearMovimiento();
         yield return new WaitForSeconds(delayEntreEtapas);
 
@@ -129,14 +126,13 @@ public class TutorialGuide : MonoBehaviour
 
         HabilitarMovimiento();
 
-        // El minijuego siempre está activo — solo esperar que lo complete
         yield return new WaitUntil(() => minijuegoCompletado);
 
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nombreEscenaMain);
     }
 
-    // ── Aparición de puerta con delay ────────────────────────
+    // Aparición de puerta con delay 
 
     private IEnumerator MostrarPuerta(GameObject puerta)
     {
@@ -157,17 +153,16 @@ public class TutorialGuide : MonoBehaviour
         puerta.transform.localScale = Vector3.one;
     }
 
-    // ── Detección de zona ────────────────────────────────────
+    // Detección de zona 
 
     public void EntrarEnZona(string nombreZona)
     {
         zonaActual = nombreZona;
-        Debug.Log($"[Tutorial] Zona actual: {nombreZona}");
     }
 
     private bool JugadorEnZona(string zona) => zonaActual == zona;
 
-    // ── Diálogos ─────────────────────────────────────────────
+    // Diálogos 
 
     private IEnumerator MostrarDialogos(TutorialDialogoSO so)
     {
@@ -201,13 +196,13 @@ public class TutorialGuide : MonoBehaviour
         }
     }
 
-    // ── Notificaciones ───────────────────────────────────────
+    // Notificaciones 
 
     public void NotificarNPC1() => npc1Interactuado = true;
     public void NotificarNPC2() => npc2Interactuado = true;
     public void NotificarMinijuegoCompletado() => minijuegoCompletado = true;
 
-    // ── Movimiento ───────────────────────────────────────────
+    // Movimiento
 
     private void BloquearMovimiento()  => playerMovement?.SetMovementEnabled(false);
     private void HabilitarMovimiento() => playerMovement?.SetMovementEnabled(true);

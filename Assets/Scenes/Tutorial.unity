@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuertaTransicion
   nombreZonaDestino: 
-  posicionDestino: {x: 0, y: 0}
+  posicionDestino: {fileID: 0}
   delayAntesDeTeletransportar: 2
   duracionFade: 1
   fadeImage: {fileID: 1833354206}
@@ -941,7 +941,7 @@ Transform:
   m_GameObject: {fileID: 479366589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.41, y: 0.06, z: 0}
+  m_LocalPosition: {x: 11.64, y: 0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1018,8 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a464aa8f69892498732e4b9ce24b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuertaTransicion
-  nombreZonaDestino: 
-  posicionDestino: {x: 21.75, y: 0.08}
+  nombreZonaDestino: Zona3
+  posicionDestino: {fileID: 1734457221}
   delayAntesDeTeletransportar: 2
   duracionFade: 1
   fadeImage: {fileID: 1833354206}
@@ -1053,7 +1053,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1443,8 +1443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a464aa8f69892498732e4b9ce24b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuertaTransicion
-  nombreZonaDestino: 
-  posicionDestino: {x: 7.37, y: 0.08}
+  nombreZonaDestino: Zona2
+  posicionDestino: {fileID: 1228938661}
   delayAntesDeTeletransportar: 2
   duracionFade: 1
   fadeImage: {fileID: 1833354206}
@@ -2226,11 +2226,40 @@ MonoBehaviour:
   dialogoZona3: {fileID: 11400000, guid: f963780e2de59e24081e1d90ba7b7cd6, type: 2}
   puertaZona1: {fileID: 751416769}
   puertaZona2: {fileID: 479366589}
-  puertaZona3: {fileID: 18110430}
-  npc1: {fileID: 334426742}
-  npc2: {fileID: 1738069242}
+  duracionApparicionPuerta: 1.5
   minijuegoTutorialPanel: {fileID: 0}
   nombreEscenaMain: Main
+--- !u!1 &1228938660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228938661}
+  m_Layer: 0
+  m_Name: Zona2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1228938661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228938660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.47, y: -0.66, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1404711467}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1404711466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2290,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 751416770}
+  - {fileID: 1228938661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437538326
@@ -2399,6 +2429,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+--- !u!1 &1734457220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1734457221}
+  m_Layer: 0
+  m_Name: Zona3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1734457221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734457220}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.96, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2025908638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1738069241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3126,6 +3187,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 479366590}
+  - {fileID: 1734457221}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2032114230
