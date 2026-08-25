@@ -29,5 +29,8 @@ public class CarnetManager : MonoBehaviour
     {
         collectedPieces++;
         OnPieceCollected?.Invoke();
+
+        if (collectedPieces >= totalPieces)
+            FinJuego.Instance?.ActivarFinal();
     }
 }
