@@ -30,7 +30,7 @@ public class MinijuegoMochila : MonoBehaviour
         playerControls = InputHandler.Instance?.GetControls();
         if (playerControls != null)
         {
-            playerControls.Gameplay.Compress.performed += _ => AvanzarCremallera();
+            playerControls.Gameplay.Compress.performed += OnCompress;
             playerControls.Gameplay.Enable();
         }
 
@@ -44,7 +44,12 @@ public class MinijuegoMochila : MonoBehaviour
     private void OnDestroy()
     {
         if (playerControls != null)
-            playerControls.Gameplay.Compress.performed -= _ => AvanzarCremallera();
+            playerControls.Gameplay.Compress.performed -= OnCompress;
+    }
+
+    private void OnCompress(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        AvanzarCremallera();
     }
 
     public void RegistrarObjetoColocado()
@@ -83,7 +88,10 @@ public class MinijuegoMochila : MonoBehaviour
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
+        TutorialGuide guia = FindFirstObjectByType<TutorialGuide>();
+        guia?.NotificarMinijuegoCompletado();
+
         yield return new WaitForSeconds(0.5f);
-        TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(nombreEscenaPrincipal);
     }
 }

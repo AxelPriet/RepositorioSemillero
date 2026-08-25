@@ -36,6 +36,6 @@ public class PlayerData : MonoBehaviour
     public void Reset()
     {
         NombreJugador = "";
-        personajeIndex = 0;
+        personajeIndex = -1;
     }
 }

@@ -187,42 +187,6 @@ PrefabInstance:
       propertyPath: textoInstruccion
       value: 
       objectReference: {fileID: 767450702}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: fotogramasCremallera.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[0]'
-      value: 
-      objectReference: {fileID: 3613462394107495315, guid: 1c59d9b23d0d0894f9814a7a5db039cb, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8592308687154791511, guid: a872c284a32a3414faef885eca4b36f9, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[2]'
-      value: 
-      objectReference: {fileID: -715336871057361658, guid: 16ca62f4abad39742aae3b4b231c05a2, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[3]'
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: ed93ec04468ec82479febecaeb9a4ad2, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[4]'
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: e494fc7bd1d74b045925ab94e07f2e1a, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[5]'
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: 7105041050964b84994c5a22b7b58158, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[6]'
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: d4f088893ffc4c340a6266d2f3c017e1, type: 3}
-    - target: {fileID: 8581761742512788738, guid: 15705eeddf1fdc747bcabdbf9aaa9a4d, type: 3}
-      propertyPath: 'fotogramasCremallera.Array.data[7]'
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: d4f088893ffc4c340a6266d2f3c017e1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

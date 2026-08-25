@@ -95,12 +95,12 @@ public class MainMenu : MonoBehaviour
 
         if (PlayerData.Instance != null && PlayerData.Instance.PersonajeElegido)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("Main");
             return;
         }
 
         if (characterSelectionManager != null)
-            characterSelectionManager.MostrarPanelNombre();
+            characterSelectionManager.MostrarSeleccionPersonaje(); 
     }
 
     public void ResumeGame()
@@ -113,7 +113,7 @@ public class MainMenu : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Inicio");
     }
 
     public void QuitGame()
