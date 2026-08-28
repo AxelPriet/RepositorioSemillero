@@ -35,10 +35,14 @@ public class NPCBase : MonoBehaviour, IInteractuable
     private Vector2 patrolDirection;
     private Vector2 patrolCenterPos;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (patrolEnabled && patrolRadius > 0f)
         {
@@ -53,6 +57,8 @@ public class NPCBase : MonoBehaviour, IInteractuable
     {
         if (patrolEnabled && patrolRadius > 0f)
             PatrolUpdate();
+        else
+            ActualizarAnimacionDireccion(Vector2.zero);
 
         if (modo != ModoDialogo.Proximidad) return;
 
@@ -108,6 +114,7 @@ public class NPCBase : MonoBehaviour, IInteractuable
             rb.MovePosition(nextPos);
         else
             transform.position = nextPos;
+        ActualizarAnimacionDireccion(patrolDirection);
     }
 
     private Vector2 RotarVector(Vector2 v, float grados)
@@ -118,6 +125,33 @@ public class NPCBase : MonoBehaviour, IInteractuable
         return new Vector2(cos * v.x - sin * v.y, sin * v.x + cos * v.y).normalized;
     }
 
+    private void ActualizarAnimacionDireccion(Vector2 direccion)
+    {
+        if (animator == null) return;
+
+        if (direccion == Vector2.zero)
+        {
+            animator.SetBool("Moviendose", false);
+            return;
+        }
+
+        animator.SetBool("Moviendose", true);
+
+        if (Mathf.Abs(direccion.x) > Mathf.Abs(direccion.y))
+        {
+            animator.SetInteger("Direccion", 2); // lateral
+            if (spriteRenderer != null)
+                spriteRenderer.flipX = direccion.x > 0;
+        }
+        else if (direccion.y > 0)
+        {
+            animator.SetInteger("Direccion", 1); // arriba
+        }
+        else
+        {
+            animator.SetInteger("Direccion", 0); // abajo / frente
+        }
+    }
     public void Interactuar()
     {
         if (modo != ModoDialogo.Interaccion) return;
