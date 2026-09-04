@@ -198,8 +198,16 @@ public class TutorialGuide : MonoBehaviour
 
     // Notificaciones 
 
-    public void NotificarNPC1() => npc1Interactuado = true;
-    public void NotificarNPC2() => npc2Interactuado = true;
+    public void NotificarNPC(string npcID)
+    {
+        if (npcID == "NPC1")
+            npc1Interactuado = true;
+        else if (npcID == "NPC2")
+            npc2Interactuado = true;
+        else
+            Debug.LogWarning($"ID NPC '{npcID}' no reconocido");
+    }
+
     public void NotificarMinijuegoCompletado() => minijuegoCompletado = true;
 
     // Movimiento

@@ -26,11 +26,11 @@ public class TutorialNPC : MonoBehaviour, IInteractuable
 
         DialogueManager.Instance?.ShowDialogue(textoDialogo);
 
-        if (tipo == TipoNPC.NPC1) guia?.NotificarNPC1();
-        else                       guia?.NotificarNPC2();
+        string npcID = (tipo == TipoNPC.NPC1) ? "NPC1" : "NPC2";
+        guia?.NotificarNPC(npcID);
     }
 
-    public string GetPrompt()      => prompt;
+    public string GetPrompt() => prompt;
     public bool PuedeInteractuar() => !interactuado;
     public Transform GetTransform() => transform;
 }
