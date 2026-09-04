@@ -2950,12 +2950,10 @@ MonoBehaviour:
   - "\xBFQuieres entrar a este salon?"
   - "Lo siento por el momento esta en remodelacci\xF3n, vvuelve en otra oportunidad"
   interactionDistance: 2
-  colorGizmo: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   patrolEnabled: 1
   patrolCenter: {fileID: 0}
   patrolRadius: 11
   patrolSpeed: 2
-  colorPatrullaje: {r: 0, g: 1, b: 0, a: 1}
   esNPCTutorial: 0
   idNPCTutorial: NPC1
 --- !u!212 &866219680
@@ -4808,17 +4806,12 @@ MonoBehaviour:
   npcName: NPC
   modo: 1
   dialogoAleatorio: 0
-  dialogues:
-  - "Hola \xBFque tal, como te va?"
-  - "\xBFQuieres entrar a este salon?"
-  - "Lo siento por el momento esta en remodelacci\xF3n, vvuelve en otra oportunidad"
+  dialogues: []
   interactionDistance: 2
-  colorGizmo: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  patrolEnabled: 1
+  patrolEnabled: 0
   patrolCenter: {fileID: 0}
-  patrolRadius: 11
+  patrolRadius: 5
   patrolSpeed: 2
-  colorPatrullaje: {r: 0, g: 1, b: 0, a: 1}
   esNPCTutorial: 0
   idNPCTutorial: NPC1
 --- !u!212 &1273775690
@@ -4895,8 +4888,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &1273775692
-CapsuleCollider2D:
+--- !u!61 &1273775692
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4929,9 +4922,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 1.0666667}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 2.1333334, y: 2.1333334}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.38, y: 1.8}
+  m_EdgeRadius: 0
 --- !u!1 &1286147248
 GameObject:
   m_ObjectHideFlags: 0
