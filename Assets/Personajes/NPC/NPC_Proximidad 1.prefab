@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4367180972349875510
+--- !u!1 &3446304835330125059
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2978593287952345832}
-  - component: {fileID: 901270452801358784}
-  - component: {fileID: 5223631996008811163}
-  - component: {fileID: 112629247665289823}
+  - component: {fileID: 8763843269418641232}
+  - component: {fileID: 9140954169793573775}
+  - component: {fileID: 8385244123965585702}
+  - component: {fileID: 3751808661896274079}
   m_Layer: 6
-  m_Name: NPC_Interaccion
+  m_Name: NPC_Proximidad 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2978593287952345832
+--- !u!4 &8763843269418641232
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367180972349875510}
+  m_GameObject: {fileID: 3446304835330125059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.35, y: -11.01, z: 0}
+  m_LocalPosition: {x: -9.26, y: -0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &901270452801358784
+--- !u!212 &9140954169793573775
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367180972349875510}
+  m_GameObject: {fileID: 3446304835330125059}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -83,55 +83,27 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.4761196, g: 0.8792453, b: 0.7111128, a: 1}
+  m_Sprite: {fileID: 1933828655443022721, guid: 71aa7ef24cdbe214ba628bc3697f2587, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2.1333334, y: 2.1333334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &5223631996008811163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367180972349875510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c41026644c9f3468c58c6b7b8d83de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCBase
-  npcName: NPC
-  modo: 1
-  dialogoAleatorio: 0
-  dialogues:
-  - "Hola \xBFque tal, como te va?"
-  - "\xBFQuieres entrar a este salon?"
-  - "Lo siento por el momento esta en remodelacci\xF3n, vvuelve en otra oportunidad"
-  interactionDistance: 2
-  colorGizmo: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  patrolEnabled: 1
-  patrolCenter: {fileID: 0}
-  patrolRadius: 11
-  patrolSpeed: 2
-  colorPatrullaje: {r: 0, g: 1, b: 0, a: 1}
-  esNPCTutorial: 0
-  idNPCTutorial: NPC1
---- !u!95 &112629247665289823
+--- !u!95 &8385244123965585702
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4367180972349875510}
+  m_GameObject: {fileID: 3446304835330125059}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 9cbbc4b574a22144194ba839dc79237c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 34223286ae7176d42853f0e40371c1dc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -143,3 +115,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3751808661896274079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3446304835330125059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2479eee61a917b94e9b2f88f32e50146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCProximidad
+  dialogo: {fileID: 11400000, guid: 059cc8e29c8a6a646991f866d75718f4, type: 2}
+  interactionDistance: 2
+  animator: {fileID: 8385244123965585702}
+  moviendoBool: Moviendose

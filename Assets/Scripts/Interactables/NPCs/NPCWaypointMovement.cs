@@ -11,7 +11,7 @@ public class NPCWaypointMovement : MonoBehaviour
 
     [Header("Animación")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string moviendoBool = "Moviendo";
+    [SerializeField] private string moviendoBool = "Moviendose";
     [SerializeField] private string direccionInt = "Direccion";
 
     private int currentWaypoint = 0;
@@ -124,8 +124,6 @@ public class NPCWaypointMovement : MonoBehaviour
         int direccion = 0;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
-        Debug.Log($"Dirección recibida: {dir}");
-
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
         {
             direccion = 2;
@@ -133,7 +131,6 @@ public class NPCWaypointMovement : MonoBehaviour
             if (sr != null)
             {
                 sr.flipX = dir.x > 0;
-                Debug.Log($"flipX = {sr.flipX} (dir.x = {dir.x})");
             }
         }
         else

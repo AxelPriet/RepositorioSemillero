@@ -66,6 +66,16 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 currentInput = inputHandler.GetMoveInput();
 
+        bool soloCardinal = true;
+
+        if (soloCardinal && currentInput.x != 0 && currentInput.y != 0)
+        {
+            if (Mathf.Abs(currentInput.x) >= Mathf.Abs(currentInput.y))
+                currentInput.y = 0;
+            else
+                currentInput.x = 0;
+        }
+
         if (!isMoving && currentInput != Vector2.zero)
             StartCoroutine(MoveToTile(currentInput));
 

@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88186dad7d0e6ed48a1432fce99519a0, type: 3}
-  m_Name: D_Pepe
+  m_Name: D_NPC_Lucia
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogoSO
-  npcName: Pepe
+  npcName: NPC
   lineas:
-  - Hola, vas tarde a clase?
+  - 'Que quieres? '
+  - Estoy ocupada
+  - Adios
   aleatorio: 0
