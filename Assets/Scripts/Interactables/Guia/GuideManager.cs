@@ -10,10 +10,10 @@ public class GuideManager : MonoBehaviour
     [SerializeField] private GuideUIManager uiManager;
     [SerializeField] private GuideEventManager eventManager;
 
-    [Header("Personaje Guía (FollowPlayer)")]
-    [SerializeField] private GameObject guideCharacter; 
+    [Header("Personaje Guía")]
+    [SerializeField] private GameObject guideCharacter;
 
-    [Header("Diálogos (ScriptableObjects)")]
+    [Header("Diálogos")]
     [SerializeField] private GuideDialogueSO[] allDialogues;
 
     [Header("Configuración")]
@@ -34,11 +34,11 @@ public class GuideManager : MonoBehaviour
             return;
         }
 
-        if (uiManager == null)
-            uiManager = GetComponent<GuideUIManager>();
-
         if (eventManager == null)
             eventManager = GetComponent<GuideEventManager>();
+
+        if (uiManager == null)
+            uiManager = GetComponentInChildren<GuideUIManager>();
 
         if (guideCharacter != null)
             guideCharacter.SetActive(false);
@@ -56,10 +56,8 @@ public class GuideManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == escenaJuego && eventManager.TienePendientes)
-        {
+        if (scene.name == escenaJuego && eventManager != null && eventManager.TienePendientes)
             StartCoroutine(MostrarPendientes());
-        }
     }
 
     private IEnumerator MostrarPendientes()
@@ -68,15 +66,16 @@ public class GuideManager : MonoBehaviour
 
         while (eventManager.TienePendientes)
         {
+            bool terminado = false;
             string dialogueID = eventManager.ObtenerSiguientePendiente();
-            TriggerEvent(dialogueID);
-            yield return new WaitForSeconds(0.3f);
+            TriggerEvent(dialogueID, () => terminado = true);
+            yield return new WaitUntil(() => terminado);
         }
     }
 
     public void TriggerEvent(string dialogueID, System.Action onComplete = null)
     {
-        if (eventManager.EventoMostrado(dialogueID))
+        if (eventManager == null || allDialogues == null || allDialogues.Length == 0)
         {
             onComplete?.Invoke();
             return;
@@ -85,7 +84,12 @@ public class GuideManager : MonoBehaviour
         GuideDialogueSO dialogue = System.Array.Find(allDialogues, d => d.DialogueID == dialogueID);
         if (dialogue == null)
         {
-            Debug.LogWarning($"Diálogo '{dialogueID}' no encontrado");
+            onComplete?.Invoke();
+            return;
+        }
+
+        if (dialogue.MostrarUnaVez && eventManager.EventoMostrado(dialogueID))
+        {
             onComplete?.Invoke();
             return;
         }
@@ -93,7 +97,14 @@ public class GuideManager : MonoBehaviour
         if (dialogue.MostrarUnaVez)
             eventManager.RegistrarEventoMostrado(dialogueID);
 
-        uiManager.MostrarDialogo(dialogue.Lines, () => {
+        if (uiManager == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        uiManager.MostrarDialogo(dialogue.Lines, () =>
+        {
             if (!isPetModeActive)
                 uiManager.OcultarGuia();
             onComplete?.Invoke();
@@ -102,7 +113,8 @@ public class GuideManager : MonoBehaviour
 
     public void SetPendingDialogue(string dialogueID)
     {
-        eventManager.AgregarPendiente(dialogueID);
+        if (eventManager != null)
+            eventManager.AgregarPendiente(dialogueID);
     }
 
     public bool TienePendientes()
@@ -113,10 +125,8 @@ public class GuideManager : MonoBehaviour
     public void ActivarPetMode()
     {
         if (guideCharacter == null) return;
-
         isPetModeActive = true;
         guideCharacter.SetActive(true);
-
         if (guideCharacter.GetComponent<FollowPlayer>() == null)
             guideCharacter.AddComponent<FollowPlayer>();
     }
@@ -128,8 +138,10 @@ public class GuideManager : MonoBehaviour
             guideCharacter.SetActive(false);
     }
 
-    public bool EventoMostrado(string dialogueID) => eventManager.EventoMostrado(dialogueID);
-
+    public bool EventoMostrado(string dialogueID)
+    {
+        return eventManager != null && eventManager.EventoMostrado(dialogueID);
+    }
 
     public void MostrarBienvenida() => TriggerEvent("BienvenidaInicio");
     public void MostrarExplicacion(string minijuegoID) => TriggerEvent($"Explicacion{minijuegoID}");

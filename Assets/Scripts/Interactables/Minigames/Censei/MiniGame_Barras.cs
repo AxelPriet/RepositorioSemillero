@@ -49,8 +49,8 @@ public class MiniGame_Barras : MonoBehaviour
         juegoCompletado = true;
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.TriggerEvent("FinCensei");
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        GuideManager.Instance?.SetPendingDialogue("FinCensei");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

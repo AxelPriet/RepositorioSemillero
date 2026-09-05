@@ -43,8 +43,8 @@ public class MinijuegoLaboratorio : MonoBehaviour
         textoInstrucciones.text = "¡LO LOGRASTE!";
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.TriggerEvent("FinLaboratorioSoluciones");
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        GuideManager.Instance?.SetPendingDialogue("FinLaboratorioSoluciones");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

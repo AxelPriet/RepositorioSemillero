@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class GuideEventManager : MonoBehaviour
 {
-    public static GuideEventManager Instance { get; private set; }
-
     private HashSet<string> shownEvents = new HashSet<string>();
     private Queue<string> pendingDialogues = new Queue<string>();
 
@@ -12,15 +10,7 @@ public class GuideEventManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public bool EventoMostrado(string dialogueID) => shownEvents.Contains(dialogueID);

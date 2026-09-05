@@ -139,8 +139,8 @@ public class MinijuegoLinterna : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        GuideManager.Instance.TriggerEvent("FinAulaMagna");
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        GuideManager.Instance?.SetPendingDialogue("FinAulaMagna");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

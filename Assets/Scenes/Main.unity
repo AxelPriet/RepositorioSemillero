@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 104860470}
   - component: {fileID: 104860469}
   m_Layer: 6
-  m_Name: GuiaTrigguer (13)
+  m_Name: Triguer_Politeca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 15
+  dialogueID: ExplicacionPoliteca
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &104860471
 Transform:
   m_ObjectHideFlags: 0
@@ -387,7 +390,7 @@ GameObject:
   - component: {fileID: 140599320}
   - component: {fileID: 140599319}
   m_Layer: 6
-  m_Name: GuiaTrigguer (6)
+  m_Name: Triguer_Basket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,7 +454,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 5
+  dialogueID: ExplicacionBasket
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &140599321
 Transform:
   m_ObjectHideFlags: 0
@@ -633,7 +639,7 @@ GameObject:
   - component: {fileID: 228570144}
   - component: {fileID: 228570143}
   m_Layer: 6
-  m_Name: GuiaTrigguer (3)
+  m_Name: Triguer_Croma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -697,7 +703,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 4
+  dialogueID: ExplicacionCroma
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &228570145
 Transform:
   m_ObjectHideFlags: 0
@@ -736,7 +745,7 @@ GameObject:
   - component: {fileID: 251466861}
   - component: {fileID: 251466860}
   m_Layer: 6
-  m_Name: GuiaTrigguer (2)
+  m_Name: Triguer_Radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,7 +809,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 3
+  dialogueID: ExplicacionRadio
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &251466862
 Transform:
   m_ObjectHideFlags: 0
@@ -882,6 +894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 349982377}
   - component: {fileID: 349982376}
+  - component: {fileID: 349982378}
   m_Layer: 0
   m_Name: GuiaManager
   m_TagString: Untagged
@@ -901,8 +914,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d886d4f556791aa4ea851afe482127ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideManager
+  uiManager: {fileID: 349982378}
+  eventManager: {fileID: 700680023}
   guideCharacter: {fileID: 1564442437}
-  guideName: A.A.V.
+  allDialogues:
+  - {fileID: 11400000, guid: 2d0800162688d8d4299e24ebea8abb45, type: 2}
+  - {fileID: 11400000, guid: bac71f612e131014e95bd5d5b349c4e1, type: 2}
+  - {fileID: 11400000, guid: c1f1f71b7d181fb47be2e189c5bc79d0, type: 2}
+  - {fileID: 11400000, guid: 606af1e77e41eb444b07745083b2c36e, type: 2}
+  - {fileID: 11400000, guid: 19dbe5899766b1244817c48e7aa71d01, type: 2}
+  - {fileID: 11400000, guid: 7162f20e3e7d21043af8685b10ca5ff2, type: 2}
+  - {fileID: 11400000, guid: 8431b2feb76bee748b51109a1370a3e5, type: 2}
+  - {fileID: 11400000, guid: 1f5627a645d579f4abe6c818cc2e878d, type: 2}
+  - {fileID: 11400000, guid: 578a8a09fe3544141af61cd10ba9f153, type: 2}
+  - {fileID: 11400000, guid: 64410244fac3922429d17c6072b614ec, type: 2}
+  - {fileID: 11400000, guid: f8ec08a84d734334aab2e2e8dd38cf3f, type: 2}
+  - {fileID: 11400000, guid: cbb91a74ec2d15c41ac69adfa3ed3685, type: 2}
+  - {fileID: 11400000, guid: 250fb0b381c04f44abbf9b74977b2217, type: 2}
+  - {fileID: 11400000, guid: 6c7ea03ca9b4adb4596be4abb32b2ce6, type: 2}
+  - {fileID: 11400000, guid: 8a9b143293c1430449d7362943429e57, type: 2}
+  - {fileID: 11400000, guid: 67341bcad18918f4197d24a684857ff3, type: 2}
+  - {fileID: 11400000, guid: 9a58a14f59962094bbf71611ae1af9bb, type: 2}
+  - {fileID: 11400000, guid: c632ed08ab3299349adb177de9cd6085, type: 2}
+  - {fileID: 11400000, guid: 9df5ef2b2ffb3cd48bb636f4caad7c0a, type: 2}
+  - {fileID: 11400000, guid: 25ad309cb1080ab448fe604d3bec01b7, type: 2}
+  - {fileID: 11400000, guid: c7a40c26427b7dc44bb070895bbaccc5, type: 2}
+  - {fileID: 11400000, guid: ed0dd2a0917ab9644b80ae96f36f1d96, type: 2}
+  - {fileID: 11400000, guid: 8933101adad24ca4da0c8565c241d1ab, type: 2}
+  - {fileID: 11400000, guid: 01ef3db2f2a76d043813696cfd4044d0, type: 2}
+  - {fileID: 11400000, guid: 9d55a55c5ddfc7d4d9f529f9a1933931, type: 2}
+  - {fileID: 11400000, guid: d408c5b713e51914397b9a1494ba0feb, type: 2}
+  - {fileID: 11400000, guid: fcf6a841956eb794e85f8638c3b11770, type: 2}
+  - {fileID: 11400000, guid: e11e3416ec59e854a959b7296689cc24, type: 2}
+  - {fileID: 11400000, guid: 25c6aa95377f1074bbf16fe2e60eff7e, type: 2}
+  - {fileID: 11400000, guid: 6422a93ad6c59184c81aa2619dd2b3d0, type: 2}
+  - {fileID: 11400000, guid: 830267f45000a9747894c912a687c359, type: 2}
+  - {fileID: 11400000, guid: 664e2322b7497e6469f997183f1a6b86, type: 2}
+  - {fileID: 11400000, guid: 0d6883ef9776c384ba8d6b8841b64fcc, type: 2}
+  - {fileID: 11400000, guid: 3b629ff450314184896a022890aa8cf1, type: 2}
+  - {fileID: 11400000, guid: ba62d8ccd65207e44a194da911ed8c65, type: 2}
+  escenaJuego: Main
 --- !u!4 &349982377
 Transform:
   m_ObjectHideFlags: 0
@@ -918,6 +969,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &349982378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349982375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c234728105067940890071dd4da4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuideUIManager
+  guideCharacter: {fileID: 1564442437}
+  offsetFromPlayer: {x: 1.5, y: 0, z: 0}
+  guideName: Guideon
 --- !u!1 &352541367 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8526019386614547609, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
@@ -1425,6 +1491,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1647932870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &415693735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 415693737}
+  - component: {fileID: 415693736}
+  m_Layer: 0
+  m_Name: GuideUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &415693736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415693735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c234728105067940890071dd4da4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuideUIManager
+  guideCharacter: {fileID: 1564442437}
+  offsetFromPlayer: {x: 1.5, y: 0, z: 0}
+  guideName: Guideon
+--- !u!4 &415693737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415693735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.61355, y: -20.27152, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &451859218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,7 +1858,7 @@ GameObject:
   - component: {fileID: 583189796}
   - component: {fileID: 583189795}
   m_Layer: 6
-  m_Name: GuiaTrigguer (10)
+  m_Name: Triguer_Gym
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,7 +1922,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 12
+  dialogueID: ExplicacionGym
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &583189797
 Transform:
   m_ObjectHideFlags: 0
@@ -1837,7 +1953,7 @@ GameObject:
   - component: {fileID: 618488807}
   - component: {fileID: 618488806}
   m_Layer: 6
-  m_Name: GuiaTrigguer (9)
+  m_Name: Triguer_Dibujo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1901,7 +2017,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 10
+  dialogueID: ExplicacionDibujo
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &618488808
 Transform:
   m_ObjectHideFlags: 0
@@ -2412,6 +2531,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &700680022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700680024}
+  - component: {fileID: 700680023}
+  m_Layer: 0
+  m_Name: GuideEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &700680023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700680022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4c9e7e5d3bd0f4a848ee04690a0134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuideEventManager
+--- !u!4 &700680024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700680022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.61355, y: -20.27152, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &715033812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,7 +2755,7 @@ GameObject:
   - component: {fileID: 779412554}
   - component: {fileID: 779412553}
   m_Layer: 6
-  m_Name: GuiaTrigguer (1)
+  m_Name: Triguer_Fotografia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2656,7 +2819,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 2
+  dialogueID: ExplicacionFotografia
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &779412555
 Transform:
   m_ObjectHideFlags: 0
@@ -2874,7 +3040,7 @@ GameObject:
   - component: {fileID: 859339770}
   - component: {fileID: 859339769}
   m_Layer: 6
-  m_Name: GuiaTrigguer (11)
+  m_Name: Triguer_LabSoluciones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2938,7 +3104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 28
+  dialogueID: ExplicacionLaboratorioSoluciones
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &859339771
 Transform:
   m_ObjectHideFlags: 0
@@ -3215,7 +3384,7 @@ GameObject:
   - component: {fileID: 880063488}
   - component: {fileID: 880063487}
   m_Layer: 6
-  m_Name: GuiaTrigguer (14)
+  m_Name: Triguer_Censei
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3279,7 +3448,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 14
+  dialogueID: ExplicacionCensei
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &880063489
 Transform:
   m_ObjectHideFlags: 0
@@ -3958,7 +4130,7 @@ GameObject:
   - component: {fileID: 1010714984}
   - component: {fileID: 1010714983}
   m_Layer: 6
-  m_Name: GuiaTrigguer (7)
+  m_Name: Triguer_AulaMagna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4022,7 +4194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 8
+  dialogueID: ExplicacionAulaMagna
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1010714985
 Transform:
   m_ObjectHideFlags: 0
@@ -4549,7 +4724,7 @@ GameObject:
   - component: {fileID: 1134862455}
   - component: {fileID: 1134862454}
   m_Layer: 6
-  m_Name: GuiaTrigguer (4)
+  m_Name: Triguer_CanchaSintetica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4613,7 +4788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 7
+  dialogueID: ExplicacionCanchaSintetica
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1134862456
 Transform:
   m_ObjectHideFlags: 0
@@ -4716,7 +4894,7 @@ GameObject:
   - component: {fileID: 1206708406}
   - component: {fileID: 1206708405}
   m_Layer: 6
-  m_Name: GuiaTrigguer (5)
+  m_Name: Triguer_Ilustrator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4780,7 +4958,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 6
+  dialogueID: ExplicacionSalaMac
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1206708407
 Transform:
   m_ObjectHideFlags: 0
@@ -4808,7 +4989,7 @@ GameObject:
   - component: {fileID: 1211457277}
   - component: {fileID: 1211457276}
   m_Layer: 6
-  m_Name: GuiaTrigguer
+  m_Name: Triguer_RCP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4872,7 +5053,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 1
+  dialogueID: ExplicacionClinica
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1211457278
 Transform:
   m_ObjectHideFlags: 0
@@ -5248,7 +5432,7 @@ GameObject:
   - component: {fileID: 1286147250}
   - component: {fileID: 1286147249}
   m_Layer: 6
-  m_Name: GuiaTrigguer (8)
+  m_Name: Triguer_Fisioterapia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5312,7 +5496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 9
+  dialogueID: ExplicacionFisioterapia
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1286147251
 Transform:
   m_ObjectHideFlags: 0
@@ -5711,7 +5898,7 @@ GameObject:
   - component: {fileID: 1503124025}
   - component: {fileID: 1503124024}
   m_Layer: 6
-  m_Name: GuiaTrigguer (16)
+  m_Name: Triguer_Anfiteatro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5775,7 +5962,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 17
+  dialogueID: ExplicacionAnfiteatro
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1503124026
 Transform:
   m_ObjectHideFlags: 0
@@ -6191,7 +6381,7 @@ GameObject:
   - component: {fileID: 1633759147}
   - component: {fileID: 1633759146}
   m_Layer: 6
-  m_Name: GuiaTrigguer (12)
+  m_Name: Triguer_Laboratorio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6255,7 +6445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 16
+  dialogueID: ExplicacionLaboratorio
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1633759148
 Transform:
   m_ObjectHideFlags: 0
@@ -6497,7 +6690,7 @@ GameObject:
   - component: {fileID: 1737925552}
   - component: {fileID: 1737925551}
   m_Layer: 6
-  m_Name: GuiaTrigguer (15)
+  m_Name: Triguer_Atelier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6561,7 +6754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397503c3d9ae4e4d9f56650d27cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideTrigger
-  evento: 13
+  dialogueID: ExplicacionAtelier
+  triggerOnStart: 0
+  triggerOnEnter: 1
+  mostrarUnaVez: 1
 --- !u!4 &1737925553
 Transform:
   m_ObjectHideFlags: 0
@@ -7895,7 +8091,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8297507477867019718, guid: 1782ab8ded051d449aafbdf97266a1e5, type: 3}
       propertyPath: m_Name
-      value: AAV_Guia
+      value: Guia_Guideon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297507477867019718, guid: 1782ab8ded051d449aafbdf97266a1e5, type: 3}
+      propertyPath: m_TagString
+      value: Guideon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7994,3 +8194,5 @@ SceneRoots:
   - {fileID: 1444119000}
   - {fileID: 392170987}
   - {fileID: 1789552678}
+  - {fileID: 700680024}
+  - {fileID: 415693737}

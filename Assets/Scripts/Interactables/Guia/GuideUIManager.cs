@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GuideUIManager : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class GuideUIManager : MonoBehaviour
     [SerializeField] private Vector3 offsetFromPlayer = new Vector3(1.5f, 0f, 0f);
 
     [Header("Configuración")]
-    [SerializeField] private string guideName = "A.A.V.";
+    [SerializeField] private string guideName = "Guideon";
 
     private Transform player;
 
@@ -16,6 +17,21 @@ public class GuideUIManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         if (guideCharacter != null)
             guideCharacter.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     public void MostrarGuia()
@@ -42,7 +58,12 @@ public class GuideUIManager : MonoBehaviour
             return;
         }
 
-        DialogueManager.Instance.StartDialogue(guideName, lines, onComplete);
+        MostrarGuia();
+
+        DialogueManager.Instance.StartDialogue(guideName, lines, () =>
+        {
+            onComplete?.Invoke();
+        });
     }
 
     public void MostrarDialogoConID(string dialogueID, GuideDialogueSO[] dialogues, System.Action onComplete = null)
@@ -55,8 +76,6 @@ public class GuideUIManager : MonoBehaviour
                 return;
             }
         }
-
-        Debug.LogWarning($"No se encontró diálogo con ID: {dialogueID}");
         onComplete?.Invoke();
     }
 }

@@ -149,9 +149,9 @@ public class MinijuegoRadio : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         if (GuideManager.Instance != null)
-            GuideManager.Instance.TriggerEvent("FinRadio");
+            GuideManager.Instance?.SetPendingDialogue("FinRadio");
         if (GameProgressManager.Instance != null)
-            GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+            GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
 
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

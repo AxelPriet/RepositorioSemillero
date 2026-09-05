@@ -78,7 +78,8 @@ public class MiniGame_Libros : MonoBehaviour
         textoTiempo.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        GuideManager.Instance?.SetPendingDialogue("FinPoliteca");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         SceneManager.LoadScene(nombreEscenaPrincipal, LoadSceneMode.Single);
     }
 
@@ -90,7 +91,6 @@ public class MiniGame_Libros : MonoBehaviour
         textoTiempo.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.TriggerEvent("FinPoliteca");
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 

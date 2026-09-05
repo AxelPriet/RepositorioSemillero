@@ -47,8 +47,8 @@ public class MiniGame_Inventario : MonoBehaviour
         juegoCompletado = true;
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.TriggerEvent("FinLaboratorio");
-        GameProgressManager.Instance.CompleteMinigame(minigameIndex);
+        GuideManager.Instance?.SetPendingDialogue("FinLaboratorio");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }

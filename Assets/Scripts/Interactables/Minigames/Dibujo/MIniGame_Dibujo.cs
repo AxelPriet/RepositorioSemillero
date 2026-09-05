@@ -166,10 +166,8 @@ public class MiniGame_Dibujo : MonoBehaviour
         textoMensaje.text = "¡COMPLETASTE TODO!";
         yield return new WaitForSeconds(2f);
 
-        if (GameProgressManager.Instance != null)
-            GameProgressManager.Instance.CompleteMinigame(minigameIndex);
-        else
-        GuideManager.Instance.TriggerEvent("FinDibujo");
+        GuideManager.Instance?.SetPendingDialogue("FinDibujo");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 
