@@ -11,8 +11,9 @@ public class InventarioJugador : MonoBehaviour
     private Dictionary<string, int> contadorObjetos = new Dictionary<string, int>();
     private HashSet<string> idsRecogidos = new HashSet<string>();
 
-    public bool YaFueRecogido(string id) => idsRecogidos.Contains(id);
+    public System.Action OnObjetoRecolectado;
 
+    public bool YaFueRecogido(string id) => idsRecogidos.Contains(id);
     public int ObjetosCount => objetos.Count;
     public int CapacidadMaxima => capacidadMaxima;
 
@@ -39,12 +40,31 @@ public class InventarioJugador : MonoBehaviour
         objetos.Add(objeto);
 
         string id = objeto.GetID();
-        idsRecogidos.Add(id); 
+        idsRecogidos.Add(id);
 
         if (contadorObjetos.ContainsKey(id))
             contadorObjetos[id]++;
         else
             contadorObjetos[id] = 1;
+
+        if (objeto.SpriteUI != null)
+            StartCoroutine(CambiarColorProgresivo(objeto.SpriteUI));
+
+        OnObjetoRecolectado?.Invoke();
+    }
+
+    private System.Collections.IEnumerator CambiarColorProgresivo(SpriteRenderer sr)
+    {
+        if (sr == null) yield break;
+        Color inicio = sr.color;
+        float t = 0f;
+        while (t < 0.5f)
+        {
+            t += Time.deltaTime;
+            sr.color = Color.Lerp(inicio, Color.white, t / 0.5f);
+            yield return null;
+        }
+        sr.color = Color.white;
     }
 
     public bool QuitarObjeto(string idObjeto)

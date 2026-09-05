@@ -39,7 +39,7 @@ public class MinijuegoBuho : MonoBehaviour
     {
         minijuegoCompletado = true;
         yield return new WaitForSeconds(1.5f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinSalaMac);
+        GuideManager.Instance.TriggerEvent("FinSalaMac");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

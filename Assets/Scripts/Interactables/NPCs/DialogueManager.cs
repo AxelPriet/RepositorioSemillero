@@ -217,7 +217,7 @@ public class DialogueManager : MonoBehaviour
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
 
-        bool hayPendiente = GuideManager.Instance != null && GuideManager.Instance.TienePendiente;
+        bool hayPendiente = GuideManager.Instance != null && GuideManager.Instance.TienePendientes();
         if (playerMovement != null && !hayPendiente)
             playerMovement.SetMovementEnabled(true);
     }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da3e976eb65e6c489143298166f6e22, type: 3}
+  m_Name: ExplicacionRadio
+  m_EditorClassIdentifier: Assembly-CSharp::GuideDialogueSO
+  dialogueID: ExplicacionRadio
+  lines:
+  - "Esta es la raido de la udb, botones slider... tu objetivo es encontrar la se\xF1al
+    clara. Lleva los slider hasta que la luz pase de rojo a verde. Paciencia, la
+    frecuencia perfecta est\xE1 ah\xED esperando."
+  mostrarUnaVez: 1

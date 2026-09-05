@@ -49,7 +49,7 @@ public class MiniGame_Robot : MonoBehaviour
 
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinAtelier);
+        GuideManager.Instance.TriggerEvent("FinAtelier");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

@@ -90,7 +90,7 @@ public class MiniGame_Libros : MonoBehaviour
         textoTiempo.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinPoliteca);
+        GuideManager.Instance.TriggerEvent("FinPoliteca");
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 

@@ -234,7 +234,7 @@ public class MinijuegoCroma : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinCroma);
+        GuideManager.Instance.TriggerEvent("FinCroma");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Coleccionable : MonoBehaviour, IInteractuable
 {
@@ -9,6 +10,10 @@ public class Coleccionable : MonoBehaviour, IInteractuable
 
     [Header("Comportamiento")]
     [SerializeField] private bool destruirAlRecoger = true;
+
+    [Header("UI Sprite")]
+    [SerializeField] private SpriteRenderer spriteUI;
+    public SpriteRenderer SpriteUI => spriteUI;
 
     private void Start()
     {

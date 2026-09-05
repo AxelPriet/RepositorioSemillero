@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da3e976eb65e6c489143298166f6e22, type: 3}
+  m_Name: Bienvenida
+  m_EditorClassIdentifier: Assembly-CSharp::GuideDialogueSO
+  dialogueID: Bienvenida
+  lines:
+  - "\xA1Ey! Por fin est\xE1s aqu\xED. Me presento: soy el Asistente Acad\xE9mico
+    Virtual, pero puedes llamarme Guideon Piensa en m\xED como tu sombra amigable...
+    estar\xE9 a tu lado en cada paso de este recorrido. \xBFList@ para descubrir
+    lo que la universidad tiene guardado para ti?"
+  - "Mira a tu alrededor... cada rinc\xF3n del campus esconde un desaf\xEDo. Son
+    peque\xF1as actividades que te acercan a lo que realmente se vive aqu\xED. Y
+    no son solo juegos: al completar cada uno, obtendr\xE1s una pieza de un carnet
+    muy especial. Junta todas y... bueno, digamos que habr\xE1s cumplido tu misi\xF3n.
+    \xBFTe animas?"
+  - "Lo mejor de todo... no hay un camino fijo. Puedes ir a donde quieras, en el
+    orden que quieras. Explora los pasillos, as\xF3mate a cada aula... y si prestas
+    atenci\xF3n, tal vez encuentres m\xE1s secretos escondidos por ah\xED. La universidad
+    est\xE1 llena de sorpresas para quienes se toman el tiempo de mirar."
+  - "Bueno, lleg\xF3 el momento de dejarte volar. Pero no te preocupes, siempre estar\xE9
+    cerca si me necesitas. Conf\xEDo en que har\xE1s un gran recorrido. Ahora ve,
+    explora, aprende y sobre todo... divi\xE9rtete. \xA1Mucha suerte!"
+  mostrarUnaVez: 1

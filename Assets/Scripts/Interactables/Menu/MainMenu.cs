@@ -8,11 +8,12 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenu;
 
     [Header("Selección de Personaje")]
-    [SerializeField] private CharacterSelectionManager characterSelectionManager; 
+    [SerializeField] private CharacterSelectionManager characterSelectionManager;
 
     [Header("Inventario UI")]
     [SerializeField] private TextMeshProUGUI totalColeccionablesText;
     [SerializeField] private TextMeshProUGUI partesCarnetText;
+    [SerializeField] private GameObject inventarioPanel; 
 
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
@@ -26,6 +27,9 @@ public class MainMenu : MonoBehaviour
 
         if (CarnetManager.Instance != null)
             CarnetManager.Instance.OnPieceCollected += UpdateInventoryDisplay;
+
+        if (InventarioJugador.Instance != null)
+            InventarioJugador.Instance.OnObjetoRecolectado += UpdateInventoryDisplay;
     }
 
     private void OnDisable()
@@ -35,6 +39,9 @@ public class MainMenu : MonoBehaviour
 
         if (CarnetManager.Instance != null)
             CarnetManager.Instance.OnPieceCollected -= UpdateInventoryDisplay;
+
+        if (InventarioJugador.Instance != null)
+            InventarioJugador.Instance.OnObjetoRecolectado -= UpdateInventoryDisplay;
     }
 
     private void Start()
@@ -86,6 +93,9 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         UpdateInventoryDisplay();
+
+        if (inventarioPanel != null)
+            inventarioPanel.SetActive(false);
     }
 
     public void PlayGame()
@@ -100,7 +110,7 @@ public class MainMenu : MonoBehaviour
         }
 
         if (characterSelectionManager != null)
-            characterSelectionManager.MostrarSeleccionPersonaje(); 
+            characterSelectionManager.MostrarSeleccionPersonaje();
     }
 
     public void ResumeGame()
@@ -109,6 +119,9 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         if (playerMovement != null)
             playerMovement.SetMovementEnabled(true);
+
+        if (inventarioPanel != null)
+            inventarioPanel.SetActive(true);
     }
 
     public void ReturnToMainMenu()
@@ -121,7 +134,7 @@ public class MainMenu : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
     }
 

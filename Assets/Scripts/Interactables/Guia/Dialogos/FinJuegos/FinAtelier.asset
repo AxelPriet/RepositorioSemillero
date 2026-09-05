@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da3e976eb65e6c489143298166f6e22, type: 3}
+  m_Name: FinAtelier
+  m_EditorClassIdentifier: Assembly-CSharp::GuideDialogueSO
+  dialogueID: FinAtelier
+  lines:
+  - "\xA1El robot ha vuelto a la vida pieza por pieza! Un trabajo de precisi\xF3n
+    y paciencia. Ahora dir\xEDgete al edificio cuatro. El anfiteatro te espera con
+    su rompecabezas anat\xF3mico, y m\xE1s arriba, otro laboratorio donde cada espacio
+    cuenta. El camino sigue abierto si aun no los has hecho."
+  mostrarUnaVez: 1

@@ -143,7 +143,7 @@ public class MinijuegoRCP : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinClinica);
+        GuideManager.Instance.TriggerEvent("FinClinica");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

@@ -169,8 +169,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         if (GameProgressManager.Instance != null)
             GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         else
-            Debug.LogWarning("GameProgressManager no encontrado en la escena");
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinDibujo);
+        GuideManager.Instance.TriggerEvent("FinDibujo");
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 

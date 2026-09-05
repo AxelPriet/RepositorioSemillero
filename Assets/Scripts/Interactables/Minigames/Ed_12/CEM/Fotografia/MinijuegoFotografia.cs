@@ -101,7 +101,7 @@ public class MinijuegoFotografia : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinFotografia);
+        GuideManager.Instance.TriggerEvent("FinFotografia");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }

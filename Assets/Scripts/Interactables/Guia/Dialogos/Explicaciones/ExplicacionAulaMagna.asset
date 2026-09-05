@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da3e976eb65e6c489143298166f6e22, type: 3}
+  m_Name: ExplicacionAulaMagna
+  m_EditorClassIdentifier: Assembly-CSharp::GuideDialogueSO
+  dialogueID: ExplicacionAulaMagna
+  lines:
+  - "Una luz que gu\xEDa... mant\xE9n presionado el clic izquierdo y mueve el mouse
+    para seguir al graduado. Acompa\xF1a su paso hasta que recoja su diploma. Un
+    momento importante merece ser seguido de cerca."
+  mostrarUnaVez: 1

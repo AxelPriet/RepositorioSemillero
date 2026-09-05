@@ -120,8 +120,8 @@ public class MiniGame_Pesas : MonoBehaviour
         juegoTerminado = true;
 
 
-        yield return new WaitForSeconds(1.5f);
-        GuideManager.Instance.SetPendingDialogue(GuideManager.GuideEvent.FinGym);
+        yield return new WaitForSeconds(1.5f); 
+        GuideManager.Instance.TriggerEvent("FinGym");
         GameProgressManager.Instance.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
