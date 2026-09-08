@@ -115,7 +115,6 @@ public class PiezaInstrumento : MonoBehaviour, IDragHandler, IBeginDragHandler, 
             zonaMasCercana.IndicarCompletado();
 
             FindFirstObjectByType<MinijuegoLaboratorio>()?.InstrumentoColocado();
-            Debug.Log($"¡{nombreInstrumento} colocado correctamente!");
         }
         else
         {

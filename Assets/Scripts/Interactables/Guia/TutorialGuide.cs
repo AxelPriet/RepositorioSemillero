@@ -17,7 +17,7 @@ public class TutorialGuide : MonoBehaviour
     [SerializeField] private GameObject advanceIndicator;
 
     [Header("Configuración")]
-    [SerializeField] private string guideName = "A.A.V.";
+    [SerializeField] private string guideName = "Guideon";
     [SerializeField] private float typingSpeed = 0.04f;
     [SerializeField] private float delayEntreEtapas = 0.5f;
 

@@ -24,7 +24,9 @@ public class GameProgressManager : MonoBehaviour
     public void CompleteMinigame(int minigameIndex)
     {
         if (completedMinigames.Contains(minigameIndex))
+        {
             return;
+        }
 
         completedMinigames.Add(minigameIndex);
 
@@ -32,7 +34,12 @@ public class GameProgressManager : MonoBehaviour
             currentMinigameIndex++;
 
         if (CarnetManager.Instance != null)
+        {
             CarnetManager.Instance.AddCarnetPiece();
+        }
+        else
+        {
+        }
     }
 
     public int GetCurrentIndex() => currentMinigameIndex;

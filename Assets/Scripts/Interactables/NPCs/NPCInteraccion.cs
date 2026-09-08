@@ -67,7 +67,21 @@ public class NPCInteraccion : MonoBehaviour, IInteractuable
         }
     }
 
-    public string GetPrompt() => $"Hablar con {dialogo?.NPCName ?? "NPC"}";
-    public bool PuedeInteractuar() => canInteract && !isDialogueActive && dialogo != null;
+    public string GetPrompt()
+    {
+        //No mostrar prompt si las interacciones están bloqueadas
+        if (InteractionBlocker.Instance != null && InteractionBlocker.Instance.IsBlocked)
+            return "";
+
+        return $"Hablar con {dialogo?.NPCName ?? "NPC"}";
+    }
+    public bool PuedeInteractuar()
+    {
+        //No se puede interactuar si está bloqueado
+        if (InteractionBlocker.Instance != null && InteractionBlocker.Instance.IsBlocked)
+            return false;
+
+        return canInteract && !isDialogueActive && dialogo != null;
+    }
     public Transform GetTransform() => transform;
 }

@@ -1600,6 +1600,7 @@ GameObject:
   - component: {fileID: 759276205}
   - component: {fileID: 759276204}
   - component: {fileID: 759276203}
+  - component: {fileID: 759276207}
   m_Layer: 6
   m_Name: NPC2
   m_TagString: Untagged
@@ -1720,7 +1721,7 @@ MonoBehaviour:
   - {fileID: 1462577353}
   - {fileID: 1014474276}
   - {fileID: 1825656857}
-  moveSpeed: 2
+  moveSpeed: 5
   waitTime: 3
   loop: 1
   animator: {fileID: 759276203}
@@ -1753,8 +1754,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteraccion
   dialogo: {fileID: 11400000, guid: 3f344750f4ff5824193ed05da5c211af, type: 2}
   movement: {fileID: 759276204}
-  animator: {fileID: 0}
-  moviendoBool: Moviendo
+  animator: {fileID: 759276203}
+  moviendoBool: Moviendose
+--- !u!70 &759276207
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759276198}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!1 &798582261
 GameObject:
   m_ObjectHideFlags: 0

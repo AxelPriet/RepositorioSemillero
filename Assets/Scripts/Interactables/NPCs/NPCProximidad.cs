@@ -16,6 +16,7 @@ public class NPCProximidad : MonoBehaviour
 
     private Transform player;
     private bool wasInside = false;
+    private bool dialogueActive = false;
 
     private void Start()
     {
@@ -40,9 +41,11 @@ public class NPCProximidad : MonoBehaviour
         float dist = Vector2.Distance(transform.position, player.position);
         bool isInside = dist <= interactionDistance;
 
-        if (isInside && !wasInside)
+        if (isInside && !wasInside && !dialogueActive)
         {
             wasInside = true;
+            dialogueActive = true;
+
             string mensaje = dialogo.ObtenerLinea();
             DialogueManager.Instance?.ShowDialogue(mensaje);
             OnDialogueTriggered?.Invoke();

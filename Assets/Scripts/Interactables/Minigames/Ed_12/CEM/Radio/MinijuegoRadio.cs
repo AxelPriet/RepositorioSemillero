@@ -32,7 +32,6 @@ public class MinijuegoRadio : MonoBehaviour
     {
         if (sliders.Length != textosValorActual.Length || sliders.Length != textosValorObjetivo.Length)
         {
-            Debug.LogError("La cantidad de sliders, textos de valor actual y textos objetivo no coincide.");
             return;
         }
 
@@ -147,12 +146,8 @@ public class MinijuegoRadio : MonoBehaviour
         SetCartelAlpha(1f);
 
         yield return new WaitForSeconds(1.5f);
-
-        if (GuideManager.Instance != null)
-            GuideManager.Instance?.SetPendingDialogue("FinRadio");
-        if (GameProgressManager.Instance != null)
-            GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
-
+        GuideManager.Instance?.SetPendingDialogue("FinRadio");
+        GameProgressManager.Instance?.CompleteMinigame(minigameIndex);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);
     }
 }
