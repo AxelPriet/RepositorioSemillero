@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
     private static readonly int MoveYHash = Animator.StringToHash("MoveY");
 
+    [Header("Correr con Stick")]
+    [SerializeField] private float runThreshold = 0.7f; 
+
     private void Awake()
     {
         Instance = this;
@@ -61,13 +64,16 @@ public class PlayerMovement : MonoBehaviour
             if (inputHandler == null) return;
         }
 
-        isRunning = inputHandler.IsRunning();
+        Vector2 rawInput = inputHandler.GetMoveInput();
+        float inputMagnitude = rawInput.magnitude;
+
+        //isRunning = inputHandler.IsRunning() || (Application.isMobilePlatform && inputMagnitude >= runThreshold);
+        isRunning = inputHandler.IsRunning() || (inputMagnitude >= runThreshold);
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        Vector2 currentInput = inputHandler.GetMoveInput();
+        Vector2 currentInput = rawInput;
 
         bool soloCardinal = true;
-
         if (soloCardinal && currentInput.x != 0 && currentInput.y != 0)
         {
             if (Mathf.Abs(currentInput.x) >= Mathf.Abs(currentInput.y))

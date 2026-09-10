@@ -11,7 +11,7 @@ public class NPCInteraccion : MonoBehaviour, IInteractuable
 
     [Header("Animación")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string moviendoBool = "Moviendose";   
+    [SerializeField] private string moviendoBool = "Moviendose";
 
     private bool canInteract = true;
     private bool isDialogueActive = false;
@@ -20,11 +20,8 @@ public class NPCInteraccion : MonoBehaviour, IInteractuable
 
     private void Start()
     {
-        if (animator != null)
-        {
-            if (!string.IsNullOrEmpty(moviendoBool))
-                animator.SetBool(moviendoBool, false);
-        }
+        if (animator != null && !string.IsNullOrEmpty(moviendoBool))
+            animator.SetBool(moviendoBool, false);
     }
 
     public void Interactuar()
@@ -37,11 +34,8 @@ public class NPCInteraccion : MonoBehaviour, IInteractuable
         if (movement != null)
             movement.StopMovement();
 
-        if (animator != null)
-        {
-            if (!string.IsNullOrEmpty(moviendoBool))
-                animator.SetBool(moviendoBool, false);
-        }
+        if (animator != null && !string.IsNullOrEmpty(moviendoBool))
+            animator.SetBool(moviendoBool, false);
 
         DialogueManager.Instance?.StartDialogue(
             dialogo.NPCName,
@@ -60,28 +54,19 @@ public class NPCInteraccion : MonoBehaviour, IInteractuable
         if (movement != null)
             movement.ResumeMovement();
 
-        if (movement != null && movement.IsMoving && animator != null)
-        {
-            if (!string.IsNullOrEmpty(moviendoBool))
-                animator.SetBool(moviendoBool, true);
-        }
+        if (movement != null && movement.IsMoving && animator != null && !string.IsNullOrEmpty(moviendoBool))
+            animator.SetBool(moviendoBool, true);
     }
 
     public string GetPrompt()
     {
-        //No mostrar prompt si las interacciones están bloqueadas
-        if (InteractionBlocker.Instance != null && InteractionBlocker.Instance.IsBlocked)
-            return "";
-
         return $"Hablar con {dialogo?.NPCName ?? "NPC"}";
     }
+
     public bool PuedeInteractuar()
     {
-        //No se puede interactuar si está bloqueado
-        if (InteractionBlocker.Instance != null && InteractionBlocker.Instance.IsBlocked)
-            return false;
-
         return canInteract && !isDialogueActive && dialogo != null;
     }
+
     public Transform GetTransform() => transform;
 }

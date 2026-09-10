@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: f6d485176583b734294d7ed98c60bd4c
+guid: 40daf6ee0c2c27440aef5703a87e36fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8405004472094448333
-    second: NPC_Licensiatura_Lateral_0
-  - first:
-      213: -8024634886242210711
-    second: NPC_Licensiatura_Lateral_1
-  - first:
-      213: 5314248119523891785
-    second: NPC_Licensiatura_Lateral_2
-  - first:
-      213: -8333301411022923225
-    second: NPC_Licensiatura_Lateral_3
+      213: 6168679476669020422
+    second: JoyStick_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPC_Licensiatura_Lateral_0
+      name: JoyStick_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 640
+        width: 73
+        height: 73
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 335ad39d6fc6b5b80800000000000000
-      internalID: -8405004472094448333
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Licensiatura_Lateral_1
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 96c63595615c2a090800000000000000
-      internalID: -8024634886242210711
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Licensiatura_Lateral_2
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94a5284328000c940800000000000000
-      internalID: 5314248119523891785
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Licensiatura_Lateral_3
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72a97b5b48a2a5c80800000000000000
-      internalID: -8333301411022923225
+      spriteID: 609791c0d4d8b9550800000000000000
+      internalID: 6168679476669020422
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 447030a446c699546a403b8b39db5ad2
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -208,14 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      NPC_Licensiatura_Lateral_0: -8405004472094448333
-      NPC_Licensiatura_Lateral_1: -8024634886242210711
-      NPC_Licensiatura_Lateral_2: 5314248119523891785
-      NPC_Licensiatura_Lateral_3: -8333301411022923225
+      JoyStick_0: 6168679476669020422
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

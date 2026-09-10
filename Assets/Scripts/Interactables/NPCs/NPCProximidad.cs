@@ -10,21 +10,17 @@ public class NPCProximidad : MonoBehaviour
 
     [Header("Animación")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string moviendoBool = "Moviendose";  
+    [SerializeField] private string moviendoBool = "Moviendose";
 
     public System.Action OnDialogueTriggered;
 
     private Transform player;
     private bool wasInside = false;
-    private bool dialogueActive = false;
 
     private void Start()
     {
-        if (animator != null)
-        {
-            if (!string.IsNullOrEmpty(moviendoBool))
-                animator.SetBool(moviendoBool, false);
-        }
+        if (animator != null && !string.IsNullOrEmpty(moviendoBool))
+            animator.SetBool(moviendoBool, false);
     }
 
     private void Update()
@@ -41,10 +37,9 @@ public class NPCProximidad : MonoBehaviour
         float dist = Vector2.Distance(transform.position, player.position);
         bool isInside = dist <= interactionDistance;
 
-        if (isInside && !wasInside && !dialogueActive)
+        if (isInside && !wasInside)
         {
             wasInside = true;
-            dialogueActive = true;
 
             string mensaje = dialogo.ObtenerLinea();
             DialogueManager.Instance?.ShowDialogue(mensaje);

@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private float skipDelay = 2.5f;
+    [SerializeField] private float skipDelay = 0.5f;
 
     public bool IsActive => isDialogueActive;
 
