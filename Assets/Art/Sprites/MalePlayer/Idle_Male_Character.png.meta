@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 809a58f9f30084343a65ba750e64bba7
+guid: 69c6ce56a82706742bae84dd3a594588
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2590794860316205807
-    second: Walk_M_64x64_0
+      213: 8352537169197470398
+    second: Idle_Male_Character_0
   - first:
-      213: 9209784881196628860
-    second: Walk_M_64x64_1
+      213: -1967977079278975506
+    second: Idle_Male_Character_1
   - first:
-      213: 4961808125770857623
-    second: Walk_M_64x64_2
+      213: 8740679163100130477
+    second: Idle_Male_Character_2
   - first:
-      213: 1392911889999706255
-    second: Walk_M_64x64_3
+      213: 9127017974504197162
+    second: Idle_Male_Character_3
+  - first:
+      213: -2110935851582186585
+    second: Idle_Male_Character_4
+  - first:
+      213: -7311031537188518500
+    second: Idle_Male_Character_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_M_64x64_0
+      name: Idle_Male_Character_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 2
-        width: 46
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe22e07e23a54f320800000000000000
-      internalID: 2590794860316205807
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_M_64x64_1
-      rect:
-        serializedVersion: 2
-        x: 73
+        x: 0
         y: 0
-        width: 44
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c7bfc7dcd8abfcf70800000000000000
-      internalID: 9209784881196628860
+      spriteID: eb2134f3d4c2ae370800000000000000
+      internalID: 8352537169197470398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_M_64x64_2
+      name: Idle_Male_Character_1
       rect:
         serializedVersion: 2
-        x: 137
-        y: 2
-        width: 46
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79cf73c9332ebd440800000000000000
-      internalID: 4961808125770857623
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_M_64x64_3
-      rect:
-        serializedVersion: 2
-        x: 203
+        x: 640
         y: 0
-        width: 44
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f88b9d6ebfd945310800000000000000
-      internalID: 1392911889999706255
+      spriteID: ee5477fe54750b4e0800000000000000
+      internalID: -1967977079278975506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Male_Character_2
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daced3483612d4970800000000000000
+      internalID: 8740679163100130477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Male_Character_3
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2c8de4ad7ea9ae70800000000000000
+      internalID: 9127017974504197162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Male_Character_4
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ab9ec6f60374b2e0800000000000000
+      internalID: -2110935851582186585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Male_Character_5
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95433c6d8ff98a90800000000000000
+      internalID: -7311031537188518500
       vertices: []
       indices: 
       edges: []
@@ -200,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 63d2ef94df7ee39469721ed48df8a196
     internalID: 0
     vertices: []
     indices: 
@@ -208,12 +258,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Walk_M_64x64_0: 2590794860316205807
-      Walk_M_64x64_1: 9209784881196628860
-      Walk_M_64x64_2: 4961808125770857623
-      Walk_M_64x64_3: 1392911889999706255
+      Idle_Male_Character_0: 8352537169197470398
+      Idle_Male_Character_1: -1967977079278975506
+      Idle_Male_Character_2: 8740679163100130477
+      Idle_Male_Character_3: 9127017974504197162
+      Idle_Male_Character_4: -2110935851582186585
+      Idle_Male_Character_5: -7311031537188518500
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

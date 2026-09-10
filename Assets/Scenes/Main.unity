@@ -8909,8 +8909,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 385900886869739922, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 385900886869739922, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 385900886869739922, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 385900886869739922, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.1354187
+      objectReference: {fileID: 0}
+    - target: {fileID: 385900886869739922, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.1333334
       objectReference: {fileID: 0}
     - target: {fileID: 3903141093412253077, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
       propertyPath: prefabPrompt
@@ -8964,6 +8980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8517015248800109023, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8352537169197470398, guid: 69c6ce56a82706742bae84dd3a594588, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
