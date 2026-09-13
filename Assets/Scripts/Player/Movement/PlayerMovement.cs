@@ -67,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 rawInput = inputHandler.GetMoveInput();
         float inputMagnitude = rawInput.magnitude;
 
-        //isRunning = inputHandler.IsRunning() || (Application.isMobilePlatform && inputMagnitude >= runThreshold);
-        isRunning = inputHandler.IsRunning() || (inputMagnitude >= runThreshold);
+        isRunning = inputHandler.IsRunning() || (Application.isMobilePlatform && inputMagnitude >= runThreshold);
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
         Vector2 currentInput = rawInput;

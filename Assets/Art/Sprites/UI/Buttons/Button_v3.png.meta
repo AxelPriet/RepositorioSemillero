@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: d66c1779bd32da84080bd980cb685618
+guid: d916c0857366d24498fb41370b0c8093
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1627590641741119984
-    second: NPC_Medicina_Arriba_0
-  - first:
-      213: -7501955200640819732
-    second: NPC_Medicina_Arriba_1
-  - first:
-      213: 7160323956655261792
-    second: NPC_Medicina_Arriba_2
-  - first:
-      213: 1830889102218566222
-    second: NPC_Medicina_Arriba_3
+      213: -1110442370127080471
+    second: Button_v3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPC_Medicina_Arriba_0
+      name: Button_v3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 640
+        width: 49
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01e35474fe2a969e0800000000000000
-      internalID: -1627590641741119984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Medicina_Arriba_1
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cedd8e8fd73b3e790800000000000000
-      internalID: -7501955200640819732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Medicina_Arriba_2
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 068082993b49e5360800000000000000
-      internalID: 7160323956655261792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NPC_Medicina_Arriba_3
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 640
-        height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e4a1fd020ff986910800000000000000
-      internalID: 1830889102218566222
+      spriteID: 9e358093c8ae690f0800000000000000
+      internalID: -1110442370127080471
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 032c7226a8889644d95f2241179b8e1c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -208,14 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      NPC_Medicina_Arriba_0: -1627590641741119984
-      NPC_Medicina_Arriba_1: -7501955200640819732
-      NPC_Medicina_Arriba_2: 7160323956655261792
-      NPC_Medicina_Arriba_3: 1830889102218566222
+      Button_v3_0: -1110442370127080471
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
