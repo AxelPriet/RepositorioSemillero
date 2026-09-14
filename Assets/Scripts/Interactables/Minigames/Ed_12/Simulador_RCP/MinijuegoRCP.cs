@@ -87,6 +87,7 @@ public class MinijuegoRCP : MonoBehaviour
         float zonaMin = zonaVerde.anchoredPosition.y - (zonaVerde.rect.height / 2);
         float zonaMax = zonaVerde.anchoredPosition.y + (zonaVerde.rect.height / 2);
 
+
         if (indicadorY >= zonaMin && indicadorY <= zonaMax)
         {
             puntos++;
