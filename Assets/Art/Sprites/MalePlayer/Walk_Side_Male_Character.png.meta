@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 49b9c78ed4a80074cbb69a6a51557c5f
+guid: b7e0d3d68417ec64d92bbded3421d2ec
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4045953577775831016
-    second: Walk_Side_M_64x64_0
+      213: 1631779135767231514
+    second: Walk_Side_Male_Character_0
   - first:
-      213: 5807100315803445058
-    second: Walk_Side_M_64x64_1
+      213: -7033572278485888411
+    second: Walk_Side_Male_Character_1
   - first:
-      213: -7448555928442262339
-    second: Walk_Side_M_64x64_2
+      213: 1484996216759489882
+    second: Walk_Side_Male_Character_2
   - first:
-      213: 3618827493826308303
-    second: Walk_Side_M_64x64_3
+      213: -4028956243911772893
+    second: Walk_Side_Male_Character_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_Side_M_64x64_0
+      name: Walk_Side_Male_Character_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 3
-        width: 36
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 81863fa48a2e9d7c0800000000000000
-      internalID: -4045953577775831016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_Side_M_64x64_1
-      rect:
-        serializedVersion: 2
-        x: 75
+        x: 0
         y: 0
-        width: 36
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 247e58a48f6f69050800000000000000
-      internalID: 5807100315803445058
+      spriteID: a1cbc4b7a7e35a610800000000000000
+      internalID: 1631779135767231514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_Side_M_64x64_2
+      name: Walk_Side_Male_Character_1
       rect:
         serializedVersion: 2
-        x: 139
-        y: 3
-        width: 36
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 640
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dbca193e8d961a890800000000000000
-      internalID: -7448555928442262339
+      spriteID: 56250d6374bb36e90800000000000000
+      internalID: -7033572278485888411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_Side_M_64x64_3
+      name: Walk_Side_Male_Character_2
       rect:
         serializedVersion: 2
-        x: 203
-        y: 1
-        width: 36
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1280
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc82fe8ae68a83230800000000000000
-      internalID: 3618827493826308303
+      spriteID: a559fb8f034cb9410800000000000000
+      internalID: 1484996216759489882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_Side_Male_Character_3
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 325fb0a74a54618c0800000000000000
+      internalID: -4028956243911772893
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4f191b4df79b9ed46a69724e9292ad8e
     internalID: 0
     vertices: []
     indices: 
@@ -208,12 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Walk_Side_M_64x64_0: -4045953577775831016
-      Walk_Side_M_64x64_1: 5807100315803445058
-      Walk_Side_M_64x64_2: -7448555928442262339
-      Walk_Side_M_64x64_3: 3618827493826308303
+      Walk_Side_Male_Character_0: 1631779135767231514
+      Walk_Side_Male_Character_1: -7033572278485888411
+      Walk_Side_Male_Character_2: 1484996216759489882
+      Walk_Side_Male_Character_3: -4028956243911772893
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
