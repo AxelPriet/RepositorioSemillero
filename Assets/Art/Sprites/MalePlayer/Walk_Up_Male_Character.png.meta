@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 0b0514deca41853468e5bb6a49dfe537
+guid: 404c5b4398be98540975a59b4ced0a0f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3320969182395979708
-    second: Run_Up_M_64x64_0
+      213: 3882004542144209017
+    second: Walk_Up_Male_Character_0
   - first:
-      213: -8911551532923472010
-    second: Run_Up_M_64x64_1
+      213: 6409660903325345881
+    second: Walk_Up_Male_Character_1
   - first:
-      213: -321736864070991577
-    second: Run_Up_M_64x64_2
+      213: -6081680382046636192
+    second: Walk_Up_Male_Character_2
   - first:
-      213: 1822032192399178396
-    second: Run_Up_M_64x64_3
+      213: -3423697791283252711
+    second: Walk_Up_Male_Character_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Run_Up_M_64x64_0
+      name: Walk_Up_Male_Character_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 3
-        width: 38
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 448a445bf1c89e1d0800000000000000
-      internalID: -3320969182395979708
+      spriteID: 97065f63096afd530800000000000000
+      internalID: 3882004542144209017
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_Up_M_64x64_1
+      name: Walk_Up_Male_Character_1
       rect:
         serializedVersion: 2
-        x: 79
-        y: 1
-        width: 36
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 640
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6773282a81fc35480800000000000000
-      internalID: -8911551532923472010
+      spriteID: 958aa69b1a0b3f850800000000000000
+      internalID: 6409660903325345881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_Up_M_64x64_2
+      name: Walk_Up_Male_Character_2
       rect:
         serializedVersion: 2
-        x: 141
-        y: 3
-        width: 38
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1280
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72186e9d606f88bf0800000000000000
-      internalID: -321736864070991577
+      spriteID: 067f5a62ae7899ba0800000000000000
+      internalID: -6081680382046636192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_Up_M_64x64_3
+      name: Walk_Up_Male_Character_3
       rect:
         serializedVersion: 2
-        x: 205
-        y: 1
-        width: 36
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1920
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c9a774d10a8294910800000000000000
-      internalID: 1822032192399178396
+      spriteID: 912b5449ff49c70d0800000000000000
+      internalID: -3423697791283252711
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 73675e504fa24204491489be1976d6db
     internalID: 0
     vertices: []
     indices: 
@@ -208,12 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Run_Up_M_64x64_0: -3320969182395979708
-      Run_Up_M_64x64_1: -8911551532923472010
-      Run_Up_M_64x64_2: -321736864070991577
-      Run_Up_M_64x64_3: 1822032192399178396
+      Walk_Up_Male_Character_0: 3882004542144209017
+      Walk_Up_Male_Character_1: 6409660903325345881
+      Walk_Up_Male_Character_2: -6081680382046636192
+      Walk_Up_Male_Character_3: -3423697791283252711
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
