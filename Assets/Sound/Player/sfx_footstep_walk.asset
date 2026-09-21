@@ -15,7 +15,7 @@ MonoBehaviour:
   id: sfx_footstep_left
   clip: {fileID: 8300000, guid: 5a9a8132101f8214c95a5c21d135e1e4, type: 3}
   mixerGroup: {fileID: 1226074943034675317, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
-  volume: 0.6
+  volume: 0.3
   pitchRange: {x: 1, y: 1.1}
   loop: 0
   playOnAwake: 0

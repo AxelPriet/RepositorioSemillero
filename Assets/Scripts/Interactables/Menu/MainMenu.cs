@@ -94,8 +94,11 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         UpdateInventoryDisplay();
 
+        AudioManager.Instance?.PlayUI("sfx_ui_menu_open");
+
         if (inventarioPanel != null)
             inventarioPanel.SetActive(false);
+
     }
 
     public void PlayGame()
@@ -119,6 +122,8 @@ public class MainMenu : MonoBehaviour
         optionsMenu.SetActive(false);
         if (playerMovement != null)
             playerMovement.SetMovementEnabled(true);
+
+        AudioManager.Instance?.PlayUI("sfx_ui_menu_close");
 
         if (inventarioPanel != null)
             inventarioPanel.SetActive(true);

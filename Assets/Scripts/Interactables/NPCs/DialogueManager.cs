@@ -18,6 +18,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interaccionDialogueText;
     [SerializeField] private GameObject skipIndicator;
     [SerializeField] private GameObject advanceIndicator;
+    
+    [Header("Sound")]
+    [SerializeField] private int charsPerTypingSound = 3;
 
     [Header("Settings")]
     [SerializeField] private float typingSpeed = 0.05f;
@@ -123,9 +126,15 @@ public class DialogueManager : MonoBehaviour
         float startTime = Time.time;
         interaccionDialogueText.text = "";
 
+        int charCount = 0;
         foreach (char c in line)
         {
             interaccionDialogueText.text += c;
+            if (charCount % charsPerTypingSound == 0)
+            {
+                AudioManager.Instance?.PlaySFX("sfx_typing");
+            }
+            charCount++;
             yield return new WaitForSeconds(typingSpeed);
         }
 

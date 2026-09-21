@@ -2953,6 +2953,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6429420367604252495, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
   m_PrefabInstance: {fileID: 1068658873}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &799773561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4641410283032561963, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &799773566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799773561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b64bd6b223e3c4c8b96dc8753d3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  hoverSoundID: sfx_ui_hover
+  clickSoundID: sfx_ui_click
 --- !u!1 &803602987
 GameObject:
   m_ObjectHideFlags: 0
@@ -5162,7 +5181,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6429420367604252495, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
       insertIndex: -1
       addedObject: {fileID: 702663048}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 673986565859206366, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1926883748}
+    - targetCorrespondingSourceObject: {fileID: 4641410283032561963, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 799773566}
+    - targetCorrespondingSourceObject: {fileID: 3055497093522218847, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869138070}
+    - targetCorrespondingSourceObject: {fileID: 1043103004322806964, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1371807993}
   m_SourcePrefab: {fileID: 100100000, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
 --- !u!1 &1087253322
 GameObject:
@@ -6255,6 +6286,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324365152}
   m_CullTransparentMesh: 1
+--- !u!1 &1371807988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1043103004322806964, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1371807993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371807988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b64bd6b223e3c4c8b96dc8753d3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  hoverSoundID: sfx_ui_hover
+  clickSoundID: sfx_ui_click
 --- !u!1 &1383893941
 GameObject:
   m_ObjectHideFlags: 0
@@ -7247,8 +7297,6 @@ MonoBehaviour:
   library: {fileID: 11400000, guid: 8afd9a89121d40646974c5385f9f6a62, type: 2}
   mainMixer: {fileID: 24100000, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
   sfxPoolSize: 10
-  musicPoolSize: 2
-  ambientPoolSize: 2
 --- !u!4 &1651191965
 Transform:
   m_ObjectHideFlags: 0
@@ -8016,6 +8064,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1869138065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3055497093522218847, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1869138070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869138065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b64bd6b223e3c4c8b96dc8753d3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  hoverSoundID: sfx_ui_hover
+  clickSoundID: sfx_ui_click
 --- !u!1 &1910672747
 GameObject:
   m_ObjectHideFlags: 0
@@ -8095,6 +8162,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1926883743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 673986565859206366, guid: 33ffcb0d7cf3ac742b9cf844ae7b66af, type: 3}
+  m_PrefabInstance: {fileID: 1068658873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1926883748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926883743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b64bd6b223e3c4c8b96dc8753d3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
+  hoverSoundID: sfx_ui_hover
+  clickSoundID: sfx_ui_click
 --- !u!1 &1937205099
 GameObject:
   m_ObjectHideFlags: 0
@@ -8838,8 +8924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ddb15cc7d110141a5ee1223258c073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFootsteps
-  walkInterval: 0.4
-  runInterval: 0.28
 --- !u!1001 &8671671315816191604
 PrefabInstance:
   m_ObjectHideFlags: 0

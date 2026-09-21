@@ -42,6 +42,7 @@ public class GuideUIManager : MonoBehaviour
             guideCharacter.transform.position = player.position + offsetFromPlayer;
 
         guideCharacter.SetActive(true);
+        AudioManager.Instance?.PlaySFX("sfx_guide_appear");
     }
 
     public void OcultarGuia()
@@ -59,6 +60,7 @@ public class GuideUIManager : MonoBehaviour
         }
 
         MostrarGuia();
+        float delay = AudioManager.Instance?.GetClipLength("sfx_guide_appear") ?? 0f;
 
         DialogueManager.Instance.StartDialogue(guideName, lines, () =>
         {

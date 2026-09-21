@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5c20c6bc2a34484191fbbf30a30492c, type: 3}
-  m_Name: sfx_footstep_right
+  m_Name: sfx_ui_hover
   m_EditorClassIdentifier: Assembly-CSharp::SoundSO
-  id: sfx_footstep_right
-  clip: {fileID: 8300000, guid: 354a86e91a6e78543a7a5e8ada0bf601, type: 3}
-  mixerGroup: {fileID: 1226074943034675317, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
+  id: sfx_ui_hover
+  clip: {fileID: 8300000, guid: b8d2671f0874f934aaeba3727e7b0f41, type: 3}
+  mixerGroup: {fileID: -2245005606975429106, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
   volume: 0.3
-  pitchRange: {x: 1, y: 1.1}
+  pitchRange: {x: 0.95, y: 1.05}
   loop: 0
   playOnAwake: 0
   is3D: 0

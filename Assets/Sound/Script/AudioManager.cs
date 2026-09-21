@@ -14,8 +14,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("Pool de AudioSources")]
     [SerializeField] private int sfxPoolSize = 10;
-    [SerializeField] private int musicPoolSize = 2;
-    [SerializeField] private int ambientPoolSize = 2;
 
     private AudioSource musicSource;
     private AudioSource ambientSource;
@@ -121,6 +119,12 @@ public class AudioManager : MonoBehaviour
         if (sound == null || sound.Clip == null) return;
 
         StartCoroutine(CrossfadeAmbient(sound, fadeDuration));
+    }
+
+    public float GetClipLength(string id)
+    {
+        SoundSO sound = library.Get(id);
+        return sound != null ? sound.ClipLength : 0f;
     }
 
     public void StopAmbient(float fadeDuration = 1f)

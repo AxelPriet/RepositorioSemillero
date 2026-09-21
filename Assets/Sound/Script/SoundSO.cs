@@ -32,6 +32,7 @@ public class SoundSO : ScriptableObject
     public bool Is3D => is3D;
     public float MinDistance => minDistance;
     public float MaxDistance => maxDistance;
+    public float ClipLength => clip != null ? clip.length : 0f;
 
     public float GetRandomPitch()
     {
