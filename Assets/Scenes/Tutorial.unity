@@ -1076,6 +1076,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &583252042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 50392550787339154, guid: 60e7732d3121ee04889d763a6a4d2b14, type: 3}
+  m_PrefabInstance: {fileID: 1741248818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &616446592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,6 +2277,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1648029914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1637645122
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.45529
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.09308
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347289110968621438, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628855305610967814, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: m_Name
+      value: GameDialog
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: skipIndicator
+      value: 
+      objectReference: {fileID: 1243756239}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: proximidadText
+      value: 
+      objectReference: {fileID: 583252042}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: proximidadPanel
+      value: 
+      objectReference: {fileID: 1727817541}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: advanceIndicator
+      value: 
+      objectReference: {fileID: 1741248819}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: interaccionPanel
+      value: 
+      objectReference: {fileID: 1741248823}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: proximidadNombreText
+      value: 
+      objectReference: {fileID: 2119672238}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: interaccionNombreText
+      value: 
+      objectReference: {fileID: 1741248822}
+    - target: {fileID: 4785493795321723264, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
+      propertyPath: interaccionDialogueText
+      value: 
+      objectReference: {fileID: 1741248821}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9ae7c724ceba5ba4aa2172e508ed942c, type: 3}
 --- !u!224 &1642123433 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6048036594154919298, guid: 60e7732d3121ee04889d763a6a4d2b14, type: 3}
@@ -2398,6 +2498,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5054367011014477583, guid: 92e3eb07e3ecf764f80f02286dadcbf7, type: 3}
   m_PrefabInstance: {fileID: 1726183041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1727817541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1709116517730054155, guid: 60e7732d3121ee04889d763a6a4d2b14, type: 3}
+  m_PrefabInstance: {fileID: 1741248818}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734457220
 GameObject:
@@ -3190,6 +3295,17 @@ Transform:
   - {fileID: 1734457221}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119672238 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2573675557495983189, guid: 60e7732d3121ee04889d763a6a4d2b14, type: 3}
+  m_PrefabInstance: {fileID: 1741248818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &2137819260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3348,6 +3464,7 @@ SceneRoots:
   - {fileID: 980943223}
   - {fileID: 1984833727}
   - {fileID: 428478669}
+  - {fileID: 1637645122}
   - {fileID: 1741248818}
   - {fileID: 854189726}
   - {fileID: 415504840}

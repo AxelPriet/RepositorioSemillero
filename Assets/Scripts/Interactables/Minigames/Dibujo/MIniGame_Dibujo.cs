@@ -55,6 +55,7 @@ public class MiniGame_Dibujo : MonoBehaviour
         RegistrarGrupo(grupoCirculo, "Círculo");
         RegistrarGrupo(grupoCuadrado, "Cuadrado");
         RegistrarGrupo(grupoTriangulo, "Triángulo");
+
         Canvas canvas = GetComponentInParent<Canvas>();
         camaraCanvas = (canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay)
                        ? null
@@ -82,15 +83,30 @@ public class MiniGame_Dibujo : MonoBehaviour
 
         figuras.Add(d);
     }
+
     private void Update()
     {
-        if (juegoTerminado || camara == null) return;
+        if (juegoTerminado || camara == null)
+        {
+            AudioManager.Instance?.StopLoopingSFX("sfx_pencil_loop");
+            return;
+        }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame) dibujando = true;
-        if (Mouse.current.leftButton.wasReleasedThisFrame) dibujando = false;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            dibujando = true;
+            AudioManager.Instance?.PlayLoopingSFX("sfx_pencil_loop");
+        }
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            dibujando = false;
+            AudioManager.Instance?.StopLoopingSFX("sfx_pencil_loop");
+        }
 
         if (dibujando) ProcesarDibujo();
     }
+
     private void ProcesarDibujo()
     {
         Vector2 posScreen = Mouse.current.position.ReadValue();
@@ -163,6 +179,8 @@ public class MiniGame_Dibujo : MonoBehaviour
     private IEnumerator GanarJuego()
     {
         juegoTerminado = true;
+        AudioManager.Instance?.StopLoopingSFX("sfx_pencil_loop");
+
         textoMensaje.text = "¡COMPLETASTE TODO!";
         yield return new WaitForSeconds(2f);
 
@@ -175,6 +193,8 @@ public class MiniGame_Dibujo : MonoBehaviour
     {
         juegoTerminado = true;
         dibujando = false;
+        AudioManager.Instance?.StopLoopingSFX("sfx_pencil_loop");
+
         textoMensaje.text = "¡FALLASTE!\nDemasiados errores";
         yield return new WaitForSeconds(2f);
         TransicionEscenas.Instance.CargarEscena(nombreEscenaPrincipal);

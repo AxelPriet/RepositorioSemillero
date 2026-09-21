@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88186dad7d0e6ed48a1432fce99519a0, type: 3}
   m_Name: D_NPC_Lucas
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogoSO
-  npcName: NPC
+  npcName: Santiago
   lineas:
   - 5 min mas y si no llega el profe me ire
   aleatorio: 0

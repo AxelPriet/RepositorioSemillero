@@ -3,6 +3,7 @@ using UnityEngine;
 public class Balon : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private bool encesto = false;
 
     private void Awake()
     {
@@ -28,8 +29,19 @@ public class Balon : MonoBehaviour
     {
         if (other.gameObject.name == "Aro")
         {
+            encesto = true;
             FindFirstObjectByType<MinijuegoBaloncesto>()?.RegistrarCanasta();
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (!encesto)
+        {
+            MinijuegoBaloncesto minijuego = FindFirstObjectByType<MinijuegoBaloncesto>();
+            if (minijuego != null)
+                minijuego.RegistrarFallo();
         }
     }
 }

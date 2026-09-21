@@ -156,10 +156,16 @@ public class MinijuegoBaloncesto : MonoBehaviour
     {
         canastas++;
         textoPuntuacion.text = $"{canastas}/{canastasRequeridas}";
+        AudioManager.Instance?.PlaySFX("sfx_basket_score");
         if (canastas >= canastasRequeridas)
         {
             StartCoroutine(Victoria());
         }
+    }
+
+    public void RegistrarFallo()
+    {
+        AudioManager.Instance?.PlaySFX("sfx_basket_fail");
     }
 
     private IEnumerator Victoria()

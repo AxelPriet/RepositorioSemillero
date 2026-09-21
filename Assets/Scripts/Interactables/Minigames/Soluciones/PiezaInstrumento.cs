@@ -114,10 +114,13 @@ public class PiezaInstrumento : MonoBehaviour, IDragHandler, IBeginDragHandler, 
             canvasGroup.blocksRaycasts = false;
             zonaMasCercana.IndicarCompletado();
 
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             FindFirstObjectByType<MinijuegoLaboratorio>()?.InstrumentoColocado();
         }
         else
         {
+            AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
             StartCoroutine(FeedbackError());
             RegresarInicio();
         }

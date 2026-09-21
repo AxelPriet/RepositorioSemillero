@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -19,6 +20,8 @@ public class AudioManager : MonoBehaviour
     private AudioSource ambientSource;
     private AudioSource[] sfxPool;
     private int sfxPoolIndex = 0;
+    private Dictionary<string, AudioSource> loopingSFX = new Dictionary<string, AudioSource>();
+
 
     // Parámetros del mixer 
     private const string MASTER_PARAM = "MasterVolume";
@@ -62,6 +65,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
     // MÉTODOS PÚBLICOS
 
     // Reproduce música de fondo 
@@ -76,6 +80,46 @@ public class AudioManager : MonoBehaviour
     public void StopMusic(float fadeDuration = 1f)
     {
         StartCoroutine(FadeOut(musicSource, fadeDuration));
+    }
+
+    public void PlayLoopingSFX(string id, Vector3 position = default)
+    {
+        // Si ya está sonando, no crear otro
+        if (loopingSFX.ContainsKey(id) && loopingSFX[id] != null && loopingSFX[id].isPlaying)
+            return;
+
+        SoundSO sound = library.Get(id);
+        if (sound == null || sound.Clip == null) return;
+
+        AudioSource source = GetFreeSFXSource();
+        ConfigureSource(source, sound);
+        source.loop = true;
+
+        if (position != default)
+        {
+            source.transform.position = position;
+            source.spatialBlend = 1f;
+        }
+        else
+        {
+            source.spatialBlend = 0f;
+        }
+
+        source.Play();
+        loopingSFX[id] = source;
+    }
+
+    public void StopLoopingSFX(string id)
+    {
+        if (loopingSFX.TryGetValue(id, out AudioSource source))
+        {
+            if (source != null)
+            {
+                source.loop = false;
+                source.Stop();
+            }
+            loopingSFX.Remove(id);
+        }
     }
 
     // Reproduce un efecto de sonido

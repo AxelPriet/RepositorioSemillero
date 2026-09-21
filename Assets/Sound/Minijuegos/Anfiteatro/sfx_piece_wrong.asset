@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5c20c6bc2a34484191fbbf30a30492c, type: 3}
-  m_Name: sfx_ui_hover
+  m_Name: sfx_piece_wrong
   m_EditorClassIdentifier: Assembly-CSharp::SoundSO
-  id: sfx_ui_hover
-  clip: {fileID: 8300000, guid: b8d2671f0874f934aaeba3727e7b0f41, type: 3}
-  mixerGroup: {fileID: -2245005606975429106, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
-  volume: 0.3
+  id: sfx_piece_wrong
+  clip: {fileID: 8300000, guid: 6d74d3006fbe5e54f96802a3c2c28e5b, type: 3}
+  mixerGroup: {fileID: 1226074943034675317, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
+  volume: 0.5
   pitchRange: {x: 1, y: 1}
   loop: 0
   playOnAwake: 0

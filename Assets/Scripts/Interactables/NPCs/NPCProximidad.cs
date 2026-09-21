@@ -40,9 +40,11 @@ public class NPCProximidad : MonoBehaviour
         if (isInside && !wasInside)
         {
             wasInside = true;
-
             string mensaje = dialogo.ObtenerLinea();
-            DialogueManager.Instance?.ShowDialogue(mensaje);
+
+            string nombre = dialogo.NPCName;
+
+            DialogueManager.Instance?.ShowDialogue(mensaje, dialogo.NPCName);
             OnDialogueTriggered?.Invoke();
         }
         else if (!isInside && wasInside)

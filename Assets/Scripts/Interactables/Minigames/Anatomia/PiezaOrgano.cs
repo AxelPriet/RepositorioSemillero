@@ -115,6 +115,8 @@ public class PiezaOrgano : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             if (imgZona != null)
                 imgZona.Completado();
 
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             if (minijuego != null)
                 minijuego.OrganoColocado();
         }
@@ -123,7 +125,11 @@ public class PiezaOrgano : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             RegresarInicio();
 
             if (zonaDestacada != null)
+            {
+                AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
                 StartCoroutine(FeedbackError());
+            }
+               
         }
 
         foreach (var zona in todasLasPosiciones)

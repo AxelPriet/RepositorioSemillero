@@ -63,6 +63,22 @@ public class MinijuegoTina : MonoBehaviour
         bool bajar = Keyboard.current.dKey.isPressed;
 
         if (subir)
+        {
+            AudioManager.Instance?.PlayLoopingSFX("sfx_water_hot");
+            AudioManager.Instance?.StopLoopingSFX("sfx_water_cold");
+        }
+        else if (bajar)
+        {
+            AudioManager.Instance?.PlayLoopingSFX("sfx_water_cold");
+            AudioManager.Instance?.StopLoopingSFX("sfx_water_hot");
+        }
+        else
+        {
+            AudioManager.Instance?.StopLoopingSFX("sfx_water_hot");
+            AudioManager.Instance?.StopLoopingSFX("sfx_water_cold");
+        }
+
+        if (subir)
             cambio += velocidadSubida * Time.deltaTime;
         if (bajar)
             cambio -= velocidadBajada * Time.deltaTime;
@@ -119,6 +135,10 @@ public class MinijuegoTina : MonoBehaviour
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_water_hot");
+        AudioManager.Instance?.StopLoopingSFX("sfx_water_cold");
+
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance?.SetPendingDialogue("FinFisioterapia");
         GameProgressManager.Instance?.CompleteMinigame(minigameIndex);

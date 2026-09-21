@@ -16,7 +16,7 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 85360312f48c46d4c869343af2d5298b, type: 3}
   mixerGroup: {fileID: 1226074943034675317, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
   volume: 0.8
-  pitchRange: {x: 0.95, y: 1.05}
+  pitchRange: {x: 1, y: 1}
   loop: 0
   playOnAwake: 0
   is3D: 0

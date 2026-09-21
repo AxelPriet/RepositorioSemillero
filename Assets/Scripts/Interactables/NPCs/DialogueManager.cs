@@ -8,11 +8,12 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    [Header("Panel Proximidad (solo texto)")]
+    [Header("Panel Proximidad")]
     [SerializeField] private GameObject proximidadPanel;
     [SerializeField] private TextMeshProUGUI proximidadText;
+    [SerializeField] private TextMeshProUGUI proximidadNombreText;
 
-    [Header("Panel Interacción (nombre + texto + skip)")]
+    [Header("Panel Interacción")]
     [SerializeField] private GameObject interaccionPanel;
     [SerializeField] private TextMeshProUGUI interaccionNombreText;
     [SerializeField] private TextMeshProUGUI interaccionDialogueText;
@@ -37,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine typingCoroutine;
     private Coroutine skipTimerCoroutine;
     private PlayerMovement playerMovement;
+    private string currentNPCName;
 
     private void Awake()
     {
@@ -64,11 +66,15 @@ public class DialogueManager : MonoBehaviour
             ShowNextLine();
     }
 
-    public void ShowDialogue(string text)
+    public void ShowDialogue(string text, string npcName = "")
     {
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         proximidadPanel.SetActive(true);
         interaccionPanel.SetActive(false);
+
+        if (proximidadNombreText != null)
+            proximidadNombreText.text = npcName;
+
         typingCoroutine = StartCoroutine(TypeLineProximidad(text));
     }
 
@@ -97,6 +103,8 @@ public class DialogueManager : MonoBehaviour
         currentLineIndex = 0;
         onComplete = onDialogueComplete;
         isDialogueActive = true;
+
+        currentNPCName = npcName;
 
         if (interaccionNombreText) interaccionNombreText.text = npcName;
         interaccionPanel.SetActive(true);
