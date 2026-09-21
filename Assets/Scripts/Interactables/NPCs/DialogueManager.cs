@@ -163,6 +163,7 @@ public class DialogueManager : MonoBehaviour
     private void ShowNextLine()
     {
         if (!isDialogueActive || isTyping) return;
+        AudioManager.Instance?.PlaySFX("sfx_DialogNext");
         currentLineIndex++;
         canSkip = false;
         if (skipIndicator) skipIndicator.SetActive(false);

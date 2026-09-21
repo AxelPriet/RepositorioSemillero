@@ -128,6 +128,21 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(FadeOut(ambientSource, fadeDuration));
     }
 
+    public void StopSFX(string id)
+    {
+        SoundSO sound = library.Get(id);
+        if (sound == null || sound.Clip == null) return;
+
+        foreach (var source in sfxPool)
+        {
+            if (source.isPlaying && source.clip == sound.Clip)
+            {
+                source.Stop();
+                return;
+            }
+        }
+    }
+
     // CONTROL DE VOLUMEN 
 
     public void SetMasterVolume(float volume) => SetMixerVolume(MASTER_PARAM, volume);

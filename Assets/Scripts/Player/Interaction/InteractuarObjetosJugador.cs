@@ -66,6 +66,7 @@ public class InteractuarObjetosJugador : MonoBehaviour
                 if (interactuable.PuedeInteractuar())
                 {
                     interactuable.Interactuar();
+                    AudioManager.Instance?.PlaySFX("sfx_interact");
                     break;
                 }
             }

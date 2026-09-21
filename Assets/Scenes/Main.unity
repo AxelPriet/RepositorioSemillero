@@ -7215,6 +7215,55 @@ Transform:
   - {fileID: 1753882896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1651191963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651191965}
+  - component: {fileID: 1651191964}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1651191964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651191963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7a47dc6884ffe4d83fcfdd38269e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  library: {fileID: 11400000, guid: 8afd9a89121d40646974c5385f9f6a62, type: 2}
+  mainMixer: {fileID: 24100000, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
+  sfxPoolSize: 10
+  musicPoolSize: 2
+  ambientPoolSize: 2
+--- !u!4 &1651191965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651191963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.64765, y: 0.47868, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668837387
 GameObject:
   m_ObjectHideFlags: 0
@@ -8767,8 +8816,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4718072752124687371, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7737133782147888215}
   m_SourcePrefab: {fileID: 100100000, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+--- !u!1 &7737133782147888214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4718072752124687371, guid: 063cb9299715eba4dbd30e604105711c, type: 3}
+  m_PrefabInstance: {fileID: 7737133782147888213}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7737133782147888215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7737133782147888214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ddb15cc7d110141a5ee1223258c073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFootsteps
+  walkInterval: 0.4
+  runInterval: 0.28
 --- !u!1001 &8671671315816191604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9042,3 +9113,4 @@ SceneRoots:
   - {fileID: 392170987}
   - {fileID: 1789552678}
   - {fileID: 700680024}
+  - {fileID: 1651191965}
