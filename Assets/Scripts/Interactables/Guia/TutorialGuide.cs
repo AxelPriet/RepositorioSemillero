@@ -15,6 +15,7 @@ public class TutorialGuide : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nombreText;
     [SerializeField] private TextMeshProUGUI dialogoText;
     [SerializeField] private GameObject advanceIndicator;
+    [SerializeField] private GameObject skipText;
 
     [Header("Configuración")]
     [SerializeField] private string guideName = "Guideon";
@@ -49,10 +50,11 @@ public class TutorialGuide : MonoBehaviour
 
     private void Start()
     {
-        playerMovement = FindFirstObjectByType<PlayerMovement>();
+    playerMovement = FindFirstObjectByType<PlayerMovement>();
 
         tutorialDialoguePanel.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
+        if (skipText) skipText.SetActive(false);
         if (guideCharacter) guideCharacter.SetActive(false);
         if (puertaZona1) puertaZona1.SetActive(false);
         if (puertaZona2) puertaZona2.SetActive(false);
@@ -174,11 +176,17 @@ public class TutorialGuide : MonoBehaviour
         foreach (string linea in so.lineas)
         {
             if (advanceIndicator) advanceIndicator.SetActive(false);
+            if (skipText) skipText.SetActive(false);
+
             yield return EscribirTexto(linea);
 
             esperandoInput = true;
+
             if (advanceIndicator) advanceIndicator.SetActive(true);
+            if (skipText) skipText.SetActive(true);
+
             yield return new WaitUntil(() => !esperandoInput);
+            AudioManager.Instance?.PlaySFX("sfx_DialogNext");
             yield return null;
         }
 
@@ -189,9 +197,14 @@ public class TutorialGuide : MonoBehaviour
     private IEnumerator EscribirTexto(string texto)
     {
         dialogoText.text = "";
+        int charCount = 0;
         foreach (char c in texto)
         {
             dialogoText.text += c;
+            if (charCount % 3 == 0)
+                AudioManager.Instance?.PlaySFX("sfx_typing");
+
+            charCount++;
             yield return new WaitForSeconds(typingSpeed);
         }
     }
@@ -204,8 +217,6 @@ public class TutorialGuide : MonoBehaviour
             npc1Interactuado = true;
         else if (npcID == "NPC2")
             npc2Interactuado = true;
-        else
-            Debug.LogWarning($"ID NPC '{npcID}' no reconocido");
     }
 
     public void NotificarMinijuegoCompletado() => minijuegoCompletado = true;
@@ -222,5 +233,8 @@ public class TutorialGuide : MonoBehaviour
             guideCharacter.transform.position =
                 player.transform.position + new Vector3(1.5f, 0f, 0f);
         if (guideCharacter) guideCharacter.SetActive(true);
+
+        AudioManager.Instance?.PlaySFX("sfx_guide_appear");
+
     }
 }

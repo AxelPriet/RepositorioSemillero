@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2347425432798811594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39864219737589027}
+  - component: {fileID: 5605879280923219831}
+  - component: {fileID: 6072233149218192470}
+  m_Layer: 0
+  m_Name: GuiaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39864219737589027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347425432798811594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.68812, y: -7.044, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5605879280923219831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347425432798811594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d886d4f556791aa4ea851afe482127ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuideManager
+  uiManager: {fileID: 6072233149218192470}
+  eventManager: {fileID: 0}
+  guideCharacter: {fileID: 0}
+  allDialogues:
+  - {fileID: 11400000, guid: 2d0800162688d8d4299e24ebea8abb45, type: 2}
+  - {fileID: 11400000, guid: bac71f612e131014e95bd5d5b349c4e1, type: 2}
+  - {fileID: 11400000, guid: c1f1f71b7d181fb47be2e189c5bc79d0, type: 2}
+  - {fileID: 11400000, guid: 606af1e77e41eb444b07745083b2c36e, type: 2}
+  - {fileID: 11400000, guid: 19dbe5899766b1244817c48e7aa71d01, type: 2}
+  - {fileID: 11400000, guid: 7162f20e3e7d21043af8685b10ca5ff2, type: 2}
+  - {fileID: 11400000, guid: 8431b2feb76bee748b51109a1370a3e5, type: 2}
+  - {fileID: 11400000, guid: 1f5627a645d579f4abe6c818cc2e878d, type: 2}
+  - {fileID: 11400000, guid: 578a8a09fe3544141af61cd10ba9f153, type: 2}
+  - {fileID: 11400000, guid: 64410244fac3922429d17c6072b614ec, type: 2}
+  - {fileID: 11400000, guid: f8ec08a84d734334aab2e2e8dd38cf3f, type: 2}
+  - {fileID: 11400000, guid: cbb91a74ec2d15c41ac69adfa3ed3685, type: 2}
+  - {fileID: 11400000, guid: 250fb0b381c04f44abbf9b74977b2217, type: 2}
+  - {fileID: 11400000, guid: 6c7ea03ca9b4adb4596be4abb32b2ce6, type: 2}
+  - {fileID: 11400000, guid: 8a9b143293c1430449d7362943429e57, type: 2}
+  - {fileID: 11400000, guid: 67341bcad18918f4197d24a684857ff3, type: 2}
+  - {fileID: 11400000, guid: 9a58a14f59962094bbf71611ae1af9bb, type: 2}
+  - {fileID: 11400000, guid: c632ed08ab3299349adb177de9cd6085, type: 2}
+  - {fileID: 11400000, guid: 9df5ef2b2ffb3cd48bb636f4caad7c0a, type: 2}
+  - {fileID: 11400000, guid: 25ad309cb1080ab448fe604d3bec01b7, type: 2}
+  - {fileID: 11400000, guid: c7a40c26427b7dc44bb070895bbaccc5, type: 2}
+  - {fileID: 11400000, guid: ed0dd2a0917ab9644b80ae96f36f1d96, type: 2}
+  - {fileID: 11400000, guid: 8933101adad24ca4da0c8565c241d1ab, type: 2}
+  - {fileID: 11400000, guid: 01ef3db2f2a76d043813696cfd4044d0, type: 2}
+  - {fileID: 11400000, guid: 9d55a55c5ddfc7d4d9f529f9a1933931, type: 2}
+  - {fileID: 11400000, guid: d408c5b713e51914397b9a1494ba0feb, type: 2}
+  - {fileID: 11400000, guid: fcf6a841956eb794e85f8638c3b11770, type: 2}
+  - {fileID: 11400000, guid: e11e3416ec59e854a959b7296689cc24, type: 2}
+  - {fileID: 11400000, guid: 25c6aa95377f1074bbf16fe2e60eff7e, type: 2}
+  - {fileID: 11400000, guid: 6422a93ad6c59184c81aa2619dd2b3d0, type: 2}
+  - {fileID: 11400000, guid: 830267f45000a9747894c912a687c359, type: 2}
+  - {fileID: 11400000, guid: 664e2322b7497e6469f997183f1a6b86, type: 2}
+  - {fileID: 11400000, guid: 0d6883ef9776c384ba8d6b8841b64fcc, type: 2}
+  - {fileID: 11400000, guid: 3b629ff450314184896a022890aa8cf1, type: 2}
+  - {fileID: 11400000, guid: ba62d8ccd65207e44a194da911ed8c65, type: 2}
+  escenaJuego: Main
+--- !u!114 &6072233149218192470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347425432798811594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c234728105067940890071dd4da4d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuideUIManager
+  guideCharacter: {fileID: 0}
+  offsetFromPlayer: {x: 1.5, y: 0, z: 0}
+  guideName: Guideon
