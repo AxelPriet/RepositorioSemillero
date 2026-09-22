@@ -138,6 +138,9 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             slotCercano.AgregarImplemento(this);
             slotActual = slotCercano;
             colocado = true;
+
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             if (textoHover != null)
             {
                 Destroy(textoHover);
@@ -146,6 +149,7 @@ public class Implemento : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
         else
         {
+            AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
             StartCoroutine(FeedbackError());
             RegresarInicio();
         }

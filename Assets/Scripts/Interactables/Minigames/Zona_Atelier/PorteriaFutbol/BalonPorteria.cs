@@ -38,7 +38,7 @@ public class BalonPorteria : MonoBehaviour
         if (other.gameObject.name == "Portero")
         {
             atajado = true;
-            Debug.Log("¡Atajado!");
+            AudioManager.Instance?.PlaySFX("sfx_futbol_save");
             Destroy(gameObject);
             return;
         }
@@ -47,7 +47,7 @@ public class BalonPorteria : MonoBehaviour
         {
             if (posicionPortero < -100f)
             {
-                Debug.Log("Atajado a la izquierda");
+                AudioManager.Instance?.PlaySFX("sfx_futbol_save");
                 Destroy(gameObject);
             }
             else
@@ -61,7 +61,7 @@ public class BalonPorteria : MonoBehaviour
         {
             if (Mathf.Abs(posicionPortero) > 100f)
             {
-                Debug.Log("Atajado al centro");
+                AudioManager.Instance?.PlaySFX("sfx_futbol_save");
                 Destroy(gameObject);
             }
             else
@@ -75,7 +75,7 @@ public class BalonPorteria : MonoBehaviour
         {
             if (posicionPortero > 100f)
             {
-                Debug.Log("Atajado a la derecha");
+                AudioManager.Instance?.PlaySFX("sfx_futbol_save");
                 Destroy(gameObject);
             }
             else

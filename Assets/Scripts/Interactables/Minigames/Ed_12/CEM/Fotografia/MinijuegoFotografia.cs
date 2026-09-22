@@ -53,10 +53,23 @@ public class MinijuegoFotografia : MonoBehaviour
 
     private void Update()
     {
-        if (!puedeTomarFoto || fotoTomada) return;
+        if (!puedeTomarFoto || fotoTomada)
+        {
+            AudioManager.Instance?.StopLoopingSFX("sfx_camera_focus");
+            return;
+        }
 
         bool dentro = EstaObjetivoEnMarco();
         marco.GetComponent<Image>().color = dentro ? Color.green : Color.white;
+
+        if (dentro)
+        {
+            AudioManager.Instance?.PlayLoopingSFX("sfx_camera_focus");
+        }
+        else
+        {
+            AudioManager.Instance?.StopLoopingSFX("sfx_camera_focus");
+        }
     }
 
     private bool EstaObjetivoEnMarco()
@@ -92,6 +105,12 @@ public class MinijuegoFotografia : MonoBehaviour
     {
         fotoTomada = true;
         marcoScript.SetPuedeMoverse(false);
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_camera_focus");
+
+        AudioManager.Instance?.PlaySFX("sfx_camera_shutter");
+
+        AudioManager.Instance?.PlaySFX("sfx_camera_flash");
 
         if (flashImage != null)
         {
@@ -131,5 +150,7 @@ public class MinijuegoFotografia : MonoBehaviour
     {
         if (playerControls != null)
             playerControls.Gameplay.Compress.performed -= OnTomarFoto;
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_camera_focus");
     }
 }

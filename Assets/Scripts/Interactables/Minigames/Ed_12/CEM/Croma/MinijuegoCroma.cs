@@ -131,7 +131,9 @@ public class MinijuegoCroma : MonoBehaviour
         Slider sliderActual = selectedChannel == 0 ? sliderRojo :
                              (selectedChannel == 1 ? sliderVerde : sliderAzul);
         float valorActual = Mathf.Round(sliderActual.value * 255f);
-        sliderActual.value = Mathf.Clamp01((valorActual + 1f) / 255f); 
+        sliderActual.value = Mathf.Clamp01((valorActual + 1f) / 255f);
+
+        VerificarCanalCorrecto();
     }
 
     private void AjustarValorActualHaciaAbajo()
@@ -140,7 +142,29 @@ public class MinijuegoCroma : MonoBehaviour
         Slider sliderActual = selectedChannel == 0 ? sliderRojo :
                              (selectedChannel == 1 ? sliderVerde : sliderAzul);
         float valorActual = Mathf.Round(sliderActual.value * 255f);
-        sliderActual.value = Mathf.Clamp01((valorActual - 1f) / 255f); 
+        sliderActual.value = Mathf.Clamp01((valorActual - 1f) / 255f);
+
+        VerificarCanalCorrecto();
+    }
+
+    private void VerificarCanalCorrecto()
+    {
+        int valorActual = Mathf.RoundToInt(
+            (selectedChannel == 0 ? sliderRojo.value :
+             selectedChannel == 1 ? sliderVerde.value :
+             sliderAzul.value) * 255f
+        );
+
+        int valorObjetivo = Mathf.RoundToInt(
+            (selectedChannel == 0 ? valorObjetivoRojo :
+             selectedChannel == 1 ? valorObjetivoVerde :
+             valorObjetivoAzul) * 255f
+        );
+
+        if (valorActual == valorObjetivo)
+        {
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+        }
     }
 
     private void SelectChannel(int channel)

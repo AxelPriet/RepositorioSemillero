@@ -38,6 +38,12 @@ public class MinijuegoRadio : MonoBehaviour
         GenerarValoresAleatorios();
         ConfigurarSliders();
         ResetearUI();
+
+        AudioManager.Instance?.PlayLoopingSFX("sfx_radio_static");
+        AudioManager.Instance?.PlayLoopingSFX("sfx_radio_podcast");
+
+        AudioManager.Instance?.SetLoopingSFXVolume("sfx_radio_podcast", 0f);
+        AudioManager.Instance?.SetLoopingSFXVolume("sfx_radio_static", 1f);
     }
 
     private void Update()
@@ -104,27 +110,29 @@ public class MinijuegoRadio : MonoBehaviour
 
     private void VerificarSeñal()
     {
-        bool todoCorrecto = true;
+        int correctos = 0;
 
         for (int i = 0; i < sliders.Length; i++)
         {
-            if (Mathf.Abs(sliders[i].value - valoresObjetivo[i]) > tolerancia)
-            {
-                todoCorrecto = false;
-                break;
-            }
+            if (Mathf.Abs(sliders[i].value - valoresObjetivo[i]) <= tolerancia)
+                correctos++;
         }
+
+        bool todoCorrecto = correctos == sliders.Length;
+
+        float progreso = correctos / (float)sliders.Length;
+
+        AudioManager.Instance?.SetLoopingSFXVolume("sfx_radio_static", 1f - progreso);
+        AudioManager.Instance?.SetLoopingSFXVolume("sfx_radio_podcast", progreso);
 
         if (todoCorrecto)
         {
             tiempoCorrecto += Time.deltaTime;
-            float progreso = Mathf.Clamp01(tiempoCorrecto / tiempoRequerido);
-            SetCartelAlpha(progreso);
+            float progresoCartel = Mathf.Clamp01(tiempoCorrecto / tiempoRequerido);
+            SetCartelAlpha(progresoCartel);
 
             if (tiempoCorrecto >= tiempoRequerido)
-            {
                 StartCoroutine(CompletarMinijuego());
-            }
         }
         else
         {
@@ -140,10 +148,19 @@ public class MinijuegoRadio : MonoBehaviour
         cartelOnAir.color = c;
     }
 
+    private void OnDestroy()
+    {
+        AudioManager.Instance?.StopLoopingSFX("sfx_radio_static");
+        AudioManager.Instance?.StopLoopingSFX("sfx_radio_podcast");
+    }
+
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
         SetCartelAlpha(1f);
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_radio_static");
+        AudioManager.Instance?.StopLoopingSFX("sfx_radio_podcast");
 
         yield return new WaitForSeconds(1.5f);
         GuideManager.Instance?.SetPendingDialogue("FinRadio");

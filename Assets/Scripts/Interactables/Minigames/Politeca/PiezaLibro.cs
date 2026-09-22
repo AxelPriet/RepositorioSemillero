@@ -135,11 +135,15 @@ public class PiezaLibro : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 if (imgZona != null)
                     imgZona.Completado();
 
+                AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
                 if (minijuego != null)
                     minijuego.LibroColocadoCorrectamente();
             }
             else
             {
+                AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
+
                 StartCoroutine(FeedbackError());
                 RegresarInicio();
             }

@@ -132,11 +132,15 @@ public class PiezaRobot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             if (imgZona != null)
                 imgZona.Completado();
 
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             FindFirstObjectByType<MiniGame_Robot>()?.PiezaColocada(nombrePieza);
         }
         else
         {
             RegresarInicio();
+
+            AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
 
             if (zonaDestacada != null)
                 StartCoroutine(FeedbackError());

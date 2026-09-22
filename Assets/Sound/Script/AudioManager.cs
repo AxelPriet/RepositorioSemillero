@@ -122,6 +122,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetLoopingSFXVolume(string id, float volume)
+    {
+        if (loopingSFX.TryGetValue(id, out AudioSource source))
+        {
+            if (source != null)
+                source.volume = Mathf.Clamp01(volume);
+        }
+    }
+
     // Reproduce un efecto de sonido
     public void PlaySFX(string id, Vector3 position = default)
     {

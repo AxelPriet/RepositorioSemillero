@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c20c6bc2a34484191fbbf30a30492c, type: 3}
+  m_Name: sfx_futbol_save
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSO
+  id: sfx_futbol_save
+  clip: {fileID: 8300000, guid: 201dad968969b724b9468109a578a976, type: 3}
+  mixerGroup: {fileID: 1226074943034675317, guid: 6aa1a7f5a5573c74d8727da29852bfbf, type: 2}
+  volume: 0.6
+  pitchRange: {x: 1, y: 1}
+  loop: 0
+  playOnAwake: 0
+  is3D: 0
+  minDistance: 1
+  maxDistance: 20

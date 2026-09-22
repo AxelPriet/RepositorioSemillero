@@ -150,6 +150,8 @@ public class MiniGamePorteria : MonoBehaviour
         intentos--;
         textoIntentos.text = intentos.ToString();
 
+        AudioManager.Instance?.PlaySFX("sfx_futbol_kick");
+
         GameObject balon = Instantiate(balonPrefab, puntoLanzamiento.position, Quaternion.identity);
         BalonPorteria scriptBalon = balon.GetComponent<BalonPorteria>();
 
@@ -169,8 +171,18 @@ public class MiniGamePorteria : MonoBehaviour
         goles++;
         textoPuntuacion.text = $"Goles: {goles}/{golesRequeridos}";
 
+        AudioManager.Instance?.PlaySFX("sfx_futbol_goal");
+
+        StartCoroutine(ReproducirCelebracion(0.3f));
+
         if (goles >= golesRequeridos)
             StartCoroutine(Victoria());
+    }
+
+    private IEnumerator ReproducirCelebracion(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioManager.Instance?.PlaySFX("sfx_futbol_celebration");
     }
 
     private IEnumerator ReiniciarJuego()

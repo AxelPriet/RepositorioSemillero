@@ -87,6 +87,8 @@ public class PiezaArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, 
                 PuntoOcupado ocupado = puntoCercano.GetComponent<PuntoOcupado>();
                 if (ocupado != null && ocupado.ocupado)
                 {
+                    AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
+
                     Destroy(clonEnArrastre);
                     clonEnArrastre = null;
                     return;
@@ -105,10 +107,14 @@ public class PiezaArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, 
                     ocupado = puntoCercano.gameObject.AddComponent<PuntoOcupado>();
                 ocupado.ocupado = true;
 
+                AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
                 FindFirstObjectByType<MinijuegoBuho>()?.PiezaColocada();
             }
             else
             {
+                AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
+
                 Destroy(clonEnArrastre);
             }
 
@@ -128,6 +134,8 @@ public class PiezaArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, 
                 PuntoOcupado ocupado = puntoCercano.GetComponent<PuntoOcupado>();
                 if (ocupado != null && ocupado.ocupado)
                 {
+                    AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
+
                     Destroy(gameObject);
                     return;
                 }
@@ -140,10 +148,14 @@ public class PiezaArrastrable : MonoBehaviour, IDragHandler, IBeginDragHandler, 
                     ocupado = puntoCercano.gameObject.AddComponent<PuntoOcupado>();
                 ocupado.ocupado = true;
 
+                AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
                 FindFirstObjectByType<MinijuegoBuho>()?.PiezaColocada();
             }
             else
             {
+                AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
+
                 Destroy(gameObject);
             }
         }

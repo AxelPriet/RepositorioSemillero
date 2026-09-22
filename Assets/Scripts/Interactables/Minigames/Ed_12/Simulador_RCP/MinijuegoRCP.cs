@@ -94,6 +94,8 @@ public class MinijuegoRCP : MonoBehaviour
             StartCoroutine(PausaIndicador());
             ActualizarUI();
 
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             if (puntos >= puntosNecesarios)
                 StartCoroutine(CompletarMinijuego());
         }
@@ -101,6 +103,8 @@ public class MinijuegoRCP : MonoBehaviour
         {
             errores++;
             ActualizarUI();
+
+            AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
 
             if (errores >= maxErrores)
                 StartCoroutine(FallarMinijuego());

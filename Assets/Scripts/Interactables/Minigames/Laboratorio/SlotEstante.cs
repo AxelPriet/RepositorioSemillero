@@ -22,7 +22,6 @@ public class SlotEstante : MonoBehaviour
         if (imagenSlot != null)
             imagenSlot.color = new Color(1, 1, 1, 0.3f);
 
-        // Crear texto si no existe
         if (textoCapacidad == null)
         {
             GameObject textoObj = new GameObject("TextoCapacidad");

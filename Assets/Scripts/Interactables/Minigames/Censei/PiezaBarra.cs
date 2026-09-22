@@ -131,11 +131,15 @@ public class PiezaBarra : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             if (imgZona != null)
                 imgZona.Completado();
 
+            AudioManager.Instance?.PlaySFX("sfx_piece_place");
+
             FindFirstObjectByType<MiniGame_Barras>()?.BarraColocada(nombreBarra);
         }
         else
         {
             RegresarInicio();
+
+            AudioManager.Instance?.PlaySFX("sfx_piece_wrong");
 
             if (zonaDestacada != null)
                 StartCoroutine(FeedbackError());

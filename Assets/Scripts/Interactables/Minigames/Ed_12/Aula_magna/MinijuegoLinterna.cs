@@ -76,6 +76,11 @@ public class MinijuegoLinterna : MonoBehaviour
             ReiniciarJuego();
     }
 
+    private void OnDestroy()
+    {
+        AudioManager.Instance?.StopLoopingSFX("sfx_applause_loop");
+    }
+
     private void MoverGraduado()
     {
         Vector2 posicion = graduado.anchoredPosition;
@@ -99,6 +104,8 @@ public class MinijuegoLinterna : MonoBehaviour
             graduado.GetComponent<Image>().color = Color.white;
             textoTiempo.text = $"{tiempoRequerido - tiempoAcumulado:F1}s";
 
+            AudioManager.Instance?.PlayLoopingSFX("sfx_applause_loop");
+
             if (tiempoAcumulado >= tiempoRequerido)
                 StartCoroutine(CompletarMinijuego());
         }
@@ -107,6 +114,8 @@ public class MinijuegoLinterna : MonoBehaviour
             tiempoAcumulado = 0f;
             textoTiempo.text = $"{tiempoRequerido:F0}s";
             graduado.GetComponent<Image>().color = Color.gray;
+
+            AudioManager.Instance?.StopLoopingSFX("sfx_applause_loop");
         }
     }
 
@@ -115,6 +124,9 @@ public class MinijuegoLinterna : MonoBehaviour
         graduado.anchoredPosition = posicionInicialGraduado;
         tiempoAcumulado = 0f;
         textoTiempo.text = $"{tiempoRequerido:F0}s";
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_applause_loop");
+
         StartCoroutine(FeedbackReinicio());
     }
 
@@ -129,6 +141,8 @@ public class MinijuegoLinterna : MonoBehaviour
     private IEnumerator CompletarMinijuego()
     {
         minijuegoCompletado = true;
+
+        AudioManager.Instance?.StopLoopingSFX("sfx_applause_loop");
 
         float tiempo = 0;
         while (tiempo < 0.5f)
