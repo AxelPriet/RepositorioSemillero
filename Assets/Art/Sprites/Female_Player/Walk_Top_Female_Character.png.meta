@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: a4559bff47249af40a7ab5c85cb18014
+guid: 4e462392edb8f0d4196f3effd030a1fe
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7986192651202948489
-    second: Idle_F_64x64_0
+      213: 6686535882107207945
+    second: Walk_Top_Female_Character_0
   - first:
-      213: -4857271211547689119
-    second: Idle_F_64x64_1
+      213: 4431937470409674425
+    second: Walk_Top_Female_Character_1
   - first:
-      213: -6816911885240017820
-    second: Idle_F_64x64_2
+      213: 1223119331348713939
+    second: Walk_Top_Female_Character_2
+  - first:
+      213: 5142113348361473894
+    second: Walk_Top_Female_Character_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,67 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_F_64x64_0
+      name: Walk_Top_Female_Character_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 772963da8185b2190800000000000000
-      internalID: -7986192651202948489
+      spriteID: 90147ee35f85bcc50800000000000000
+      internalID: 6686535882107207945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_F_64x64_1
+      name: Walk_Top_Female_Character_1
       rect:
         serializedVersion: 2
         x: 640
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 16ff7f96191879cb0800000000000000
-      internalID: -4857271211547689119
+      spriteID: 9be038ed5a7618d30800000000000000
+      internalID: 4431937470409674425
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_F_64x64_2
+      name: Walk_Top_Female_Character_2
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46c512702c67561a0800000000000000
-      internalID: -6816911885240017820
+      spriteID: 3d114fe2d8469f010800000000000000
+      internalID: 1223119331348713939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_Top_Female_Character_3
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 640
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66f41e3a8d47c5740800000000000000
+      internalID: 5142113348361473894
       vertices: []
       indices: 
       edges: []
@@ -175,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f70d34e23d371dc4790f993dbf7b6f27
+    spriteID: 797f1423f0305474eab60be975ecf6dd
     internalID: 0
     vertices: []
     indices: 
@@ -185,11 +210,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Idle_F_64x64_0: -7986192651202948489
-      Idle_F_64x64_1: -4857271211547689119
-      Idle_F_64x64_2: -6816911885240017820
+      Walk_Top_Female_Character_0: 6686535882107207945
+      Walk_Top_Female_Character_1: 4431937470409674425
+      Walk_Top_Female_Character_2: 1223119331348713939
+      Walk_Top_Female_Character_3: 5142113348361473894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
