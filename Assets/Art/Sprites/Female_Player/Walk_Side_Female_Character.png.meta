@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 0f0459abe4758f14197bf18642280389
+guid: 409879633c265d84ca395b54b61457b1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3750776038056055589
-    second: Run_F_64x64_0
+      213: 8389766298288749697
+    second: Walk_Side_Female_Character_0
   - first:
-      213: -1282525778472521591
-    second: Run_F_64x64_1
+      213: 6200763785371878988
+    second: Walk_Side_Female_Character_1
   - first:
-      213: 2725393019425421997
-    second: Run_F_64x64_2
+      213: 2990316601648351468
+    second: Walk_Side_Female_Character_2
   - first:
-      213: 3297698441882538290
-    second: Run_F_64x64_3
+      213: 1041904320556049398
+    second: Walk_Side_Female_Character_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Run_F_64x64_0
+      name: Walk_Side_Female_Character_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdc2f9bd01192fbc0800000000000000
-      internalID: -3750776038056055589
+      spriteID: 18c7b065fff6e6470800000000000000
+      internalID: 8389766298288749697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_F_64x64_1
+      name: Walk_Side_Female_Character_1
       rect:
         serializedVersion: 2
         x: 640
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9803dde799d833ee0800000000000000
-      internalID: -1282525778472521591
+      spriteID: c46823b4fc98d0650800000000000000
+      internalID: 6200763785371878988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_F_64x64_2
+      name: Walk_Side_Female_Character_2
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: daa7e2ce28a82d520800000000000000
-      internalID: 2725393019425421997
+      spriteID: ce804371b1dbf7920800000000000000
+      internalID: 2990316601648351468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_F_64x64_3
+      name: Walk_Side_Female_Character_3
       rect:
         serializedVersion: 2
         x: 1920
         y: 0
         width: 640
         height: 640
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23194ccc247c3cd20800000000000000
-      internalID: 3297698441882538290
+      spriteID: 6f320b49576957e00800000000000000
+      internalID: 1041904320556049398
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 05cb55339439d034e8e6bcb17f96c43f
+    spriteID: f6554b6eb29c3ff44883831b99bf46b8
     internalID: 0
     vertices: []
     indices: 
@@ -210,12 +210,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":640.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Run_F_64x64_0: -3750776038056055589
-      Run_F_64x64_1: -1282525778472521591
-      Run_F_64x64_2: 2725393019425421997
-      Run_F_64x64_3: 3297698441882538290
+      Walk_Side_Female_Character_0: 8389766298288749697
+      Walk_Side_Female_Character_1: 6200763785371878988
+      Walk_Side_Female_Character_2: 2990316601648351468
+      Walk_Side_Female_Character_3: 1041904320556049398
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
