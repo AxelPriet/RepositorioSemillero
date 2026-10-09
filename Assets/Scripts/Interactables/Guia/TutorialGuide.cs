@@ -50,7 +50,7 @@ public class TutorialGuide : MonoBehaviour
 
     private void Start()
     {
-    playerMovement = FindFirstObjectByType<PlayerMovement>();
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
 
         tutorialDialoguePanel.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
@@ -65,7 +65,8 @@ public class TutorialGuide : MonoBehaviour
 
     private void Update()
     {
-        if (esperandoInput && Keyboard.current.spaceKey.wasPressedThisFrame)
+        // Avanzar diálogo con teclado
+        if (esperandoInput && Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
             esperandoInput = false;
 
         // Detectar movimiento en Zona 1
@@ -80,6 +81,13 @@ public class TutorialGuide : MonoBehaviour
                     jugadorCorrio = true;
             }
         }
+    }
+
+    // Método público para avanzar diálogo desde botón móvil
+    public void AvanzarDialogo()
+    {
+        if (esperandoInput)
+            esperandoInput = false;
     }
 
     // Flujo principal 
@@ -227,7 +235,7 @@ public class TutorialGuide : MonoBehaviour
 
     // Movimiento
 
-    private void BloquearMovimiento()  => playerMovement?.SetMovementEnabled(false);
+    private void BloquearMovimiento() => playerMovement?.SetMovementEnabled(false);
     private void HabilitarMovimiento() => playerMovement?.SetMovementEnabled(true);
 
     private void MoverGuiaCercaDelJugador()
@@ -239,6 +247,5 @@ public class TutorialGuide : MonoBehaviour
         if (guideCharacter) guideCharacter.SetActive(true);
 
         AudioManager.Instance?.PlaySFX("sfx_guide_appear");
-
     }
 }

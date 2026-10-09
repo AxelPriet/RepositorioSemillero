@@ -56,13 +56,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!canMove) return;
-
+        // Primero, asegurar que tenemos el InputHandler (esto va ANTES del check de canMove)
         if (inputHandler == null)
         {
             inputHandler = InputHandler.Instance;
-            if (inputHandler == null) return;
         }
+
+        if (!canMove) return;
+
+        if (inputHandler == null) return;
 
         Vector2 rawInput = inputHandler.GetMoveInput();
         float inputMagnitude = rawInput.magnitude;
