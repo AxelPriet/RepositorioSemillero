@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interaccionDialogueText;
     [SerializeField] private GameObject skipIndicator;
     [SerializeField] private GameObject advanceIndicator;
-    
+
     [Header("Sound")]
     [SerializeField] private int charsPerTypingSound = 3;
 
@@ -112,6 +112,8 @@ public class DialogueManager : MonoBehaviour
         if (skipIndicator) skipIndicator.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
 
+        MobileControlsManager.Instance?.MostrarBotonDialogo();
+
         if (playerMovement != null) playerMovement.SetMovementEnabled(false);
         ShowCurrentLine();
     }
@@ -201,6 +203,8 @@ public class DialogueManager : MonoBehaviour
         if (skipIndicator) skipIndicator.SetActive(false);
         if (advanceIndicator) advanceIndicator.SetActive(false);
 
+        MobileControlsManager.Instance?.OcultarBotonDialogo();
+
         if (playerMovement != null) playerMovement.SetMovementEnabled(true);
 
         onComplete?.Invoke();
@@ -232,6 +236,8 @@ public class DialogueManager : MonoBehaviour
         if (advanceIndicator) advanceIndicator.SetActive(false);
 
         onComplete = null;
+
+        MobileControlsManager.Instance?.OcultarBotonDialogo();
 
         playerMovement = FindFirstObjectByType<PlayerMovement>();
 

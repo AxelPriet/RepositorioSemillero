@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347289110968621438}
-  - component: {fileID: 4785493795321723264}
   m_Layer: 0
   m_Name: GameDialog
   m_TagString: Untagged
@@ -32,25 +31,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4785493795321723264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4628855305610967814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c253ba1ba78d455459b43f1fd2378d74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  proximidadPanel: {fileID: 0}
-  proximidadText: {fileID: 0}
-  interaccionPanel: {fileID: 0}
-  interaccionNombreText: {fileID: 0}
-  interaccionDialogueText: {fileID: 0}
-  skipIndicator: {fileID: 0}
-  advanceIndicator: {fileID: 0}
-  charsPerTypingSound: 3
-  typingSpeed: 0.01
-  skipDelay: 0.5

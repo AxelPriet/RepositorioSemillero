@@ -173,6 +173,8 @@ public class TutorialGuide : MonoBehaviour
         tutorialDialoguePanel.SetActive(true);
         if (nombreText) nombreText.text = guideName;
 
+        MobileControlsManager.Instance?.MostrarBotonDialogo();
+
         foreach (string linea in so.lineas)
         {
             if (advanceIndicator) advanceIndicator.SetActive(false);
@@ -192,6 +194,8 @@ public class TutorialGuide : MonoBehaviour
 
         tutorialDialoguePanel.SetActive(false);
         if (guideCharacter) guideCharacter.SetActive(false);
+
+        MobileControlsManager.Instance?.OcultarBotonDialogo();
     }
 
     private IEnumerator EscribirTexto(string texto)

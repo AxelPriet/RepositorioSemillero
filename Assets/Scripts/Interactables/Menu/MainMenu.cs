@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     [Header("Inventario UI")]
     [SerializeField] private TextMeshProUGUI totalColeccionablesText;
     [SerializeField] private TextMeshProUGUI partesCarnetText;
-    [SerializeField] private GameObject inventarioPanel; 
+    [SerializeField] private GameObject inventarioPanel;
 
     private InputHandler inputHandler;
     private PlayerMovement playerMovement;
@@ -79,6 +79,8 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(false);
         optionsMenu.SetActive(true);
+
+        MobileControlsManager.Instance?.SetControlesActivos(false);
     }
 
     public void OpenMainMenuPanel()
@@ -86,6 +88,8 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         UpdateInventoryDisplay();
+
+        MobileControlsManager.Instance?.SetControlesActivos(false);
     }
 
     private void OpenMenu()
@@ -99,12 +103,15 @@ public class MainMenu : MonoBehaviour
         if (inventarioPanel != null)
             inventarioPanel.SetActive(false);
 
+        MobileControlsManager.Instance?.SetControlesActivos(false);
     }
 
     public void PlayGame()
     {
         mainMenu.SetActive(false);
         optionsMenu.SetActive(false);
+
+        MobileControlsManager.Instance?.SetControlesActivos(true);
 
         if (PlayerData.Instance != null && PlayerData.Instance.PersonajeElegido)
         {
@@ -127,6 +134,8 @@ public class MainMenu : MonoBehaviour
 
         if (inventarioPanel != null)
             inventarioPanel.SetActive(true);
+
+        MobileControlsManager.Instance?.SetControlesActivos(true);
     }
 
     public void ReturnToMainMenu()
