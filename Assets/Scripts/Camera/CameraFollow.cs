@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float smoothTime = 0.2f; 
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10); 
 
-    [Header("Límites de Cámara (Opcional)")]
+    [Header("Límites de Cámara")]
     [SerializeField] private bool useBounds = false;
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
