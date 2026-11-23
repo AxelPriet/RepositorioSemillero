@@ -24,6 +24,12 @@ public class CameraFollow : MonoBehaviour
         set { target = value; }
     }
 
+    public Vector3 Offset
+    {
+        get { return offset; }
+        set { offset = value; }
+    }
+
     private void LateUpdate()
     {
         if (target == null)
