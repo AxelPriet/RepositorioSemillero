@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610857062}
   - component: {fileID: 610857063}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (sube)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885008832}
   - component: {fileID: 885008833}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (baja)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 911277605}
   - component: {fileID: 911277606}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (baja)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1086851595}
   - component: {fileID: 1086851596}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (sube)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25990,7 +25990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1227628175}
   - component: {fileID: 1227628176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (sube)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26130,7 +26130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1430829550}
   - component: {fileID: 1430829551}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (sube)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26208,7 +26208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1514722833}
   - component: {fileID: 1514722834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (baja)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26680,7 +26680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1970415313}
   - component: {fileID: 1970415314}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Baranda (baja)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27579,7 +27579,7 @@ GameObject:
   - component: {fileID: 2108171317}
   - component: {fileID: 2108171316}
   - component: {fileID: 2108171315}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muros
   m_TagString: Untagged
   m_Icon: {fileID: 0}

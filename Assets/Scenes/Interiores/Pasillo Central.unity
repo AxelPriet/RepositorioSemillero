@@ -3646,7 +3646,7 @@ Transform:
   m_GameObject: {fileID: 745500703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 11.6, z: 0}
+  m_LocalPosition: {x: 6, y: 10.173, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3664,7 +3664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c53aa2709a5e0d4cbc9ea411125b1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escena: Universidad
+  escena: Main
   punto: Central_2
 --- !u!61 &745500706
 BoxCollider2D:
@@ -3940,7 +3940,7 @@ GameObject:
   - component: {fileID: 1610787655}
   - component: {fileID: 1610787654}
   - component: {fileID: 1610787653}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muros
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6489,7 +6489,7 @@ Transform:
   m_GameObject: {fileID: 1964848588}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -1.1, z: 0}
+  m_LocalPosition: {x: 3, y: -0.261, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6507,7 +6507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c53aa2709a5e0d4cbc9ea411125b1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escena: Universidad
+  escena: Main
   punto: Central_1
 --- !u!61 &1964848591
 BoxCollider2D:
